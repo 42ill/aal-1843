@@ -1,0 +1,1636 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M7 4h21v24H4V7z' fill='%23D8B064'/%3E%3Ccircle cx='11' cy='12' r='2.2' fill='%230A1222'/%3E%3Ccircle cx='17' cy='12' r='2.2' fill='%230A1222'/%3E%3Ccircle cx='17' cy='19' r='2.2' fill='%230A1222'/%3E%3C/svg%3E">
+<style>:root{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>The Works of Ada Lovelace</title>
+<meta name="description" content="A portfolio of Ada Lovelace's work, 1828–1852: public-domain originals beside new programs that run them.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..800;1,6..96,400..800&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,300..650;1,6..72,300..650&display=swap">
+<style>
+/* Layout: a bound volume. One reading column with a lettered margin, broken by fold-out exhibit plates in cyanotype and brass, the way Note G's diagram folds out of Scientific Memoirs III. */
+:root{
+  --paper:#EEF0EC; --paper-2:#E2E6E3; --ink:#16213A; --ink-2:#46516A; --ink-3:#69728A; --rule:#C3C9CF;
+  --accent:#1E4382; --brass:#83601F; --silk:#A12E48;
+  --plate:#0F1C35; --plate-2:#172A4E; --plate-ink:#ECE8DC; --plate-dim:#9AA6C0; --plate-rule:#2C3F66;
+  --plate-brass:#D8B064; --plate-cyan:#8FB6F2; --plate-silk:#F28FA4;
+  --card:#E6DCC2; --card-ink:#2A2414;
+  --f-display:"Bodoni Moda","Bodoni 72","Didot",Georgia,serif;
+  --f-body:"Newsreader","Iowan Old Style","Palatino Linotype",Georgia,serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;
+  --t-xs:.75rem; --t-s:.875rem; --t-m:1.0625rem; --t-l:1.3rem; --t-xl:1.75rem;
+  --t-2xl:clamp(2rem,4.2vw,2.9rem); --t-3xl:clamp(3.1rem,9vw,6.6rem);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0B1322; --paper-2:#111C31; --ink:#E6E3DA; --ink-2:#AAB2C4; --ink-3:#818AA0; --rule:#28344D;
+    --accent:#97B7EE; --brass:#D8AF61; --silk:#F0889C;
+    --plate:#060D1B; --plate-2:#0F1B33; --plate-rule:#243354; --card:#D9CCA9;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0B1322; --paper-2:#111C31; --ink:#E6E3DA; --ink-2:#AAB2C4; --ink-3:#818AA0; --rule:#28344D;
+  --accent:#97B7EE; --brass:#D8AF61; --silk:#F0889C;
+  --plate:#060D1B; --plate-2:#0F1B33; --plate-rule:#243354; --card:#D9CCA9;
+  color-scheme:dark;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:var(--f-body); font-size:var(--t-m); line-height:1.62;
+  font-optical-sizing:auto; font-kerning:normal;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+  padding-block:0 3rem;
+}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:.18em}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+h1,h2,h3,h4{font-family:var(--f-display); font-weight:500; line-height:1.08; text-wrap:balance; margin:0}
+p{margin:0}
+sup,sub{line-height:0}
+.wrap{max-width:1160px; margin-inline:auto}
+.eyebrow{font-family:var(--f-mono); font-size:var(--t-xs); letter-spacing:.14em; text-transform:uppercase; color:var(--brass)}
+.mono{font-family:var(--f-mono)}
+.small{font-size:var(--t-s); color:var(--ink-2)}
+.num{font-variant-numeric:tabular-nums lining-nums}
+.fr{display:inline-flex; flex-direction:column; vertical-align:middle; text-align:center; font-size:.78em; line-height:1.1; margin:0 .08em}
+.fr>span:first-child{border-bottom:1px solid currentColor; padding:0 .18em}
+.vv{white-space:nowrap}
+.vv sup{font-size:.68em; margin-right:.05em}
+.vv sub{font-size:.68em}
+
+/* card-edge divider: a row of punched holes */
+.holes{height:12px; margin-block:3.5rem; opacity:.55;
+  background:radial-gradient(circle at 6px 6px, var(--ink-3) 0 2.3px, transparent 2.8px) 0 0/18px 12px repeat-x}
+
+/* ---------- top bar ---------- */
+.top{display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:.5rem 1.5rem; padding-block:1.1rem .6rem; border-bottom:1px solid var(--rule)}
+.mark{font-family:var(--f-display); font-style:italic; font-size:1.2rem; color:var(--ink); text-decoration:none; letter-spacing:.04em}
+.top ul{display:flex; flex-wrap:wrap; gap:.25rem 1.25rem; list-style:none; margin:0; padding:0}
+.top a.nav{font-family:var(--f-mono); font-size:var(--t-xs); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-2); text-decoration:none}
+.top a.nav:hover{color:var(--accent)}
+
+/* ---------- hero ---------- */
+.hero{display:grid; grid-template-columns:minmax(0,1.55fr) minmax(0,1fr); gap:2.5rem 3.5rem; align-items:end; padding-block:3.2rem 2rem}
+.hero-text{display:flex; flex-direction:column; gap:1.1rem; min-width:0}
+.hero h1{font-size:var(--t-3xl); font-weight:500; letter-spacing:-.015em; line-height:.92; font-variation-settings:"opsz" 96}
+.fullname{font-family:var(--f-display); font-size:var(--t-l); color:var(--ink-2)}
+.fullname span{display:block; font-family:var(--f-mono); font-size:var(--t-xs); letter-spacing:.08em; color:var(--ink-3); margin-top:.35rem}
+.self{font-family:var(--f-display); font-style:italic; font-size:var(--t-xl); color:var(--brass)}
+.self span{font-family:var(--f-body); font-style:normal; font-size:var(--t-s); color:var(--ink-3); margin-left:.4rem}
+.thesis{margin:.6rem 0 0; padding:0 0 0 1.25rem; border-left:2px solid var(--brass)}
+.thesis p{font-family:var(--f-display); font-style:italic; font-size:clamp(1.25rem,2.3vw,1.6rem); line-height:1.32; max-width:34ch}
+.thesis em{font-style:normal; color:var(--accent)}
+.thesis footer{margin-top:.6rem; font-family:var(--f-mono); font-size:var(--t-xs); letter-spacing:.06em; color:var(--ink-3)}
+.lede{max-width:58ch; color:var(--ink-2)}
+.portrait{margin:0; justify-self:end; width:100%; max-width:360px}
+.portrait .zoom{border-radius:200px 200px 4px 4px / 150px 150px 4px 4px}
+.portrait img{display:block; width:100%; height:auto; aspect-ratio:960/1379; object-fit:cover}
+figcaption{font-size:var(--t-s); color:var(--ink-2); margin-top:.6rem; line-height:1.45}
+figcaption b{font-weight:600; color:var(--ink)}
+.zoom{display:block; padding:0; margin:0; border:1px solid var(--rule); background:var(--paper-2); cursor:zoom-in; overflow:hidden; width:100%; border-radius:3px; color:inherit; font:inherit}
+.zoom img{display:block; width:100%; height:auto; transition:transform .5s ease}
+.zoom:hover img{transform:scale(1.025)}
+
+.ribbon{margin-top:.5rem}
+.ribbon canvas{display:block; width:100%; height:64px; border-radius:2px}
+.ribbon p{margin-top:.5rem; font-size:var(--t-xs); font-family:var(--f-mono); color:var(--ink-3); letter-spacing:.04em}
+.ribbon code{color:var(--ink-2)}
+
+/* ---------- section heads ---------- */
+.sec-head{display:grid; gap:.6rem; margin-bottom:2rem; max-width:64ch}
+.sec-head h2{font-size:var(--t-2xl)}
+.sec-head p.sec-lede{color:var(--ink-2)}
+
+/* ---------- catalogue ---------- */
+.cat{list-style:none; margin:0; padding:0; border-top:1px solid var(--rule)}
+.cat li{display:grid; grid-template-columns:7.5rem minmax(0,1fr) 8rem; gap:.4rem 1.5rem; padding-block:1.15rem; border-bottom:1px solid var(--rule); align-items:baseline}
+.yr{font-family:var(--f-display); font-size:1.65rem; font-variant-numeric:lining-nums tabular-nums; line-height:1; color:var(--ink)}
+.cat h3{font-size:1.3rem; font-weight:500; margin-bottom:.3rem}
+.cat p{max-width:62ch; color:var(--ink-2)}
+.cat .medium{margin-top:.35rem; font-family:var(--f-mono); font-size:var(--t-xs); letter-spacing:.04em; color:var(--ink-3)}
+.cat-link{justify-self:end; font-family:var(--f-mono); font-size:var(--t-xs); letter-spacing:.08em; text-transform:uppercase; white-space:nowrap}
+.cat-link.none{color:var(--ink-3)}
+
+/* ---------- exhibits ---------- */
+.exhibit{display:grid; gap:1.6rem; margin-top:4.5rem}
+.exhibit:first-of-type{margin-top:0}
+.ex-head{display:grid; gap:.45rem}
+.ex-head h3{font-size:var(--t-2xl)}
+.ex-src{font-style:italic; color:var(--ink-2)}
+.ex-intro{display:grid; grid-template-columns:minmax(0,1fr) 250px; gap:1.5rem 3rem; align-items:start}
+.ex-intro .prose{display:grid; gap:1rem; max-width:64ch}
+.ex-intro figure{margin:0}
+.quote{font-family:var(--f-display); font-style:italic; font-size:1.22rem; line-height:1.4; padding-left:1.1rem; border-left:2px solid var(--brass); color:var(--ink)}
+.quote cite{display:block; margin-top:.4rem; font-style:normal; font-family:var(--f-mono); font-size:var(--t-xs); letter-spacing:.05em; color:var(--ink-3)}
+.notes3{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1.25rem 2rem}
+.notes3 div{display:grid; gap:.35rem; align-content:start}
+.notes3 h4{font-family:var(--f-mono); font-weight:500; font-size:var(--t-xs); letter-spacing:.1em; text-transform:uppercase; color:var(--brass)}
+.notes3 p{font-size:var(--t-s); color:var(--ink-2); line-height:1.55}
+
+/* ---------- plates (interactive panels) ---------- */
+.plate{background:var(--plate); color:var(--plate-ink); border-radius:6px; padding:clamp(14px,2.2vw,26px); display:grid; gap:1.25rem; min-width:0;
+  box-shadow:inset 0 0 0 1px var(--plate-rule)}
+.plate-light{--plate:var(--paper-2); --plate-2:var(--paper); --plate-ink:var(--ink); --plate-dim:var(--ink-2); --plate-rule:var(--rule); --plate-brass:var(--brass); --plate-cyan:var(--accent); --plate-silk:var(--silk)}
+.controls{display:flex; flex-wrap:wrap; gap:.9rem 1.2rem; align-items:flex-end}
+.field{display:grid; gap:.3rem; font-family:var(--f-mono); font-size:var(--t-xs); letter-spacing:.08em; text-transform:uppercase; color:var(--plate-dim); min-width:0}
+.field.grow{flex:1 1 16rem}
+.field output{font-variant-numeric:tabular-nums; color:var(--plate-ink); text-transform:none; letter-spacing:0}
+.field .row{display:flex; gap:.6rem; align-items:center}
+select,input[type="text"]{font:400 var(--t-s) var(--f-mono); color:var(--plate-ink); background:var(--plate-2); border:1px solid var(--plate-rule); border-radius:3px; padding:.45rem .55rem; max-width:100%; text-transform:none; letter-spacing:0}
+input[type="text"]{width:100%}
+input[type="range"]{accent-color:var(--plate-brass); width:9rem; max-width:100%}
+.check{display:flex; gap:.45rem; align-items:center; font-family:var(--f-mono); font-size:var(--t-xs); letter-spacing:.06em; color:var(--plate-ink); cursor:pointer; padding-bottom:.45rem}
+.check input{accent-color:var(--plate-brass); width:1rem; height:1rem; margin:0}
+.btns{display:flex; gap:.5rem; flex-wrap:wrap}
+.btn{font:500 var(--t-xs) var(--f-mono); letter-spacing:.08em; text-transform:uppercase; padding:.55rem .95rem; border:1px solid var(--plate-brass); color:var(--plate-brass); background:transparent; border-radius:3px; cursor:pointer}
+.btn:hover{background:color-mix(in srgb, var(--plate-brass) 14%, transparent)}
+.btn-primary{background:var(--plate-brass); color:var(--plate)}
+.btn-primary:hover{background:color-mix(in srgb, var(--plate-brass) 85%, var(--plate-ink))}
+.btn:disabled{opacity:.45; cursor:default}
+.plate :focus-visible{outline-color:var(--plate-cyan)}
+.plate .small{color:var(--plate-dim)}
+.plate canvas{display:block; max-width:100%}
+
+/* ---------- Note G engine ---------- */
+.mill{display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:1rem 1.4rem; align-items:center; padding:1rem; background:var(--plate-2); border-radius:4px}
+.opcard{width:7.2rem; height:5.2rem; background:var(--card); color:var(--card-ink); border-radius:3px; position:relative; display:grid; place-items:center; clip-path:polygon(9% 0,100% 0,100% 100%,0 100%,0 13%)}
+.opcard-no{position:absolute; top:.3rem; right:.45rem; font:500 .625rem var(--f-mono); letter-spacing:.08em; text-transform:uppercase}
+.opcard-sym{font-family:var(--f-body); font-weight:600; font-size:2.4rem; line-height:1}
+.opcard-holes{position:absolute; bottom:.35rem; left:.5rem; right:.5rem; display:flex; justify-content:space-between}
+.opcard-holes span{display:grid; justify-items:center; gap:1px; font:400 .55rem var(--f-mono)}
+.opcard-holes i{width:.5rem; height:.5rem; border-radius:50%; border:1px solid color-mix(in srgb, var(--card-ink) 45%, transparent)}
+.opcard-holes i.on{background:var(--plate); border-color:var(--plate)}
+.mill-body{display:grid; gap:.35rem; min-width:0}
+.mill-vars{font-family:var(--f-mono); font-size:var(--t-s); color:var(--plate-dim)}
+.mill-vars .vv{color:var(--plate-ink)}
+.mill-stmt{font-family:var(--f-display); font-size:1.15rem}
+.mill-calc{font-family:var(--f-mono); font-size:var(--t-s); color:var(--plate-brass)}
+.mill-count{display:grid; grid-template-columns:auto auto; gap:.15rem .7rem; font-family:var(--f-mono); font-size:var(--t-xs); color:var(--plate-dim); align-items:baseline}
+.mill-count b{font-family:var(--f-display); font-weight:500; font-size:1.5rem; color:var(--plate-ink); font-variant-numeric:tabular-nums lining-nums; text-align:right}
+
+.store{display:flex; flex-wrap:wrap; gap:1.1rem 1.6rem}
+.sgroup{display:grid; gap:.5rem; min-width:0}
+.sgroup-t{font-family:var(--f-mono); font-size:var(--t-xs); letter-spacing:.1em; text-transform:uppercase; color:var(--plate-dim); border-bottom:1px solid var(--plate-rule); padding-bottom:.3rem}
+.scols{display:flex; flex-wrap:wrap; gap:.4rem}
+.col{width:2.9rem; display:grid; justify-items:center; gap:.25rem; padding:.35rem .2rem .4rem; border-radius:4px; border:1px solid transparent; transition:background .25s, border-color .25s}
+.col-lab{font-family:var(--f-body); font-size:.95rem; color:var(--plate-ink); white-space:nowrap}
+.col-lab sup,.col-lab sub{font-size:.62em}
+.sign{width:1rem; height:1rem; border-radius:50%; border:1px solid var(--plate-dim); font:500 .7rem/0.9rem var(--f-mono); text-align:center; color:var(--plate-ink)}
+.discs{display:grid; gap:2px; width:100%}
+.disc{height:.95rem; border-radius:50% / 45%; display:grid; place-items:center; font:500 .64rem var(--f-mono); color:#1d1606;
+  background:linear-gradient(180deg,#e9cf8f 0%,#c99d48 55%,#9c7428 100%)}
+.disc.lead{color:rgba(29,22,6,.35)}
+.dp{height:2px; margin:1px 15%; background:var(--plate-brass); border-radius:1px}
+.col-q{min-height:1.9rem; font-family:var(--f-mono); font-size:.66rem; color:var(--plate-dim); text-align:center; display:grid; place-items:center}
+.col-q .fr{font-size:1em}
+.col.read{background:color-mix(in srgb, var(--plate-brass) 18%, transparent); border-color:var(--plate-brass)}
+.col.write{background:color-mix(in srgb, var(--plate-cyan) 20%, transparent); border-color:var(--plate-cyan)}
+.col.cleared{border-color:var(--plate-silk); border-style:dashed}
+.legend{display:flex; flex-wrap:wrap; gap:.4rem 1.2rem; font-family:var(--f-mono); font-size:var(--t-xs); color:var(--plate-dim)}
+.legend i{display:inline-block; width:.8rem; height:.8rem; border-radius:2px; vertical-align:-.1rem; margin-right:.35rem; border:1px solid}
+.legend .k-read{border-color:var(--plate-brass); background:color-mix(in srgb, var(--plate-brass) 18%, transparent)}
+.legend .k-write{border-color:var(--plate-cyan); background:color-mix(in srgb, var(--plate-cyan) 20%, transparent)}
+.legend .k-clear{border-color:var(--plate-silk); border-style:dashed}
+
+.eng-lower{display:grid; grid-template-columns:minmax(0,1.7fr) minmax(0,1fr); gap:1.25rem}
+.trace-wrap{max-height:23rem; overflow:auto; border:1px solid var(--plate-rule); border-radius:4px; position:relative}
+.trace{border-collapse:collapse; width:100%; min-width:34rem; font-size:var(--t-s)}
+.trace th{position:sticky; top:0; background:var(--plate-2); font:500 .625rem var(--f-mono); letter-spacing:.08em; text-transform:uppercase; color:var(--plate-dim); text-align:left; padding:.5rem .55rem; border-bottom:1px solid var(--plate-rule); z-index:1}
+.trace td{padding:.38rem .55rem; border-bottom:1px solid color-mix(in srgb, var(--plate-rule) 60%, transparent); vertical-align:middle}
+.trace .t-no{font-family:var(--f-mono); color:var(--plate-dim); text-align:right; width:2.2rem; font-variant-numeric:tabular-nums}
+.trace .t-op{font-family:var(--f-body); font-weight:600; font-size:1.05rem; text-align:center; width:2rem}
+.trace .t-val{font-family:var(--f-mono); color:var(--plate-brass); white-space:nowrap}
+.trace tr.in-cyc .t-no{box-shadow:inset 3px 0 0 var(--plate-brass)}
+.trace tr.cur td{background:color-mix(in srgb, var(--plate-cyan) 16%, transparent)}
+.trace tr.cur .t-no{color:var(--plate-ink)}
+.trace tr.t-rep td{font-style:italic; color:var(--plate-dim); text-align:center; font-size:var(--t-s)}
+.slip{color:var(--plate-silk); text-decoration:underline wavy; text-underline-offset:.2em}
+.tag{font:500 .6rem var(--f-mono); letter-spacing:.08em; text-transform:uppercase; border:1px solid currentColor; border-radius:2px; padding:0 .25rem; margin-left:.35rem; vertical-align:.1rem}
+.tag.fix{color:var(--plate-cyan)}
+.tag.bug{color:var(--plate-silk)}
+.result{display:grid; gap:.6rem; align-content:start; padding:1rem 1.1rem; border:1px solid var(--plate-rule); border-radius:4px}
+.result .res-big{font-family:var(--f-display); font-size:2.6rem; line-height:1.05}
+.result .res-big .fr{font-size:.62em}
+.result p{font-size:var(--t-s); color:var(--plate-dim); line-height:1.5}
+.result p b{color:var(--plate-ink); font-weight:600}
+.result .ok{color:var(--plate-cyan)}
+.result .bad{color:var(--plate-silk)}
+.series{display:grid; gap:.8rem}
+.series-head{display:flex; flex-wrap:wrap; gap:.8rem 1.4rem; align-items:center; justify-content:space-between}
+.series-head p{max-width:62ch; font-size:var(--t-s); color:var(--plate-dim)}
+.tbl-wrap{overflow-x:auto}
+.series table{border-collapse:collapse; width:100%; min-width:34rem; font-size:var(--t-s)}
+.series th{font:500 .625rem var(--f-mono); letter-spacing:.08em; text-transform:uppercase; color:var(--plate-dim); text-align:left; padding:.4rem .5rem; border-bottom:1px solid var(--plate-rule)}
+.series td{padding:.4rem .5rem; border-bottom:1px solid color-mix(in srgb, var(--plate-rule) 60%, transparent); font-variant-numeric:tabular-nums}
+.series td.m{font-family:var(--f-mono)}
+
+/* ---------- loom ---------- */
+.loom-stage{display:grid; gap:6px; justify-items:center; background:var(--plate-2); border-radius:4px; padding:12px}
+.loom-stage canvas{width:100%; height:auto}
+.loom-read{font-family:var(--f-mono); font-size:var(--t-s); color:var(--plate-dim)}
+.loom-read b{color:var(--plate-ink); font-weight:500}
+.err{font-family:var(--f-mono); font-size:var(--t-s); color:var(--plate-silk)}
+.help{font-size:var(--t-s); color:var(--plate-dim)}
+.help code{font-family:var(--f-mono); font-size:.92em; color:var(--plate-ink)}
+
+/* ---------- music ---------- */
+.music-stage{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,320px); gap:1.25rem; align-items:start}
+.roll{display:grid; gap:.6rem; min-width:0}
+.roll canvas{width:100%; height:170px; border-radius:3px}
+.seqline{font-family:var(--f-mono); font-size:var(--t-s); color:var(--plate-dim); word-break:break-all; line-height:1.7; min-height:3.4em}
+.seqline .on{color:var(--plate); background:var(--plate-brass); border-radius:2px; padding:0 .15em}
+.harmono{margin:0; display:grid; gap:.5rem}
+.harmono canvas{width:100%; aspect-ratio:1; height:auto; background:var(--plate-2); border-radius:4px}
+.harmono figcaption{margin:0; color:var(--plate-ink); font-family:var(--f-display); font-size:1.25rem}
+.harmono figcaption span{display:block; font-family:var(--f-mono); font-size:var(--t-xs); color:var(--plate-dim); letter-spacing:.05em}
+
+/* ---------- circle & flight ---------- */
+.split{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,19rem); gap:1.5rem; align-items:start}
+.split canvas{width:100%; aspect-ratio:1; height:auto; background:var(--plate-2); border-radius:4px}
+.side{display:grid; gap:1.1rem; align-content:start}
+.readout{font-family:var(--f-display); font-size:1.5rem; line-height:1.2}
+.readout span{display:block; font-family:var(--f-mono); font-size:var(--t-xs); color:var(--plate-dim); letter-spacing:.05em; margin-top:.3rem}
+.fly canvas{width:100%; height:auto; aspect-ratio:760/280; border-radius:4px; background:var(--plate-2)}
+
+/* ---------- essay ---------- */
+.essay{display:grid; grid-template-columns:minmax(0,1fr) 17rem; gap:2rem 3.5rem}
+.essay-body{display:grid; gap:1.15rem; max-width:65ch; min-width:0}
+.essay-body h3{font-size:1.35rem; margin-top:1.2rem}
+.essay-body p{hyphens:auto}
+.essay-body blockquote{margin:.2rem 0; padding-left:1.1rem; border-left:2px solid var(--brass); font-family:var(--f-display); font-style:italic; font-size:1.18rem; line-height:1.4}
+.cite-n{font-family:var(--f-mono); font-size:.68em; vertical-align:super; line-height:0; text-decoration:none; margin-left:.1em}
+.margin{display:grid; gap:1.6rem; align-content:start; font-size:var(--t-s); color:var(--ink-2)}
+.margin h4{font-family:var(--f-mono); font-weight:500; font-size:var(--t-xs); letter-spacing:.1em; text-transform:uppercase; color:var(--brass); margin-bottom:.4rem}
+.notes-az{list-style:none; margin:0; padding:0; display:grid; gap:.55rem}
+.notes-az li{display:grid; grid-template-columns:1.4rem minmax(0,1fr); gap:.4rem; line-height:1.45}
+.notes-az b{font-family:var(--f-display); font-size:1.05rem; color:var(--ink); font-weight:600}
+
+.chart{margin:1rem 0 .5rem; display:grid; gap:.8rem}
+.chart-t{font-family:var(--f-display); font-size:1.2rem}
+.chart-t span{display:block; font-family:var(--f-body); font-size:var(--t-s); color:var(--ink-2); margin-top:.2rem}
+.bars{display:grid; gap:6px; position:relative}
+.bar-row{display:grid; grid-template-columns:9.5rem minmax(0,1fr) 3.6rem; gap:.75rem; align-items:center; font-size:var(--t-s); border-radius:2px; cursor:default}
+.bar-row:focus-visible{outline-offset:3px}
+.bar-lab{color:var(--ink-2); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.bar-track{position:relative; height:14px; border-left:1px solid var(--ink-3)}
+.bar{position:absolute; left:0; top:0; bottom:0; width:var(--w); background:var(--brass); border-radius:0 4px 4px 0}
+.bar-row.memoir .bar{background:var(--ink-3)}
+.bar-row:hover .bar,.bar-row:focus .bar{filter:brightness(1.12)}
+.bar-val{font-family:var(--f-mono); font-size:var(--t-xs); color:var(--ink); text-align:right; font-variant-numeric:tabular-nums}
+.tip{position:absolute; pointer-events:none; background:var(--ink); color:var(--paper); font:400 var(--t-xs) var(--f-mono); padding:.4rem .55rem; border-radius:3px; white-space:nowrap; transform:translate(-50%,-100%); z-index:3}
+.chart-note{font-size:var(--t-xs); color:var(--ink-3); font-family:var(--f-mono); line-height:1.6}
+
+/* ---------- originals ---------- */
+.gallery{display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:1.6rem 1.25rem}
+.gallery figure{margin:0; display:grid; gap:0; align-content:start}
+.gallery .zoom img{aspect-ratio:4/5; object-fit:cover; object-position:50% 12%}
+.gallery figcaption{margin-top:.55rem}
+
+/* ---------- chronology ---------- */
+.chron{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 3rem}
+.chron li{display:grid; grid-template-columns:4.2rem minmax(0,1fr); gap:1rem; padding-block:.7rem; border-bottom:1px solid var(--rule); align-items:baseline}
+.chron .y{font-family:var(--f-display); font-size:1.15rem; font-variant-numeric:lining-nums tabular-nums}
+.chron .y.after{color:var(--ink-3)}
+.chron p{color:var(--ink-2); font-size:var(--t-s); line-height:1.5}
+
+/* ---------- sources ---------- */
+.sources{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:2rem 3rem}
+.sources h3{font-family:var(--f-mono); font-weight:500; font-size:var(--t-xs); letter-spacing:.1em; text-transform:uppercase; color:var(--brass); margin-bottom:.8rem}
+.sources ol,.sources ul{margin:0; padding-left:1.3rem; display:grid; gap:.6rem; font-size:var(--t-s); color:var(--ink-2)}
+.sources ul{list-style:square}
+.sources li::marker{font-family:var(--f-mono); color:var(--ink-3)}
+.foot{margin-top:3rem; padding-top:1rem; border-top:1px solid var(--rule); font-family:var(--f-mono); font-size:var(--t-xs); color:var(--ink-3); letter-spacing:.03em; display:flex; flex-wrap:wrap; justify-content:space-between; gap:.5rem 2rem}
+
+/* ---------- viewer ---------- */
+dialog.viewer{border:0; padding:0; width:min(1100px, calc(100vw - 32px)); max-height:calc(100vh - 32px); background:var(--paper); color:var(--ink); border-radius:6px; box-shadow:0 20px 60px rgba(0,0,0,.4)}
+dialog.viewer::backdrop{background:rgba(6,12,24,.72)}
+.viewer-bar{display:flex; gap:1rem; justify-content:space-between; align-items:center; padding:.7rem 1rem; border-bottom:1px solid var(--rule); position:sticky; top:0; background:var(--paper); z-index:1}
+.viewer-bar p{font-size:var(--t-s); color:var(--ink-2)}
+.viewer-bar .btn{--plate-brass:var(--ink); --plate:var(--paper); flex:none}
+.viewer-scroll{overflow:auto; max-height:calc(100vh - 110px)}
+.viewer-scroll img{display:block; max-width:100%; height:auto; margin:0 auto; cursor:zoom-in}
+.viewer-scroll.full img{max-width:none; cursor:zoom-out}
+.viewer-hint{padding:.5rem 1rem; font-family:var(--f-mono); font-size:var(--t-xs); color:var(--ink-3)}
+
+/* ---------- responsive ---------- */
+@media (max-width: 960px){
+  .eng-lower,.music-stage,.split{grid-template-columns:minmax(0,1fr)}
+  .essay{grid-template-columns:minmax(0,1fr)}
+  .harmono{max-width:360px}
+  .split .side{order:-1}
+}
+@media (max-width: 860px){
+  .hero{grid-template-columns:minmax(0,1fr); padding-top:2rem}
+  .portrait{justify-self:start; max-width:280px}
+  .ex-intro{grid-template-columns:minmax(0,1fr)}
+  .ex-intro figure{max-width:260px}
+  .notes3{grid-template-columns:minmax(0,1fr)}
+  .chron,.sources{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width: 640px){
+  .cat li{grid-template-columns:minmax(0,1fr)}
+  .cat-link{justify-self:start}
+  .mill{grid-template-columns:minmax(0,1fr)}
+  .mill-count{grid-template-columns:auto auto auto auto; justify-content:start}
+  .bar-row{grid-template-columns:5.6rem minmax(0,1fr) 3.2rem}
+  .store{gap:.9rem 1rem}
+  .scols{gap:.25rem}
+  .col{width:2.35rem; padding-inline:.1rem}
+  .disc{height:.8rem; font-size:.58rem}
+  .col-lab{font-size:.85rem}
+  .holes{margin-block:2.5rem}
+}
+@media (prefers-reduced-motion: reduce){
+  *{transition:none !important; animation:none !important}
+}
+</style>
+</head>
+<body>
+<nav class="top wrap" aria-label="Sections">
+  <a class="mark" href="#top">A.&thinsp;A.&thinsp;L.</a>
+  <ul>
+    <li><a class="nav" href="#works">Works</a></li>
+    <li><a class="nav" href="#exhibits">Exhibits</a></li>
+    <li><a class="nav" href="#poetical-science">Poetical science</a></li>
+    <li><a class="nav" href="#originals">Originals</a></li>
+    <li><a class="nav" href="#chronology">Chronology</a></li>
+    <li><a class="nav" href="#sources">Sources</a></li>
+    <li><a class="nav" href="../" style="color:var(--brass)">In motion ↗</a></li>
+  </ul>
+</nav>
+
+<header class="hero wrap" id="top">
+  <div class="hero-text">
+    <p class="eyebrow">Portfolio · works of 1828–1852</p>
+    <h1>Ada Lovelace</h1>
+    <p class="fullname">Augusta Ada King, Countess of Lovelace<span>10 December 1815 – 27 November 1852</span></p>
+    <p class="self">Analyst (&amp; Metaphysician)<span>her own description</span></p>
+    <blockquote class="thesis">
+      <p>“We may say most aptly, that the Analytical Engine <em>weaves algebraical patterns</em> just as the Jacquard-loom weaves flowers and leaves.”</p>
+      <footer>Note A · Scientific Memoirs III, 1843, p. 696 · signed A.A.L.</footer>
+    </blockquote>
+    <p class="lede">Her best-known work is a translation with notes. Seven appendices, signed A.A.L., turned a short memoir on Charles Babbage’s Analytical Engine into the most searching account of what such a machine could become. This portfolio shows the originals, all in the public domain, beside new programs that run them.</p>
+  </div>
+  <figure class="portrait">
+    <button class="zoom" type="button" data-full="images/chalon-portrait-1840.jpg" data-cap="Ada Lovelace, watercolour by Alfred Edward Chalon, c. 1840. Science Museum Group. Public domain.">
+      <img src="images/chalon-portrait-1840.jpg" width="960" height="1379" alt="Watercolour portrait of Ada Lovelace in a white gown with a dark wrap, seated, about 1840.">
+    </button>
+    <figcaption><b>Watercolour by Alfred Edward Chalon,</b> c. 1840. Science Museum Group.</figcaption>
+  </figure>
+</header>
+
+<div class="ribbon wrap">
+  <canvas id="ribbon" role="img" aria-label="A woven ribbon in gold and Prussian blue, its pattern computed from Pascal's triangle."></canvas>
+  <p>Woven on this page by the loom in Exhibit II from <code>pascal(x + y, y, 3)</code>, mirrored: one punched card per row of cloth.</p>
+</div>
+
+<div class="holes wrap" aria-hidden="true"></div>
+
+<!-- ======================= WORKS ======================= -->
+<section class="wrap" id="works" aria-labelledby="works-h">
+  <div class="sec-head">
+    <p class="eyebrow">Catalogue</p>
+    <h2 id="works-h">Works</h2>
+    <p class="sec-lede">Seven pieces, in the order she made them. Where a piece can be run, an exhibit below runs it.</p>
+  </div>
+  <ol class="cat">
+    <li>
+      <span class="yr">1828</span>
+      <div><h3><i>Flyology</i></h3>
+        <p>At twelve, a plan to fly. Letters to her mother on the anatomy of birds, on paper, oilsilk, wire and feathers as materials for wings, and on a book of plates to be called <i>Flyology</i>.</p>
+        <p class="medium">Letters to Lady Byron</p></div>
+      <a class="cat-link" href="#flyology">Exhibit V</a>
+    </li>
+    <li>
+      <span class="yr">1840–41</span>
+      <div><h3>Calculus by correspondence</h3>
+        <p>Exercises and questions sent to Augustus De Morgan on series, functions and the differential calculus: the training behind the Notes.</p>
+        <p class="medium">Letters · Lovelace Byron Papers, Bodleian Library</p></div>
+      <span class="cat-link none">Archive only</span>
+    </li>
+    <li>
+      <span class="yr">1841</span>
+      <div><h3>On imagination</h3>
+        <p>A manuscript reflection dated 5 January 1841, naming imagination “the Discovering Faculty, pre-eminently.”</p>
+        <p class="medium">Manuscript · quoted in Stein (1985) and Toole (1992)</p></div>
+      <a class="cat-link" href="#discovering">Exhibit IV</a>
+    </li>
+    <li>
+      <span class="yr">1843</span>
+      <div><h3><i>Sketch of the Analytical Engine</i>, with Notes A–G</h3>
+        <p>Her English translation of L. F. Menabrea’s memoir (Geneva, October 1842), followed by seven Notes of her own, more than twice the memoir’s length.</p>
+        <p class="medium">Print · Scientific Memoirs, vol. III, Article XXIX, pp. 666–731</p></div>
+      <a class="cat-link" href="#loom">Exhibits II–III</a>
+    </li>
+    <li>
+      <span class="yr">1843</span>
+      <div><h3>Note G: the Bernoulli numbers</h3>
+        <p>A fold-out diagram and table giving every operation by which the Engine would compute a Number of Bernoulli: 25 operation-cards, with a repeating cycle and a test.</p>
+        <p class="medium">Print · fold-out plate accompanying Note G</p></div>
+      <a class="cat-link" href="#note-g">Exhibit I</a>
+    </li>
+    <li>
+      <span class="yr">1844</span>
+      <div><h3>A calculus of the nervous system</h3>
+        <p>A proposal, in letters to her friend Woronzow Greig, for a mathematical account of how the brain gives rise to thought. It was never carried out.</p>
+        <p class="medium">Letters · quoted in Toole (1992)</p></div>
+      <span class="cat-link none">Unrealised</span>
+    </li>
+    <li>
+      <span class="yr">1852</span>
+      <div><h3>Sitting at the piano</h3>
+        <p>Already very ill, she sat for Henry Phillips, son of the Thomas Phillips who had painted her father. The portrait is one of the last images of her.</p>
+        <p class="medium">Oil on canvas · see Originals</p></div>
+      <a class="cat-link" href="#originals">Originals</a>
+    </li>
+  </ol>
+</section>
+
+<div class="holes wrap" aria-hidden="true"></div>
+
+<!-- ======================= EXHIBITS ======================= -->
+<section class="wrap" id="exhibits" aria-labelledby="ex-h">
+  <div class="sec-head">
+    <p class="eyebrow">Exhibits</p>
+    <h2 id="ex-h">Five programs</h2>
+    <p class="sec-lede">Each exhibit pairs an original with a program written for this page. The programs run in your browser and use exact arithmetic where Lovelace did.</p>
+  </div>
+
+  <!-- ===== Exhibit I: Note G ===== -->
+  <article class="exhibit" id="note-g" aria-labelledby="ng-h">
+    <header class="ex-head">
+      <p class="eyebrow">Exhibit I</p>
+      <h3 id="ng-h">The Bernoulli program</h3>
+      <p class="ex-src">Note G · Scientific Memoirs III (1843), pp. 722–731, with the fold-out diagram</p>
+    </header>
+    <div class="ex-intro">
+      <div class="prose">
+        <p>Note G ends with a complete program. Lovelace sets out, card by card, how the Analytical Engine would compute B<sub>7</sub>, the fourth Number of Bernoulli in her numbering (B<sub>8</sub> today), when B<sub>1</sub>, B<sub>3</sub> and B<sub>5</sub> are already known. Each Variable V is a column of figure-discs in the Store. Each operation brings two columns to the Mill and sends the result back to one or more columns. The small number to the upper left of a V counts how many values that column has held, a notation she introduces in Note D.</p>
+        <p>The emulator below follows her table exactly and keeps every value as an exact fraction. The discs show the decimal figures the Engine itself would hold.</p>
+      </div>
+      <figure>
+        <button class="zoom" type="button" data-full="images/note-g-diagram-1843.jpg" data-cap="Diagram for the computation of the Numbers of Bernoulli, from Note G, 1843. Public domain.">
+          <img src="images/note-g-diagram-1843.jpg" width="2000" height="1400" loading="lazy" alt="The printed fold-out table of Note G: numbered operations, variables and results in columns.">
+        </button>
+        <figcaption><b>The original diagram,</b> 1843. Select to enlarge.</figcaption>
+      </figure>
+    </div>
+
+    <div class="plate engine">
+      <div class="controls">
+        <div class="btns">
+          <button class="btn" id="g-step" type="button">Step</button>
+          <button class="btn btn-primary" id="g-run" type="button">Run</button>
+          <button class="btn" id="g-reset" type="button">Reset</button>
+        </div>
+        <label class="field" for="g-n">Compute
+          <select id="g-n"></select>
+        </label>
+        <label class="field" for="g-speed">Speed
+          <input id="g-speed" type="range" min="1" max="10" value="6">
+        </label>
+        <label class="check" for="g-printed"><input id="g-printed" type="checkbox"> Card 4 as printed in 1843</label>
+      </div>
+
+      <div class="mill" aria-live="polite">
+        <div class="opcard" aria-hidden="true">
+          <span class="opcard-no">Card <span id="m-no">—</span></span>
+          <span class="opcard-sym" id="m-op">·</span>
+          <span class="opcard-holes" id="m-holes"></span>
+        </div>
+        <div class="mill-body">
+          <p class="mill-vars" id="m-vars"></p>
+          <p class="mill-stmt" id="m-stmt"></p>
+          <p class="mill-calc" id="m-calc"></p>
+        </div>
+        <div class="mill-count">
+          <span>Operations</span><b id="m-ops">0</b>
+          <span>Cycles</span><b id="m-cyc">0</b>
+        </div>
+      </div>
+
+      <div class="store" id="store"></div>
+      <div class="legend" aria-hidden="true">
+        <span><i class="k-read"></i>read by the Mill</span>
+        <span><i class="k-write"></i>receives the result</span>
+        <span><i class="k-clear"></i>cleared to zero</span>
+      </div>
+
+      <div class="eng-lower">
+        <div class="trace-wrap" id="trace-wrap" tabindex="0" aria-label="Table of operations, as printed in Note G">
+          <table class="trace">
+            <thead><tr><th>No.</th><th>Op.</th><th>Variables acted upon</th><th>Receiving</th><th>Statement of results</th><th>Value</th></tr></thead>
+            <tbody id="trace"></tbody>
+          </table>
+        </div>
+        <div class="result" id="g-result" aria-live="polite"></div>
+      </div>
+
+      <div class="series">
+        <div class="series-head">
+          <p>Lovelace notes that the same 25 cards compute every Number in turn, each result becoming data for the next: “a cycle of a cycle.” This runs her program for n = 1 to 10 and keeps each result, with its sign, for the next pass.</p>
+          <button class="btn" id="g-series" type="button">Turn the handle ten times</button>
+        </div>
+        <div class="tbl-wrap" id="g-series-out" hidden></div>
+      </div>
+    </div>
+
+    <div class="notes3">
+      <div><h4>Card 7 is a test</h4><p>Card 7 computes n − 1. If it is zero, B<sub>1</sub> is finished and the Engine jumps to card 24. Lovelace explains that the test is needed because the same cards must serve every n. Cards 12 and 23 test again.</p></div>
+      <div><h4>Cards 13–23 repeat</h4><p>The cycle adds one more term each time it runs. For n = 4 it runs twice, so 25 cards perform 36 operations. Only card 21 changes between passes: it reads B<sub>3</sub> from V<sub>22</sub>, then B<sub>5</sub> from V<sub>23</sub>.</p></div>
+      <div><h4>Card 4, as printed</h4><p>The 1843 table prints card 4 as <span class="vv"><sup>2</sup>V<sub>5</sub></span> ÷ <span class="vv"><sup>2</sup>V<sub>4</sub></span>, which divides 2n + 1 by 2n − 1. The statement beside it gives the intended (2n − 1)/(2n + 1). Tick the box to run the card as printed. Whether Lovelace, Babbage or the printer made the slip is not known.</p></div>
+    </div>
+  </article>
+
+  <!-- ===== Exhibit II: Loom ===== -->
+  <article class="exhibit" id="loom" aria-labelledby="loom-h">
+    <header class="ex-head">
+      <p class="eyebrow">Exhibit II</p>
+      <h3 id="loom-h">The algebraical loom</h3>
+      <p class="ex-src">Note A, p. 696 · Note C · Note F</p>
+    </header>
+    <div class="ex-intro">
+      <div class="prose">
+        <p>Jacquard’s loom reads a chain of punched cards. Each hole lets one warp thread lift, so the card decides which threads show on that row of cloth. Babbage borrowed the cards to direct the Analytical Engine, and Lovelace saw that the borrowing ran deeper than mechanism: in both machines the cards carry a pattern that is independent of what is being made.</p>
+        <p>Here the comparison runs the other way. Write an algebraic formula, and the page punches one card per row from it: a hole wherever the formula is not zero. The loom then weaves.</p>
+        <p class="quote">“There is in existence a beautiful woven portrait of Jacquard, in the fabrication of which 24,000 cards were required.”<cite>Note F, 1843</cite></p>
+      </div>
+      <figure>
+        <button class="zoom" type="button" data-full="images/jacquard-woven-portrait-1839.jpg" data-cap="Portrait of Joseph Marie Jacquard, woven in silk on a Jacquard loom by Michel-Marie Carquillat after Claude Bonnefond, 1839. Public domain.">
+          <img src="images/jacquard-woven-portrait-1839.jpg" width="308" height="465" loading="lazy" alt="Jacquard seated at his workbench with tools and punched cards, woven in silk so finely it resembles an engraving.">
+        </button>
+        <figcaption><b>Woven, not engraved:</b> Jacquard in silk, Carquillat after Bonnefond, 1839. Babbage owned a copy.</figcaption>
+      </figure>
+    </div>
+
+    <div class="plate">
+      <div class="controls">
+        <label class="field" for="l-preset">Pattern
+          <select id="l-preset"></select>
+        </label>
+        <label class="field grow" for="l-formula">Formula
+          <input id="l-formula" type="text" spellcheck="false" autocomplete="off" autocapitalize="off">
+        </label>
+        <label class="field" for="l-m"><span>m = <output id="l-m-out">29</output></span>
+          <input id="l-m" type="range" min="2" max="64" value="29">
+        </label>
+        <label class="check" for="l-mirror"><input id="l-mirror" type="checkbox" checked> Mirror</label>
+        <label class="field" for="l-silk">Silk
+          <select id="l-silk"></select>
+        </label>
+        <button class="btn btn-primary" id="l-weave" type="button">Weave</button>
+      </div>
+      <p class="help">Variables: <code>x</code> thread, <code>y</code> row, <code>m</code>. Operators: <code>+ − * / % ^</code> and comparisons. Functions: <code>pascal(a, b, p)</code> is the binomial coefficient C(a, b) mod p; also <code>abs</code>, <code>gcd</code>, <code>min</code>, <code>max</code>. Mirror reads the first half of the chain again in reverse, like the “backing” of cards Lovelace describes in Note C.</p>
+      <p class="err" id="l-err" hidden></p>
+      <div class="loom-stage">
+        <canvas id="l-cards" role="img" aria-label="The chain of punched cards feeding the loom; the lowest card is the one being read."></canvas>
+        <canvas id="l-cloth" role="img" aria-label="Woven cloth produced from the formula."></canvas>
+      </div>
+      <p class="loom-read" id="l-read" aria-live="polite"></p>
+    </div>
+  </article>
+
+  <!-- ===== Exhibit III: Music ===== -->
+  <article class="exhibit" id="music" aria-labelledby="mu-h">
+    <header class="ex-head">
+      <p class="eyebrow">Exhibit III</p>
+      <h3 id="mu-h">Pitched sounds</h3>
+      <p class="ex-src">Note A, p. 694</p>
+    </header>
+    <div class="ex-intro">
+      <div class="prose">
+        <p class="quote">“Supposing, for instance, that the fundamental relations of pitched sounds in the science of harmony and of musical composition were susceptible of such expression and adaptations, the engine might compose elaborate and scientific pieces of music of any degree of complexity or extent.”<cite>Note A, 1843</cite></p>
+        <p>The relations she names are ratios. A fifth is 3 : 2, a major third 5 : 4. This exhibit takes a sequence the Engine could compute, turns each figure into a degree of a justly tuned scale, and plays it over a steady drone. The pen draws each ratio as a harmonograph would, with two pendulums swinging at the two frequencies. Simple ratios close into simple figures.</p>
+      </div>
+      <figure>
+        <button class="zoom" type="button" data-full="images/phillips-piano-1852.jpg" data-cap="Ada Lovelace at the piano, by Henry Phillips, 1852. Public domain.">
+          <img src="images/phillips-piano-1852.jpg" width="960" height="1157" loading="lazy" alt="Ada Lovelace seated at a piano, turned toward the viewer, in a dark dress, 1852.">
+        </button>
+        <figcaption><b>At the piano,</b> Henry Phillips, 1852.</figcaption>
+      </figure>
+    </div>
+
+    <div class="plate">
+      <div class="controls">
+        <label class="field" for="mu-seq">Sequence
+          <select id="mu-seq"></select>
+        </label>
+        <label class="field" for="mu-tempo"><span>Tempo <output id="mu-tempo-out">120</output> bpm</span>
+          <input id="mu-tempo" type="range" min="60" max="240" value="120">
+        </label>
+        <label class="check" for="mu-sound"><input id="mu-sound" type="checkbox" checked> Sound</label>
+        <button class="btn btn-primary" id="mu-play" type="button">Play</button>
+      </div>
+      <div class="music-stage">
+        <div class="roll">
+          <canvas id="mu-roll" role="img" aria-label="A punched music roll: one row per scale degree, time running left to right."></canvas>
+          <p class="seqline" id="mu-line"></p>
+          <p class="small">Scale degrees 0–9, from the drone up: 1/1, 9/8, 5/4, 4/3, 3/2, 5/3, 15/8, 2/1, 9/4, 5/2. A gap in the roll is a rest between numbers.</p>
+        </div>
+        <figure class="harmono">
+          <canvas id="mu-harm" role="img" aria-label="Harmonograph figure for the current ratio."></canvas>
+          <figcaption id="mu-now">3 : 2<span>perfect fifth · against the drone</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </article>
+
+  <!-- ===== Exhibit IV: Circle ===== -->
+  <article class="exhibit" id="discovering" aria-labelledby="dc-h">
+    <header class="ex-head">
+      <p class="eyebrow">Exhibit IV</p>
+      <h3 id="dc-h">The discovering faculty</h3>
+      <p class="ex-src">Manuscript reflection, 5 January 1841</p>
+    </header>
+    <div class="ex-intro">
+      <div class="prose">
+        <p class="quote">“Imagination is the Discovering Faculty, pre-eminently. It is that which penetrates into the unseen worlds around us, the worlds of Science.”<cite>5 January 1841 · quoted in Toole (1992)</cite></p>
+        <p>Place N points round a circle. From each point i draw a straight chord to the point k × i, counting round the circle modulo N. Nothing else is drawn. At k = 2 a heart-shaped curve, the cardioid, appears where the chords crowd together; at k = 3, a kidney-shaped nephroid. No line traces either curve. They are envelopes, visible only once a multiplication table is laid out in space.</p>
+      </div>
+    </div>
+    <div class="plate">
+      <div class="split">
+        <canvas id="dc-canvas" role="img" aria-label="Chords of a circle joining each point i to point k times i."></canvas>
+        <div class="side">
+          <p class="readout" id="dc-read">k = 2<span>cardioid · 1 cusp</span></p>
+          <label class="field" for="dc-k"><span>Multiplier k = <output id="dc-k-out">2.00</output></span>
+            <input id="dc-k" type="range" min="1" max="60" step="0.01" value="2" style="width:100%">
+          </label>
+          <label class="field" for="dc-n"><span>Points N = <output id="dc-n-out">240</output></span>
+            <input id="dc-n" type="range" min="12" max="600" step="1" value="240" style="width:100%">
+          </label>
+          <div class="btns">
+            <button class="btn btn-primary" id="dc-drift" type="button">Drift</button>
+            <button class="btn" type="button" data-k="2">k = 2</button>
+            <button class="btn" type="button" data-k="3">k = 3</button>
+            <button class="btn" type="button" data-k="21">k = 21</button>
+          </div>
+          <p class="small">For whole numbers k, the envelope is an epicycloid with k − 1 cusps. Between whole numbers the figure is caught halfway from one curve to the next.</p>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ===== Exhibit V: Flyology ===== -->
+  <article class="exhibit" id="flyology" aria-labelledby="fl-h">
+    <header class="ex-head">
+      <p class="eyebrow">Exhibit V</p>
+      <h3 id="fl-h">Flyology, Plate I</h3>
+      <p class="ex-src">Letters to Lady Byron, 1828</p>
+    </header>
+    <div class="ex-intro">
+      <div class="prose">
+        <p>At twelve, Ada set out to fly. She studied the anatomy of birds, weighed paper, oilsilk, wire and feathers as materials for wings, and planned a book called <i>Flyology</i> with plates of her findings. This plate takes up one question her book would have had to answer: where does a wing actually go?</p>
+        <p>The wingtip beats up and down while the body moves forward, so in still air the tip draws a wave. The distance between crests is the ground covered in one wingbeat. Change the flight speed and the wingbeat to stretch or crowd the wave. The model is deliberately simple: a rigid wing hinged at the shoulder.</p>
+      </div>
+    </div>
+    <div class="plate plate-light fly">
+      <canvas id="fl-canvas" role="img" aria-label="Side view of a bird in flight, with the path of its wingtip traced behind it as a wave."></canvas>
+      <div class="controls">
+        <label class="field" for="fl-v"><span>Speed <output id="fl-v-out">10 m/s</output></span>
+          <input id="fl-v" type="range" min="2" max="20" step="0.5" value="10">
+        </label>
+        <label class="field" for="fl-f"><span>Wingbeats <output id="fl-f-out">5 per second</output></span>
+          <input id="fl-f" type="range" min="1" max="14" step="0.5" value="5">
+        </label>
+        <label class="field" for="fl-a"><span>Stroke <output id="fl-a-out">45°</output></span>
+          <input id="fl-a" type="range" min="15" max="75" step="1" value="45">
+        </label>
+        <p class="readout" id="fl-read" style="margin-left:auto">2.0 m<span>forward per wingbeat</span></p>
+      </div>
+    </div>
+  </article>
+</section>
+
+<div class="holes wrap" aria-hidden="true"></div>
+
+<!-- ======================= ESSAY ======================= -->
+<section class="wrap" id="poetical-science" aria-labelledby="ps-h">
+  <div class="sec-head">
+    <p class="eyebrow">Essay</p>
+    <h2 id="ps-h">Poetical science</h2>
+    <p class="sec-lede">What she meant by the phrase, and why it still describes the Notes.</p>
+  </div>
+  <div class="essay">
+    <div class="essay-body">
+      <h3>An inversion</h3>
+      <p>The phrase survives in a letter to her mother, written in her thirties: “If you can’t give me poetry, can’t you give me ‘poetical science’?”<a class="cite-n" href="#src-toole">[2]</a> It reverses the plan of her upbringing. Lady Byron, whom Byron had called his “Princess of Parallelograms,” kept her daughter to a strict course of mathematics, partly to steer her away from her father’s temperament.<a class="cite-n" href="#src-stein">[3]</a> Ada never knew Byron. Her parents separated when she was a month old, and he died in Greece in 1824, when she was eight.</p>
+      <p>She did not choose between the two inheritances. She asked for a science that kept poetry’s ways of seeing, and she held herself to a mathematician’s standard while doing it. Her correspondence course with Augustus De Morgan shows her worrying at definitions and limits with the persistence of a good student, which is what she was.<a class="cite-n" href="#src-hmr">[4]</a></p>
+
+      <h3>Imagination as an instrument</h3>
+      <p>In January 1841 she called imagination “the Discovering Faculty, pre-eminently.” She did not mean fancy. She meant the faculty that combines things never seen together, and so finds relations the senses do not show. Exhibit IV is a small case: the multiplication table, laid round a circle, draws a curve that no one ruled.</p>
+
+      <h3>A metaphor that became a design</h3>
+      <p>In Note A the loom is more than an image. The point of the comparison is that cards carry a pattern independently of the material. The Analytical Engine, she writes, is “an embodying of the science of operations,” and so it “might act upon other things besides number,” provided their relations could be written in its notation. Music is her example.<a class="cite-n" href="#src-memoirs">[1]</a> The step from a calculator to a machine for any symbols whose rules can be written down is the passage historians of computing most often cite as her own contribution.</p>
+
+      <figure class="chart" aria-labelledby="chart-t">
+        <p class="chart-t" id="chart-t">The Notes, measured<span>Words in the translated memoir and in each of Lovelace’s Notes</span></p>
+        <div class="bars" id="bars"></div>
+        <p class="chart-note">Our count, from John Walker’s transcription at Fourmilab: running prose only. Tables and equations, set as images there, are excluded. Notes A–G together run to 19,473 words, 2.4 times the memoir’s 8,204.</p>
+      </figure>
+
+      <h3>Rigour as care</h3>
+      <p>The poetry does not excuse the arithmetic. Note G accounts for every operation and every value: which cards repeat, why card 7 must test n − 1, how the upper index of V<sub>11</sub> runs 0, 1, 2, 0, 3. One slip survives in print, a transposed pair on card 4, and Exhibit I runs the table both ways. The slip does not touch the method. The statement printed beside the card is correct, and with the pair restored the program produces every Bernoulli number we asked of it, through B<sub>19</sub> in her numbering.</p>
+
+      <h3>What the Engine cannot do</h3>
+      <p>Note G also sets a limit:</p>
+      <blockquote>“The Analytical Engine has no pretensions whatever to originate anything. It can do whatever we know how to order it to perform.”</blockquote>
+      <p>In 1950 Alan Turing named this “Lady Lovelace’s Objection” and argued against it.<a class="cite-n" href="#src-turing">[5]</a> The rest of her paragraph is read less often. She expects the Engine to act back on mathematics: arranging its truths so that a machine can use them throws subjects “into new lights.” Every exhibit on this page is an instance of that second claim. None of them adds a theorem; each shows a familiar relation from an angle the formula alone does not give.</p>
+
+      <h3>Coda</h3>
+      <p>Babbage, writing to her in September 1843, called her “the Enchantress of Number.”<a class="cite-n" href="#src-toole">[2]</a> She died of cancer on 27 November 1852, at thirty-six, the age at which her father had died, and was buried beside him at Hucknall. In 1980 the United States Department of Defense named a programming language Ada. Its reference manual was numbered MIL-STD-1815, for the year of her birth.</p>
+    </div>
+
+    <aside class="margin" aria-label="The Notes at a glance">
+      <div>
+        <h4>Notes A–G at a glance</h4>
+        <ol class="notes-az">
+          <li><b>A</b><span>What the Engine is: the science of operations; the loom; music.</span></li>
+          <li><b>B</b><span>The Store: numbers held on columns of discs, “probably at least two hundred.”</span></li>
+          <li><b>C</b><span>Backing the cards, so a set can be used again and again.</span></li>
+          <li><b>D</b><span>A computation traced in full; the upper indices explained.</span></li>
+          <li><b>E</b><span>Cycles, and cycles of cycles, through a trigonometrical series.</span></li>
+          <li><b>F</b><span>How repetition saves cards; the woven portrait of Jacquard.</span></li>
+          <li><b>G</b><span>The Engine’s limits, and the Bernoulli numbers, card by card.</span></li>
+        </ol>
+      </div>
+      <div>
+        <h4>From the page</h4>
+        <button class="zoom" type="button" data-full="images/sm3-djvu732.jpg" data-cap="Scientific Memoirs vol. III (1843), p. 722, Note G: “The Analytical Engine has no pretensions whatever to originate anything.” Public domain.">
+          <img src="images/sm3-djvu732.jpg" width="960" height="1636" loading="lazy" alt="Printed page 722 of Scientific Memoirs volume three, from Note G.">
+        </button>
+        <figcaption>p. 722, Note G, where the “no pretensions” passage begins.</figcaption>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<div class="holes wrap" aria-hidden="true"></div>
+
+<!-- ======================= ORIGINALS ======================= -->
+<section class="wrap" id="originals" aria-labelledby="or-h">
+  <div class="sec-head">
+    <p class="eyebrow">Originals</p>
+    <h2 id="or-h">From the archive</h2>
+    <p class="sec-lede">Nine public-domain images: three portraits, the printed Notes, Note G’s fold-out diagram, and the woven portrait Lovelace mentions in Note F. Select any image to see it full size.</p>
+  </div>
+  <div class="gallery" id="gallery"></div>
+</section>
+
+<div class="holes wrap" aria-hidden="true"></div>
+
+<!-- ======================= CHRONOLOGY ======================= -->
+<section class="wrap" id="chronology" aria-labelledby="ch-h">
+  <div class="sec-head">
+    <p class="eyebrow">Chronology</p>
+    <h2 id="ch-h">A life in dates</h2>
+  </div>
+  <ol class="chron">
+    <li><span class="y">1815</span><p>Born 10 December in London, the only child of Lord Byron and Anne Isabella Milbanke.</p></li>
+    <li><span class="y">1816</span><p>Her parents separate. Byron leaves England in April and never sees her again.</p></li>
+    <li><span class="y">1824</span><p>Byron dies at Missolonghi, in Greece. Ada is eight.</p></li>
+    <li><span class="y">1828</span><p><i>Flyology</i>: studies of birds and wings, and a plan for a flying machine.</p></li>
+    <li><span class="y">1829</span><p>A long illness after measles keeps her in bed for many months.</p></li>
+    <li><span class="y">1833</span><p>In June she meets Charles Babbage and soon sees the working fragment of his Difference Engine.</p></li>
+    <li><span class="y">1835</span><p>Marries William King. They have three children by 1839.</p></li>
+    <li><span class="y">1838</span><p>King is created Earl of Lovelace; she becomes Countess of Lovelace.</p></li>
+    <li><span class="y">1840</span><p>Begins studying calculus by correspondence with Augustus De Morgan.</p></li>
+    <li><span class="y">1842</span><p>October: L. F. Menabrea’s memoir on the Analytical Engine appears in Geneva, in French.</p></li>
+    <li><span class="y">1843</span><p>Her translation, with Notes A–G signed A.A.L., is published in <i>Scientific Memoirs</i>, vol. III.</p></li>
+    <li><span class="y">1844</span><p>Writes to Woronzow Greig of a “calculus of the nervous system.”</p></li>
+    <li><span class="y">1852</span><p>Sits for Henry Phillips. Dies 27 November, aged 36; buried beside her father at Hucknall.</p></li>
+    <li><span class="y after">1950</span><p>Alan Turing answers “Lady Lovelace’s Objection” in <i>Computing Machinery and Intelligence</i>.</p></li>
+    <li><span class="y after">1980</span><p>The Ada programming language is standardised as MIL-STD-1815.</p></li>
+    <li><span class="y after">2026</span><p>This portfolio: her Note G program runs again, card for card.</p></li>
+  </ol>
+</section>
+
+<div class="holes wrap" aria-hidden="true"></div>
+
+<!-- ======================= SOURCES ======================= -->
+<section class="wrap" id="sources" aria-labelledby="so-h">
+  <div class="sec-head">
+    <p class="eyebrow">Sources</p>
+    <h2 id="so-h">Sources and credits</h2>
+  </div>
+  <div class="sources">
+    <div>
+      <h3>Texts</h3>
+      <ol>
+        <li id="src-memoirs">L. F. Menabrea, “Sketch of the Analytical Engine invented by Charles Babbage,” translated with notes by A.A.L., <i>Scientific Memoirs</i>, ed. Richard Taylor, vol. III (London, 1843), Art. XXIX, pp. 666–731. <a href="https://en.wikisource.org/wiki/Scientific_Memoirs/3/Sketch_of_the_Analytical_Engine_invented_by_Charles_Babbage,_Esq.">Page scans and transcription, Wikisource</a>; <a href="https://www.fourmilab.ch/babbage/sketch.html">transcription by John Walker, Fourmilab</a>.</li>
+        <li id="src-toole">Betty Alexandra Toole, <i>Ada, the Enchantress of Numbers: A Selection from the Letters of Lord Byron’s Daughter and Her Description of the First Computer</i> (Mill Valley: Strawberry Press, 1992).</li>
+        <li id="src-stein">Dorothy Stein, <i>Ada: A Life and a Legacy</i> (Cambridge, MA: MIT Press, 1985).</li>
+        <li id="src-hmr">Christopher Hollings, Ursula Martin and Adrian Rice, <i>Ada Lovelace: The Making of a Computer Scientist</i> (Oxford: Bodleian Library, 2018).</li>
+        <li id="src-turing">A. M. Turing, “Computing Machinery and Intelligence,” <i>Mind</i> 59 (1950), 433–460. <a href="https://doi.org/10.1093/mind/LIX.236.433">doi:10.1093/mind/LIX.236.433</a></li>
+      </ol>
+    </div>
+    <div>
+      <h3>Images, all public domain, via Wikimedia Commons</h3>
+      <ul id="credits"></ul>
+      <h3 style="margin-top:1.6rem">The programs</h3>
+      <ul>
+        <li>Written for this page in plain JavaScript, 2026. No libraries, no network calls.</li>
+        <li>The Note G emulator follows the printed table card for card with exact fractions. Its results were checked against the standard recurrence for Bernoulli numbers, computed independently on the page.</li>
+        <li>Word counts for the Notes are our own; see the note under the chart.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot">
+    <span>Original texts and images: public domain. Demonstrations: new work.</span>
+    <span>A.A.L. · 1815–1852</span>
+  </div>
+</section>
+
+<dialog class="viewer" id="viewer" aria-label="Image viewer">
+  <div class="viewer-bar"><p id="viewer-cap"></p><button class="btn" id="viewer-close" type="button">Close</button></div>
+  <div class="viewer-scroll" id="viewer-scroll"><img id="viewer-img" alt=""></div>
+  <p class="viewer-hint">Select the image to view it at full size; scroll to move around.</p>
+</dialog>
+
+<script>
+(() => {
+'use strict';
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+const cssVar = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const themeHooks = [];
+const onTheme = f => themeHooks.push(f);
+const fireTheme = () => themeHooks.forEach(f => f());
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', fireTheme);
+new MutationObserver(fireTheme).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+const resizeHooks = [];
+let rzT;
+addEventListener('resize', () => { clearTimeout(rzT); rzT = setTimeout(() => resizeHooks.forEach(f => f()), 120); });
+const DPR = () => Math.min(2, window.devicePixelRatio || 1);
+function sizeCanvas(cv, w, h) {
+  const d = DPR();
+  cv.width = Math.round(w * d); cv.height = Math.round(h * d);
+  const ctx = cv.getContext('2d'); ctx.setTransform(d, 0, 0, d, 0, 0); return ctx;
+}
+function whenVisible(el, cb) {
+  if (!('IntersectionObserver' in window)) { cb(true); return; }
+  new IntersectionObserver(es => es.forEach(e => cb(e.isIntersecting)), { rootMargin: '80px' }).observe(el);
+}
+const fmtInt = n => n.toLocaleString('en-GB');
+
+/* ================= exact fractions ================= */
+const gcd = (a, b) => { a = a < 0n ? -a : a; b = b < 0n ? -b : b; while (b) [a, b] = [b, a % b]; return a; };
+class Q {
+  constructor(n, d = 1n) {
+    if (d === 0n) throw new RangeError('division by zero');
+    if (d < 0n) { n = -n; d = -d; }
+    const g = gcd(n, d) || 1n; this.n = n / g; this.d = d / g;
+  }
+  static of(k) { return new Q(BigInt(k)); }
+  add(o) { return new Q(this.n * o.d + o.n * this.d, this.d * o.d); }
+  sub(o) { return new Q(this.n * o.d - o.n * this.d, this.d * o.d); }
+  mul(o) { return new Q(this.n * o.n, this.d * o.d); }
+  div(o) { return new Q(this.n * o.d, this.d * o.n); }
+  neg() { return new Q(-this.n, this.d); }
+  get zero() { return this.n === 0n; }
+  eq(o) { return this.n === o.n && this.d === o.d; }
+}
+const MINUS = '−';
+const absB = x => x < 0n ? -x : x;
+const fr = (a, b) => `<span class="fr"><span>${a}</span><span>${b}</span></span>`;
+const qH = q => (q.n < 0n ? MINUS : '') + (q.d === 1n ? absB(q.n) : fr(absB(q.n), q.d));
+const vv = (i, k) => `<span class="vv"><sup>${i}</sup>V<sub>${k}</sub></span>`;
+const sub = k => `<sub>${k}</sub>`;
+
+function binom(n, k) { let r = 1n; for (let i = 1; i <= k; i++) r = r * BigInt(n - k + i) / BigInt(i); return r; }
+function modernBernoulli(N) {
+  const B = [Q.of(1)];
+  for (let m = 1; m <= N; m++) {
+    let s = Q.of(0);
+    for (let j = 0; j < m; j++) s = s.add(B[j].mul(new Q(binom(m + 1, j))));
+    B.push(s.div(Q.of(m + 1)).neg());
+  }
+  return B;
+}
+const MB = modernBernoulli(22);
+const adaB = k => MB[2 * k]; // her B(2k-1) is today's B(2k)
+
+/* ================= Exhibit I: Note G ================= */
+const CARDS = [
+  { no: 1, op: '×', a: 2, b: 3, out: [4, 5, 6], act: [[1, 2], [1, 3]], rec: [[1, 4], [1, 5], [1, 6]], st: '= 2<i>n</i>' },
+  { no: 2, op: '−', a: 4, b: 1, out: [4], act: [[1, 4], [1, 1]], rec: [[2, 4]], st: '= 2<i>n</i> − 1' },
+  { no: 3, op: '+', a: 5, b: 1, out: [5], act: [[1, 5], [1, 1]], rec: [[2, 5]], st: '= 2<i>n</i> + 1' },
+  { no: 4, op: '÷', a: 5, b: 4, out: [11], zero: [5, 4], act: [[2, 5], [2, 4]], rec: [[1, 11]], st: '= ' + fr('2<i>n</i> − 1', '2<i>n</i> + 1') },
+  { no: 5, op: '÷', a: 11, b: 2, out: [11], act: [[1, 11], [1, 2]], rec: [[2, 11]], st: '= ' + fr(1, 2) + ' · ' + fr('2<i>n</i> − 1', '2<i>n</i> + 1') },
+  { no: 6, op: '−', a: 13, b: 11, out: [13], zero: [11], act: [[0, 13], [2, 11]], rec: [[1, 13]], st: '= −' + fr(1, 2) + ' · ' + fr('2<i>n</i> − 1', '2<i>n</i> + 1') + ' = A' + sub(0) },
+  { no: 7, op: '−', a: 3, b: 1, out: [10], act: [[1, 3], [1, 1]], rec: [[1, 10]], st: '= <i>n</i> − 1 (= 3)', test: true },
+  { no: 8, op: '+', a: 2, b: 7, out: [7], act: [[1, 2], [0, 7]], rec: [[1, 7]], st: '= 2 + 0 = 2' },
+  { no: 9, op: '÷', a: 6, b: 7, out: [11], act: [[1, 6], [1, 7]], rec: [[3, 11]], st: '= ' + fr('2<i>n</i>', 2) + ' = A' + sub(1) },
+  { no: 10, op: '×', a: 21, b: 11, out: [12], act: [[1, 21], [3, 11]], rec: [[1, 12]], st: '= B' + sub(1) + ' · ' + fr('2<i>n</i>', 2) + ' = B' + sub(1) + 'A' + sub(1) },
+  { no: 11, op: '+', a: 12, b: 13, out: [13], zero: [12], act: [[1, 12], [1, 13]], rec: [[2, 13]], st: '= A' + sub(0) + ' + B' + sub(1) + 'A' + sub(1) },
+  { no: 12, op: '−', a: 10, b: 1, out: [10], act: [[1, 10], [1, 1]], rec: [[2, 10]], st: '= <i>n</i> − 2 (= 2)', test: true },
+  { no: 13, op: '−', a: 6, b: 1, out: [6], act: [[1, 6], [1, 1]], rec: [[2, 6]], st: '= 2<i>n</i> − 1' },
+  { no: 14, op: '+', a: 1, b: 7, out: [7], act: [[1, 1], [1, 7]], rec: [[2, 7]], st: '= 2 + 1 = 3' },
+  { no: 15, op: '÷', a: 6, b: 7, out: [8], act: [[2, 6], [2, 7]], rec: [[1, 8]], st: '= ' + fr('2<i>n</i> − 1', 3) },
+  { no: 16, op: '×', a: 8, b: 11, out: [11], zero: [8], act: [[1, 8], [3, 11]], rec: [[4, 11]], st: '= ' + fr('2<i>n</i>', 2) + ' · ' + fr('2<i>n</i> − 1', 3) },
+  { no: 17, op: '−', a: 6, b: 1, out: [6], act: [[2, 6], [1, 1]], rec: [[3, 6]], st: '= 2<i>n</i> − 2' },
+  { no: 18, op: '+', a: 1, b: 7, out: [7], act: [[1, 1], [2, 7]], rec: [[3, 7]], st: '= 3 + 1 = 4' },
+  { no: 19, op: '÷', a: 6, b: 7, out: [9], act: [[3, 6], [3, 7]], rec: [[1, 9]], st: '= ' + fr('2<i>n</i> − 2', 4) },
+  { no: 20, op: '×', a: 9, b: 11, out: [11], zero: [9], act: [[1, 9], [4, 11]], rec: [[5, 11]], st: '= ' + fr('2<i>n</i>', 2) + ' · ' + fr('2<i>n</i> − 1', 3) + ' · ' + fr('2<i>n</i> − 2', 4) + ' = A' + sub(3) },
+  { no: 21, op: '×', a: 'B', b: 11, out: [12], act: [[1, 22], [5, 11]], rec: [[2, 12]], st: '= B' + sub(3) + 'A' + sub(3) },
+  { no: 22, op: '+', a: 12, b: 13, out: [13], zero: [12], act: [[2, 12], [2, 13]], rec: [[3, 13]], st: '= A' + sub(0) + ' + B' + sub(1) + 'A' + sub(1) + ' + B' + sub(3) + 'A' + sub(3) },
+  { no: 23, op: '−', a: 10, b: 1, out: [10], act: [[2, 10], [1, 1]], rec: [[3, 10]], st: '= <i>n</i> − 3 (= 1)', test: true },
+  { no: 24, op: '+', a: 13, b: 'R', out: ['R'], zero: [13], act: [[4, 13], [0, 24]], rec: [[1, 24]], st: '= B' + sub(7) },
+  { no: 25, op: '+', a: 1, b: 3, out: [3], after: [6, 7], act: [[1, 1], [1, 3]], rec: [[1, 3]], st: '= <i>n</i> + 1 = 4 + 1 = 5; V' + sub(6) + ', V' + sub(7) + ' cleared' },
+];
+const OPS = ['+', '−', '×', '÷'];
+const herName = n => 'B' + sub(2 * n - 1);
+
+function newRun(n, printed, known) {
+  const V = new Map();
+  const keys = [...Array(13).keys()].map(i => i + 1).concat([...Array(n).keys()].map(i => 21 + i));
+  for (const k of keys) V.set(k, { q: Q.of(0), count: 0, zeroed: true });
+  const put = (k, q) => V.set(k, { q, count: 1, zeroed: false });
+  put(1, Q.of(1)); put(2, Q.of(2)); put(3, Q.of(n));
+  for (let k = 1; k < n; k++) put(20 + k, known ? known[k] : adaB(k));
+  return { n, printed, V, pc: 1, cyc: 0, ops: 0, done: false, last: null, error: null };
+}
+function stepRun(s) {
+  if (s.done) return null;
+  const c = CARDS[s.pc - 1];
+  let a = c.a, b = c.b;
+  if (c.no === 4 && !s.printed) { a = 4; b = 5; }
+  if (a === 'B') a = 21 + s.cyc;
+  if (b === 'R') b = 20 + s.n;
+  const A = s.V.get(a), Bv = s.V.get(b);
+  const qa = A.q, qb = Bv.q; // the values sent to the Mill, before any column is cleared or overwritten
+  const pre = { a: [A.zeroed ? 0 : A.count, a], b: [Bv.zeroed ? 0 : Bv.count, b] };
+  let r;
+  try {
+    r = c.op === '+' ? A.q.add(Bv.q) : c.op === '−' ? A.q.sub(Bv.q) : c.op === '×' ? A.q.mul(Bv.q) : A.q.div(Bv.q);
+  } catch (e) { s.error = 'The Mill was asked to divide by zero.'; s.done = true; return null; }
+  const cleared = [];
+  for (const z of (c.zero || [])) { const v = s.V.get(z); v.q = Q.of(0); v.zeroed = true; cleared.push(z); }
+  const outs = c.out.map(o => o === 'R' ? 20 + s.n : o);
+  for (const o of outs) { const v = s.V.get(o); v.q = r; v.count++; v.zeroed = false; }
+  for (const z of (c.after || [])) { const v = s.V.get(z); v.q = Q.of(0); v.zeroed = true; cleared.push(z); }
+  s.ops++;
+  let next, note = '';
+  if (c.test) {
+    const z = s.V.get(10).q.zero;
+    next = z ? 24 : (c.no === 23 ? 13 : c.no + 1);
+    note = z ? `V${sub(10)} = 0: the computation is complete, so the Engine goes to card 24.`
+             : (c.no === 23 ? `V${sub(10)} is not yet zero: the cycle repeats from card 13.` : `V${sub(10)} is not zero: continue.`);
+  } else if (c.no === 25) { next = null; s.done = true; }
+  else next = c.no + 1;
+  if (next === 13) s.cyc++;
+  if (next) s.pc = next;
+  if (c.no === 25) { // indices begin anew for the next calculation
+    for (const [k, v] of s.V) { v.count = v.zeroed ? 0 : 1; }
+  }
+  s.last = { c, a, b, va: qa, vb: qb, r, outs, cleared, pre, note };
+  return s.last;
+}
+function runToEnd(n, printed, known) {
+  const s = newRun(n, printed, known);
+  let guard = 0;
+  while (!s.done && guard++ < 5000) stepRun(s);
+  return s;
+}
+
+const G = {
+  n: 4, printed: false, s: null, timer: null,
+  el: { step: $('#g-step'), run: $('#g-run'), reset: $('#g-reset'), n: $('#g-n'), speed: $('#g-speed'), printed: $('#g-printed'),
+        no: $('#m-no'), op: $('#m-op'), holes: $('#m-holes'), vars: $('#m-vars'), stmt: $('#m-stmt'), calc: $('#m-calc'),
+        ops: $('#m-ops'), cyc: $('#m-cyc'), store: $('#store'), trace: $('#trace'), tw: $('#trace-wrap'), result: $('#g-result') }
+};
+// options cannot hold markup, so their labels use Unicode subscript digits
+const subDigits = k => String(k).split('').map(d => '₀₁₂₃₄₅₆₇₈₉'[d]).join('');
+for (let n = 1; n <= 7; n++) G.el.n.add(new Option(`B${subDigits(2 * n - 1)} (n = ${n})${n === 4 ? ', as in the Note' : ''}`, n));
+G.el.n.value = '4';
+
+function colHTML(k) {
+  return `<div class="col" id="col-${k}" role="group" aria-label="V${k}">
+    <div class="col-lab"><sup>0</sup>V<sub>${k}</sub></div>
+    <div class="sign"></div>
+    <div class="discs">${'<span class="disc"></span>'.repeat(3)}<span class="dp"></span>${'<span class="disc"></span>'.repeat(5)}</div>
+    <div class="col-q"></div></div>`;
+}
+function buildStore() {
+  const n = G.n;
+  const groups = [['Data', [1, 2, 3]], ['Working Variables', [4, 5, 6, 7, 8, 9, 10, 11, 12, 13]], ['Result Variables', [...Array(n).keys()].map(i => 21 + i)]];
+  G.el.store.innerHTML = groups.map(([t, ks]) => `<div class="sgroup"><p class="sgroup-t">${t}</p><div class="scols">${ks.map(colHTML).join('')}</div></div>`).join('');
+}
+function discDigits(q) {
+  let n = absB(q.n); const d = q.d;
+  const ip = n / d; let r = n % d;
+  let s = ip.toString();
+  const over = s.length > 3;
+  s = over ? s.slice(-3) : s.padStart(3, '0');
+  let dec = '';
+  for (let i = 0; i < 5; i++) { r *= 10n; dec += (r / d).toString(); r %= d; }
+  return { int: s, dec, over, lead: over ? 0 : (ip === 0n ? 3 : 3 - ip.toString().length) };
+}
+function paintCol(k) {
+  const v = G.s.V.get(k), col = $('#col-' + k);
+  if (!col) return;
+  const idx = v.zeroed ? 0 : v.count;
+  col.querySelector('.col-lab').innerHTML = `<sup>${idx}</sup>V<sub>${k}</sub>`;
+  col.querySelector('.sign').textContent = v.q.zero ? '' : (v.q.n < 0n ? '−' : '+');
+  const dd = discDigits(v.q), all = dd.int + dd.dec;
+  col.querySelectorAll('.disc').forEach((el, i) => { el.textContent = all[i]; el.classList.toggle('lead', i < dd.lead); });
+  col.querySelector('.col-q').innerHTML = v.q.zero ? '0' : qH(v.q);
+  col.setAttribute('aria-label', `V${k}, index ${idx}, value ${v.q.n < 0n ? 'minus ' : ''}${absB(v.q.n)}${v.q.d === 1n ? '' : ' over ' + v.q.d}`);
+}
+function paintStore() { for (const k of G.s.V.keys()) paintCol(k); }
+
+function actHTML(c) {
+  if (c.no === 4) {
+    return G.printed
+      ? `<span class="slip">${vv(2, 5)} ÷ ${vv(2, 4)}</span><span class="tag bug">as printed</span>`
+      : `${vv(2, 4)} ÷ ${vv(2, 5)}<span class="tag fix">corrected</span>`;
+  }
+  return `${vv(...c.act[0])} ${c.op} ${vv(...c.act[1])}`;
+}
+function buildTrace() {
+  let h = '';
+  for (const c of CARDS) {
+    h += `<tr id="tr-${c.no}"${c.no >= 13 && c.no <= 23 ? ' class="in-cyc"' : ''}><td class="t-no">${c.no}</td><td class="t-op">${c.op}</td><td class="t-act">${actHTML(c)}</td><td>${c.rec.map(r => vv(...r)).join(', ')}</td><td>${c.st}</td><td class="t-val" id="tv-${c.no}"></td></tr>`;
+    if (c.no === 23) h += `<tr class="t-rep"><td colspan="6">Here follows a repetition of Operations thirteen to twenty-three</td></tr>`;
+  }
+  G.el.trace.innerHTML = h;
+}
+function setCurrentRow(no) {
+  $$('#trace tr.cur').forEach(r => r.classList.remove('cur'));
+  const row = $('#tr-' + no);
+  if (!row) return;
+  row.classList.add('cur');
+  const w = G.el.tw;
+  const top = row.offsetTop - w.clientHeight / 2 + row.offsetHeight;
+  w.scrollTo({ top: Math.max(0, top), behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+}
+function holesHTML(op) { return OPS.map(o => `<span><i class="${o === op ? 'on' : ''}"></i>${o}</span>`).join(''); }
+
+function showIdle() {
+  const n = G.n;
+  G.el.no.textContent = '—'; G.el.op.textContent = '·'; G.el.holes.innerHTML = holesHTML('');
+  G.el.vars.innerHTML = `Ready. Data on V${sub(1)}, V${sub(2)}, V${sub(3)}${n > 1 ? `; ${[...Array(n - 1).keys()].map(i => herName(i + 1)).join(', ')} already on V${sub(21)}${n > 2 ? '–V' + sub(19 + n) : ''}` : ''}.`;
+  G.el.stmt.innerHTML = `Press Step to read card 1, or Run to turn the handle.`;
+  G.el.calc.innerHTML = '';
+  G.el.ops.textContent = '0'; G.el.cyc.textContent = '0';
+  G.el.result.innerHTML = `<p class="eyebrow" style="color:var(--plate-dim)">Result</p><p class="res-big">${herName(n)}</p><p>will be placed on V${sub(20 + n)} by card 24. Formula (8) of Note G makes it the negative of the sum built up on V${sub(13)}.</p>`;
+  setCurrentRow(1);
+}
+function resetG() {
+  stopRun();
+  G.n = +G.el.n.value; G.printed = G.el.printed.checked;
+  G.s = newRun(G.n, G.printed);
+  buildStore(); buildTrace(); paintStore();
+  $$('#trace .t-val').forEach(td => td.textContent = '');
+  showIdle();
+  G.el.step.disabled = false; G.el.run.disabled = false;
+}
+function showResult() {
+  const s = G.s, n = s.n;
+  if (s.error) { G.el.result.innerHTML = `<p class="bad">${s.error}</p>`; return; }
+  const onV = s.V.get(20 + n).q, B = onV.neg(), ref = adaB(n), ok = B.eq(ref);
+  G.el.result.innerHTML = `
+    <p class="eyebrow" style="color:var(--plate-dim)">Result on V${sub(20 + n)}</p>
+    <p class="res-big">${qH(onV)}</p>
+    <p>By formula (8), ${herName(n)} is the negative of this sum: <b>${herName(n)} = ${qH(B)}</b>.</p>
+    <p class="${ok ? 'ok' : 'bad'}">${ok ? `✓ Correct. Today this number is written B${sub(2 * n)}.` : `✗ Wrong. ${herName(n)} should be ${qH(ref)}. Card 4, as printed, divided 2n + 1 by 2n − 1.`}</p>
+    <p>Lovelace left the sign circles blank on purpose: “we are not considering the signs of any of the B’s, merely their numerical magnitude.”</p>`;
+}
+function doStep() {
+  const s = G.s;
+  if (s.done) return false;
+  $$('.col.read,.col.write,.col.cleared', G.el.store).forEach(e => e.classList.remove('read', 'write', 'cleared'));
+  const L = stepRun(s);
+  if (!L) { showResult(); return false; }
+  const { c } = L;
+  G.el.no.textContent = c.no; G.el.op.textContent = c.op; G.el.holes.innerHTML = holesHTML(c.op);
+  G.el.vars.innerHTML = `Operation-card ${c.op} · Variable-cards ${vv(...L.pre.a)} and ${vv(...L.pre.b)} → ${L.outs.map(o => 'V' + sub(o)).join(', ')}`;
+  G.el.stmt.innerHTML = c.st;
+  G.el.calc.innerHTML = `${qH(L.va)} ${c.op} ${qH(L.vb)} = ${qH(L.r)}${L.note ? ' · ' + L.note : ''}${c.no === 25 ? ' · Columns ready for the next Number.' : ''}`;
+  G.el.ops.textContent = s.ops; G.el.cyc.textContent = s.cyc;
+  $('#col-' + L.a)?.classList.add('read'); $('#col-' + L.b)?.classList.add('read');
+  L.cleared.forEach(k => $('#col-' + k)?.classList.add('cleared'));
+  L.outs.forEach(k => { const el = $('#col-' + k); el?.classList.remove('read', 'cleared'); el?.classList.add('write'); });
+  paintStore();
+  const tv = $('#tv-' + c.no);
+  tv.innerHTML = qH(L.r) + (c.no === 24 && s.n !== 4 ? ` <small>on V${sub(20 + s.n)}</small>` : '');
+  if (s.done) { setCurrentRow(25); showResult(); G.el.step.disabled = true; G.el.run.disabled = true; stopRun(); return false; }
+  setCurrentRow(s.pc);
+  return true;
+}
+const speedMs = () => Math.round(1500 * Math.pow(0.66, +G.el.speed.value - 1));
+function stopRun() { clearTimeout(G.timer); G.timer = null; G.el.run.textContent = 'Run'; }
+function tick() { if (doStep()) G.timer = setTimeout(tick, speedMs()); else stopRun(); }
+G.el.step.addEventListener('click', () => { stopRun(); doStep(); });
+G.el.run.addEventListener('click', () => {
+  if (G.timer) { stopRun(); return; }
+  if (G.s.done) resetG();
+  G.el.run.textContent = 'Pause'; tick();
+});
+G.el.reset.addEventListener('click', resetG);
+G.el.n.addEventListener('change', resetG);
+G.el.printed.addEventListener('change', resetG);
+
+$('#g-series').addEventListener('click', () => {
+  const printed = G.el.printed.checked, known = {};
+  let rows = '';
+  for (let n = 1; n <= 10; n++) {
+    const s = runToEnd(n, printed, known);
+    const B = s.V.get(20 + n).q.neg(); known[n] = B;
+    const ref = adaB(n), ok = B.eq(ref);
+    rows += `<tr><td class="m">${n}</td><td>${herName(n)}</td><td>B${sub(2 * n)}</td><td class="m">${s.ops}</td><td>${qH(B)}</td><td>${ok ? '<span style="color:var(--plate-cyan)">✓ correct</span>' : `<span style="color:var(--plate-silk)">✗ should be ${qH(ref)}</span>`}</td></tr>`;
+  }
+  const out = $('#g-series-out');
+  out.innerHTML = `<table><thead><tr><th>n</th><th>Her notation</th><th>Today</th><th>Operations</th><th>Engine result</th><th>Check</th></tr></thead><tbody>${rows}</tbody></table>
+    <p class="small" style="margin-top:.6rem">${printed ? 'With card 4 as printed, each wrong result becomes data for the next pass, and the error compounds.' : 'Ten passes, one deck of 25 cards. Each new number is stored with its sign so the next pass can use it.'}</p>`;
+  out.hidden = false;
+});
+resetG();
+
+/* ================= expression parser for the loom ================= */
+const pascalCache = new Map();
+function pascalMod(a, b, p) {
+  a = Math.floor(a); b = Math.floor(b); p = Math.floor(p);
+  if (!(p >= 2) || p > 1000 || a < 0 || b < 0 || b > a || a > 1200) return (b > a && a >= 0 && b >= 0) ? 0 : NaN;
+  let rows = pascalCache.get(p);
+  if (!rows) { rows = [Uint16Array.of(1)]; pascalCache.set(p, rows); }
+  while (rows.length <= a) {
+    const prev = rows[rows.length - 1], row = new Uint16Array(prev.length + 1);
+    row[0] = 1; row[prev.length] = 1;
+    for (let i = 1; i < prev.length; i++) row[i] = (prev[i - 1] + prev[i]) % p;
+    rows.push(row);
+  }
+  return rows[a][b];
+}
+const FUNCS = {
+  pascal: (a, b, p) => pascalMod(a, b, p),
+  abs: Math.abs, min: Math.min, max: Math.max, floor: Math.floor,
+  gcd: (a, b) => { a = Math.abs(Math.floor(a)); b = Math.abs(Math.floor(b)); while (b) [a, b] = [b, a % b]; return a; },
+};
+function compile(src) {
+  const s = src.replace(/[−–]/g, '-').replace(/×/g, '*').replace(/÷/g, '/').replace(/≤/g, '<=').replace(/≥/g, '>=').replace(/≠/g, '!=');
+  const re = /\s*(?:(\d+(?:\.\d+)?)|([A-Za-z_]\w*)|(<=|>=|==|!=|&&|\|\||[-+*/%^(),<>]))/y;
+  const toks = []; let m; re.lastIndex = 0;
+  while (re.lastIndex < s.length) {
+    const at = re.lastIndex; m = re.exec(s);
+    if (!m) { if (/^\s*$/.test(s.slice(at))) break; throw new Error(`I can’t read “${s.slice(at).trim()[0]}” at position ${at + 1}.`); }
+    if (m[1]) toks.push({ t: 'num', v: +m[1] }); else if (m[2]) toks.push({ t: 'id', v: m[2] }); else toks.push({ t: 'op', v: m[3] });
+  }
+  let i = 0;
+  const peek = () => toks[i], eat = v => { const k = toks[i]; if (k && k.t === 'op' && k.v === v) { i++; return true; } return false; };
+  const need = v => { if (!eat(v)) throw new Error(`Expected “${v}”.`); };
+  const mod = (a, b) => b === 0 ? NaN : ((a % b) + b) % b;
+  function or() { let l = and(); while (eat('||')) { const a = l, b = and(); l = e => (a(e) || b(e)) ? 1 : 0; } return l; }
+  function and() { let l = cmp(); while (eat('&&')) { const a = l, b = cmp(); l = e => (a(e) && b(e)) ? 1 : 0; } return l; }
+  function cmp() {
+    const l = add(); const k = peek();
+    if (k && k.t === 'op' && ['<', '>', '<=', '>=', '==', '!='].includes(k.v)) {
+      i++; const r = add(), o = k.v;
+      return e => { const a = l(e), b = r(e); return (o === '<' ? a < b : o === '>' ? a > b : o === '<=' ? a <= b : o === '>=' ? a >= b : o === '==' ? a === b : a !== b) ? 1 : 0; };
+    }
+    return l;
+  }
+  function add() { let l = mul(); for (;;) { if (eat('+')) { const a = l, b = mul(); l = e => a(e) + b(e); } else if (eat('-')) { const a = l, b = mul(); l = e => a(e) - b(e); } else return l; } }
+  function mul() { let l = un(); for (;;) { if (eat('*')) { const a = l, b = un(); l = e => a(e) * b(e); } else if (eat('/')) { const a = l, b = un(); l = e => a(e) / b(e); } else if (eat('%')) { const a = l, b = un(); l = e => mod(a(e), b(e)); } else return l; } }
+  function un() { if (eat('-')) { const a = un(); return e => -a(e); } if (eat('+')) return un(); return pw(); }
+  function pw() { const b = atom(); if (eat('^')) { const x = un(); return e => Math.pow(b(e), x(e)); } return b; }
+  function atom() {
+    const k = toks[i++];
+    if (!k) throw new Error('The formula ends too soon.');
+    if (k.t === 'num') return () => k.v;
+    if (k.t === 'id') {
+      if (eat('(')) {
+        const f = FUNCS[k.v]; if (!f) throw new Error(`Unknown function “${k.v}”.`);
+        const args = []; if (!eat(')')) { do args.push(or()); while (eat(',')); need(')'); }
+        return e => f(...args.map(a => a(e)));
+      }
+      if (!['x', 'y', 'm'].includes(k.v)) throw new Error(`Unknown name “${k.v}”. Use x, y or m.`);
+      const key = k.v; return e => e[key];
+    }
+    if (k.v === '(') { const v = or(); need(')'); return v; }
+    throw new Error(`Unexpected “${k.v}”.`);
+  }
+  const f = or();
+  if (i < toks.length) throw new Error(`Unexpected “${toks[i].v}”.`);
+  return f;
+}
+
+/* ================= the loom ================= */
+const SILKS = {
+  gold: { name: 'Gold on Prussian blue', warp: '#D2AA57', weft: '#1D3C73' },
+  crimson: { name: 'Ivory on crimson', warp: '#EFE5CB', weft: '#8B2238' },
+  cyan: { name: 'White on cyanotype', warp: '#F1F3F6', weft: '#24528F' },
+  ink: { name: 'Brass on black', warp: '#B8924A', weft: '#141414' },
+};
+function shade(hex, f) {
+  const n = parseInt(hex.slice(1), 16); let r = n >> 16, g = (n >> 8) & 255, b = n & 255;
+  const t = f < 0 ? 0 : 255, p = Math.abs(f);
+  r = Math.round(r + (t - r) * p); g = Math.round(g + (t - g) * p); b = Math.round(b + (t - b) * p);
+  return `rgb(${r},${g},${b})`;
+}
+function silk(key) { const s = SILKS[key]; return { warp: s.warp, weft: s.weft, warpLo: shade(s.warp, -0.3), weftLo: shade(s.weft, -0.35), warpHi: shade(s.warp, 0.25), weftHi: shade(s.weft, 0.18) }; }
+function weaveCell(ctx, x, y, c, up, P) {
+  const X = x * c, Y = y * c;
+  if (up) {
+    ctx.fillStyle = P.warp; ctx.fillRect(X, Y, c, c);
+    ctx.fillStyle = P.warpLo; ctx.fillRect(X, Y, c * 0.18, c); ctx.fillRect(X + c * 0.82, Y, c * 0.18, c);
+    ctx.fillStyle = P.warpHi; ctx.fillRect(X + c * 0.42, Y + c * 0.15, c * 0.16, c * 0.7);
+  } else {
+    ctx.fillStyle = P.weft; ctx.fillRect(X, Y, c, c);
+    ctx.fillStyle = P.weftLo; ctx.fillRect(X, Y, c, c * 0.18); ctx.fillRect(X, Y + c * 0.82, c, c * 0.18);
+    ctx.fillStyle = P.weftHi; ctx.fillRect(X + c * 0.15, Y + c * 0.42, c * 0.7, c * 0.16);
+  }
+}
+function cardRow(fn, y, W, H, m, mirror) {
+  const yy = mirror ? Math.min(y, H - 1 - y) : y;
+  const row = new Uint8Array(W);
+  for (let x = 0; x < W; x++) {
+    const xx = mirror ? Math.min(x, W - 1 - x) : x;
+    const v = fn({ x: xx, y: yy, m });
+    row[x] = (v !== 0 && Number.isFinite(v)) ? 1 : 0;
+  }
+  return row;
+}
+
+// hero ribbon
+(function ribbon() {
+  const cv = $('#ribbon'), fn = compile('pascal(x + y, y, 3)'), P = silk('gold');
+  function draw() {
+    const w = cv.clientWidth || 800, c = 4, W = Math.floor(w / c), H = 16;
+    const ctx = sizeCanvas(cv, W * c, H * c);
+    cv.style.width = '100%';
+    for (let y = 0; y < H; y++) { const row = cardRow(fn, y, W, H, 3, true); for (let x = 0; x < W; x++) weaveCell(ctx, x, y, c, row[x], P); }
+  }
+  draw(); resizeHooks.push(draw);
+})();
+
+const PRESETS = [
+  { name: 'Rosette: sums of squares', f: '(x*x + y*y) % m < m/2', m: 29, mirror: true },
+  { name: 'Pascal’s triangle, mod 2', f: 'pascal(x + y, y, 2)', m: 2, mirror: false },
+  { name: 'Pascal’s triangle, mod m', f: 'pascal(x + y, x, m) == 0', m: 5, mirror: true },
+  { name: 'Leaves: products', f: '(x*y) % m < m/3', m: 23, mirror: true },
+  { name: 'Lattice of common factors', f: 'gcd(x + 1, y + 1) % m == 1', m: 3, mirror: true },
+  { name: 'Diamonds: differences', f: '(abs(x - y) * (x + y)) % m < m/4', m: 31, mirror: true },
+];
+const L = {
+  W: 120, H: 84, c: 5, fn: null, rows: [], anim: null,
+  el: { preset: $('#l-preset'), f: $('#l-formula'), m: $('#l-m'), mOut: $('#l-m-out'), mirror: $('#l-mirror'), silk: $('#l-silk'), weave: $('#l-weave'),
+        err: $('#l-err'), cards: $('#l-cards'), cloth: $('#l-cloth'), read: $('#l-read') }
+};
+PRESETS.forEach((p, i) => L.el.preset.add(new Option(p.name, i)));
+Object.entries(SILKS).forEach(([k, s]) => L.el.silk.add(new Option(s.name, k)));
+function loomSettings() { return { m: +L.el.m.value, mirror: L.el.mirror.checked, P: silk(L.el.silk.value) }; }
+function computeRows() {
+  const { m, mirror } = loomSettings();
+  L.rows = [];
+  for (let y = 0; y < L.H; y++) L.rows.push(cardRow(L.fn, y, L.W, L.H, m, mirror));
+}
+function drawCards(upto) {
+  const cv = L.el.cards, c = L.c, n = 5, ch = 12, gap = 3;
+  const ctx = sizeCanvas(cv, L.W * c, n * (ch + gap));
+  ctx.clearRect(0, 0, L.W * c, n * (ch + gap));
+  const card = cssVar('--card'), hole = cssVar('--plate');
+  for (let k = 0; k < n; k++) {
+    const y = upto - (n - 1 - k); if (y < 0 || y >= L.H) continue;
+    const Y = k * (ch + gap);
+    ctx.globalAlpha = k === n - 1 ? 1 : 0.35 + 0.13 * k;
+    ctx.fillStyle = card; ctx.fillRect(0, Y, L.W * c, ch);
+    ctx.fillStyle = hole;
+    const row = L.rows[y];
+    for (let x = 0; x < L.W; x++) if (row[x]) { ctx.beginPath(); ctx.arc(x * c + c / 2, Y + ch / 2, c * 0.34, 0, Math.PI * 2); ctx.fill(); }
+  }
+  ctx.globalAlpha = 1;
+}
+function drawCloth(upto) {
+  const { P } = loomSettings(), c = L.c;
+  const ctx = sizeCanvas(L.el.cloth, L.W * c, L.H * c);
+  ctx.fillStyle = cssVar('--plate-2'); ctx.fillRect(0, 0, L.W * c, L.H * c);
+  for (let y = 0; y <= upto && y < L.H; y++) for (let x = 0; x < L.W; x++) weaveCell(ctx, x, y, c, L.rows[y][x], P);
+  if (upto < L.H - 1) { ctx.fillStyle = cssVar('--plate-brass'); ctx.fillRect(0, (upto + 1) * c, L.W * c, 1.5); }
+}
+function loomReadout(upto) {
+  const { mirror } = loomSettings(); const done = upto >= L.H - 1;
+  const holes = L.rows[Math.min(upto, L.H - 1)].reduce((a, b) => a + b, 0);
+  const punched = mirror ? Math.ceil(L.H / 2) : L.H;
+  L.el.read.innerHTML = done
+    ? `<b>${L.H}</b> rows woven from <b>${punched}</b> punched cards${mirror ? ' (each read twice)' : ''}, ${L.W} warp threads. Jacquard’s woven portrait needed 24,000 cards.`
+    : `Reading card <b>${upto + 1}</b> of ${L.H}: <b>${holes}</b> holes, so ${holes} of ${L.W} warp threads lift.`;
+}
+function loomRender(upto) { drawCards(upto); drawCloth(upto); loomReadout(upto); }
+function loomBuild(animate) {
+  cancelAnimationFrame(L.anim);
+  try { L.fn = compile(L.el.f.value); L.el.err.hidden = true; }
+  catch (e) { L.el.err.textContent = e.message; L.el.err.hidden = false; return; }
+  computeRows();
+  if (!animate || reduceMotion.matches) { loomRender(L.H - 1); return; }
+  const t0 = performance.now(), rps = 34;
+  const frame = t => { const y = Math.min(L.H - 1, Math.floor((t - t0) / 1000 * rps)); loomRender(y); if (y < L.H - 1) L.anim = requestAnimationFrame(frame); };
+  L.anim = requestAnimationFrame(frame);
+}
+function loadPreset(i) {
+  const p = PRESETS[i]; L.el.f.value = p.f; L.el.m.value = p.m; L.el.mOut.textContent = p.m; L.el.mirror.checked = p.mirror;
+}
+L.el.preset.addEventListener('change', () => { loadPreset(+L.el.preset.value); loomBuild(true); });
+let fT; L.el.f.addEventListener('input', () => { clearTimeout(fT); fT = setTimeout(() => loomBuild(false), 250); });
+L.el.m.addEventListener('input', () => { L.el.mOut.textContent = L.el.m.value; loomBuild(false); });
+L.el.mirror.addEventListener('change', () => loomBuild(false));
+L.el.silk.addEventListener('change', () => loomBuild(false));
+L.el.weave.addEventListener('click', () => loomBuild(true));
+loadPreset(0); loomBuild(false);
+onTheme(() => { if (L.rows.length) loomRender(L.H - 1); });
+
+/* ================= Exhibit III: pitched sounds ================= */
+const RATIOS = [[1, 1], [9, 8], [5, 4], [4, 3], [3, 2], [5, 3], [15, 8], [2, 1], [9, 4], [5, 2]];
+const INTERVALS = ['unison', 'major second', 'major third', 'perfect fourth', 'perfect fifth', 'major sixth', 'major seventh', 'octave', 'major ninth', 'major tenth'];
+function digitsOf(p, q, count) { const out = []; let r = p % q; for (let i = 0; i < count; i++) { r *= 10; out.push(Math.floor(r / q)); r %= q; } return out; }
+const SEQS = [
+  { name: 'One seventh, in decimals', gen: () => digitsOf(1, 7, 36) },
+  { name: 'One thirteenth, in decimals', gen: () => digitsOf(1, 13, 36) },
+  { name: 'Fibonacci numbers, last figure', gen: () => { const o = []; let a = 0, b = 1; for (let i = 0; i < 60; i++) { o.push(a % 10); [a, b] = [b, (a + b) % 10]; } return o; } },
+  { name: 'Square numbers, by differences', gen: () => { const o = []; let v = 0, d = 1; for (let i = 0; i < 40; i++) { o.push(v % 10); v += d; d += 2; } return o; } },
+  { name: 'Pascal’s triangle, mod 10', gen: () => { const o = []; for (let r = 0; r < 10; r++) { for (let k = 0; k <= r; k++) o.push(Number(binom(r, k) % 10n)); o.push(null); } return o; } },
+  { name: 'Bernoulli numerators (Note G)', gen: () => { const o = []; for (let k = 1; k <= 10; k++) { String(absB(adaB(k).n)).split('').forEach(d => o.push(+d)); o.push(null); } return o; } },
+];
+const MU = {
+  seq: [], i: -1, playing: false, t0: 0, beat: 0.5, audio: null, drone: null, harmFrom: null, harmTo: [3, 2], noteStart: 0, raf: 0,
+  el: { seq: $('#mu-seq'), tempo: $('#mu-tempo'), tempoOut: $('#mu-tempo-out'), sound: $('#mu-sound'), play: $('#mu-play'), roll: $('#mu-roll'), harm: $('#mu-harm'), line: $('#mu-line'), now: $('#mu-now') }
+};
+SEQS.forEach((s, i) => MU.el.seq.add(new Option(s.name, i)));
+function muLoad() { MU.seq = SEQS[+MU.el.seq.value].gen(); MU.i = -1; muLine(); drawRoll(0); }
+function muLine() {
+  MU.el.line.innerHTML = MU.seq.map((d, i) => d === null ? '<span>·</span>' : `<span${i === MU.i ? ' class="on"' : ''}>${d}</span>`).join(' ');
+}
+function drawRoll(pos) {
+  const cv = MU.el.roll, w = cv.clientWidth || 600, h = 170;
+  const ctx = sizeCanvas(cv, w, h);
+  const card = cssVar('--card'), ink = cssVar('--plate'), brass = cssVar('--plate-brass');
+  ctx.fillStyle = card; ctx.fillRect(0, 0, w, h);
+  const rows = 10, top = 12, rh = (h - 24) / rows, step = 22, head = Math.round(w * 0.22);
+  ctx.strokeStyle = 'rgba(42,36,20,.14)'; ctx.lineWidth = 1;
+  for (let r = 0; r <= rows; r++) { ctx.beginPath(); ctx.moveTo(0, top + r * rh + .5); ctx.lineTo(w, top + r * rh + .5); ctx.stroke(); }
+  ctx.fillStyle = 'rgba(42,36,20,.55)'; ctx.font = '500 9px "IBM Plex Mono", monospace'; ctx.textBaseline = 'middle';
+  for (let r = 0; r < rows; r++) ctx.fillText(String(r), 4, top + (rows - 1 - r) * rh + rh / 2);
+  for (let i = 0; i < MU.seq.length; i++) {
+    const d = MU.seq[i]; if (d === null) continue;
+    const x = head + (i - pos) * step; if (x < 14 || x > w + step) continue;
+    const y = top + (rows - 1 - d) * rh;
+    ctx.fillStyle = i === MU.i ? brass : ink;
+    ctx.beginPath(); ctx.roundRect ? ctx.roundRect(x - 7, y + 2, 14, rh - 4, 3) : ctx.rect(x - 7, y + 2, 14, rh - 4); ctx.fill();
+  }
+  ctx.fillStyle = brass; ctx.fillRect(head - 1, 0, 2, h);
+}
+function harmPoints(p, q) {
+  const pts = [], N = 1400, T = Math.PI * 2 * 7, damp = 0.05, det = 1.0015;
+  for (let k = 0; k <= N; k++) {
+    const t = k / N * T, e = Math.exp(-damp * t);
+    pts.push([Math.sin(p * det * t + Math.PI / 2) * e, Math.sin(q * t) * e]);
+  }
+  return pts;
+}
+function drawHarm(frac) {
+  const cv = MU.el.harm, w = cv.clientWidth || 300;
+  const ctx = sizeCanvas(cv, w, w);
+  ctx.clearRect(0, 0, w, w);
+  const R = w * 0.42, cx = w / 2, cy = w / 2;
+  const line = (pts, upto, color, alpha, lw) => {
+    ctx.globalAlpha = alpha; ctx.strokeStyle = color; ctx.lineWidth = lw; ctx.beginPath();
+    const n = Math.max(2, Math.floor(pts.length * upto));
+    for (let k = 0; k < n; k++) { const [x, y] = pts[k]; k ? ctx.lineTo(cx + x * R, cy + y * R) : ctx.moveTo(cx + x * R, cy + y * R); }
+    ctx.stroke(); ctx.globalAlpha = 1;
+  };
+  if (MU.harmFrom) line(harmPoints(...MU.harmFrom), 1, cssVar('--plate-dim'), 0.18, 0.8);
+  line(harmPoints(...MU.harmTo), frac, cssVar('--plate-brass'), 0.95, 1);
+}
+function setNow(d) {
+  const [p, q] = RATIOS[d];
+  MU.el.now.innerHTML = `${p} : ${q}<span>${INTERVALS[d]} · degree ${d} against the drone</span>`;
+}
+function ensureAudio() {
+  if (MU.audio) return MU.audio;
+  const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return null;
+  const ac = new AC(), master = ac.createGain(), lp = ac.createBiquadFilter();
+  lp.type = 'lowpass'; lp.frequency.value = 2600; master.gain.value = 0.55;
+  master.connect(lp).connect(ac.destination);
+  MU.audio = { ac, master }; return MU.audio;
+}
+const BASE = 196;
+function droneOn() {
+  const A = ensureAudio(); if (!A || MU.drone) return;
+  const o = A.ac.createOscillator(), g = A.ac.createGain();
+  o.type = 'sine'; o.frequency.value = BASE; g.gain.value = 0; g.gain.linearRampToValueAtTime(0.07, A.ac.currentTime + 0.4);
+  o.connect(g).connect(A.master); o.start(); MU.drone = { o, g };
+}
+function droneOff() {
+  if (!MU.drone || !MU.audio) return;
+  const { o, g } = MU.drone, t = MU.audio.ac.currentTime;
+  g.gain.cancelScheduledValues(t); g.gain.setValueAtTime(g.gain.value, t); g.gain.linearRampToValueAtTime(0, t + 0.25); o.stop(t + 0.3); MU.drone = null;
+}
+function pluck(d) {
+  const A = MU.audio; if (!A || !MU.el.sound.checked) return;
+  const [p, q] = RATIOS[d], f = BASE * p / q, t = A.ac.currentTime, dur = Math.max(0.25, MU.beat * 1.6);
+  [[1, 'triangle', 0.22], [2, 'sine', 0.05]].forEach(([mul, type, amp]) => {
+    const o = A.ac.createOscillator(), g = A.ac.createGain();
+    o.type = type; o.frequency.value = f * mul;
+    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(amp, t + 0.012); g.gain.exponentialRampToValueAtTime(0.0008, t + dur);
+    o.connect(g).connect(A.master); o.start(t); o.stop(t + dur + 0.05);
+  });
+}
+function muFrame(now) {
+  if (!MU.playing) return;
+  const el = (now - MU.t0) / 1000, idx = Math.floor(el / MU.beat);
+  if (idx >= MU.seq.length) { muStop(); return; }
+  if (idx !== MU.i) {
+    MU.i = idx; const d = MU.seq[idx];
+    if (d !== null) { MU.harmFrom = MU.harmTo; MU.harmTo = RATIOS[d]; MU.noteStart = now; setNow(d); pluck(d); }
+    muLine();
+  }
+  drawRoll(el / MU.beat);
+  drawHarm(Math.min(1, (now - MU.noteStart) / (MU.beat * 1000 * 0.9)));
+  MU.raf = requestAnimationFrame(muFrame);
+}
+function muPlay() {
+  MU.beat = 60 / +MU.el.tempo.value; MU.i = -1;
+  if (MU.el.sound.checked) { const A = ensureAudio(); if (A) { A.ac.resume?.(); droneOn(); } }
+  MU.playing = true; MU.t0 = performance.now(); MU.el.play.textContent = 'Stop';
+  MU.raf = requestAnimationFrame(muFrame);
+}
+function muStop() {
+  MU.playing = false; cancelAnimationFrame(MU.raf); droneOff(); MU.el.play.textContent = 'Play';
+  MU.i = -1; muLine(); drawRoll(0); drawHarm(1);
+}
+MU.el.play.addEventListener('click', () => MU.playing ? muStop() : muPlay());
+MU.el.seq.addEventListener('change', () => { const was = MU.playing; if (was) muStop(); muLoad(); if (was) muPlay(); });
+MU.el.tempo.addEventListener('input', () => {
+  MU.el.tempoOut.textContent = MU.el.tempo.value;
+  if (MU.playing) { const pos = (performance.now() - MU.t0) / 1000 / MU.beat; MU.beat = 60 / +MU.el.tempo.value; MU.t0 = performance.now() - pos * MU.beat * 1000; }
+});
+MU.el.sound.addEventListener('change', () => { if (!MU.playing) return; if (MU.el.sound.checked) { const A = ensureAudio(); A?.ac.resume?.(); droneOn(); } else droneOff(); });
+muLoad(); drawHarm(1);
+resizeHooks.push(() => { drawRoll(MU.playing ? MU.i : 0); drawHarm(1); });
+onTheme(() => { drawRoll(0); drawHarm(1); });
+
+/* ================= Exhibit IV: the discovering faculty ================= */
+const DC = { k: 2, n: 240, drifting: false, raf: 0, visible: false,
+  el: { cv: $('#dc-canvas'), k: $('#dc-k'), kOut: $('#dc-k-out'), n: $('#dc-n'), nOut: $('#dc-n-out'), read: $('#dc-read'), drift: $('#dc-drift') } };
+function dcName(k) {
+  const r = Math.round(k);
+  if (Math.abs(k - r) > 0.004) return `between k = ${Math.floor(k)} and ${Math.ceil(k)}`;
+  if (r === 1) return 'every chord shrinks to a point';
+  if (r === 2) return 'cardioid · 1 cusp';
+  if (r === 3) return 'nephroid · 2 cusps';
+  return `epicycloid · ${r - 1} cusps`;
+}
+function drawDC() {
+  const cv = DC.el.cv, w = cv.clientWidth || 480;
+  const ctx = sizeCanvas(cv, w, w);
+  ctx.clearRect(0, 0, w, w);
+  const R = w * 0.45, cx = w / 2, cy = w / 2, N = DC.n, k = DC.k;
+  ctx.strokeStyle = cssVar('--plate-rule'); ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.stroke();
+  ctx.strokeStyle = cssVar('--plate-brass'); ctx.globalAlpha = N > 300 ? 0.38 : 0.55; ctx.lineWidth = 0.8;
+  ctx.beginPath();
+  for (let i = 0; i < N; i++) {
+    const a1 = 2 * Math.PI * i / N - Math.PI / 2, a2 = 2 * Math.PI * ((i * k) % N) / N - Math.PI / 2;
+    ctx.moveTo(cx + R * Math.cos(a1), cy + R * Math.sin(a1)); ctx.lineTo(cx + R * Math.cos(a2), cy + R * Math.sin(a2));
+  }
+  ctx.stroke(); ctx.globalAlpha = 1;
+  ctx.fillStyle = cssVar('--plate-ink');
+  if (N <= 120) for (let i = 0; i < N; i++) { const a = 2 * Math.PI * i / N - Math.PI / 2; ctx.beginPath(); ctx.arc(cx + R * Math.cos(a), cy + R * Math.sin(a), 1.6, 0, Math.PI * 2); ctx.fill(); }
+  DC.el.kOut.textContent = k.toFixed(2); DC.el.nOut.textContent = N;
+  DC.el.read.innerHTML = `k = ${Number.isInteger(+k.toFixed(2)) ? k.toFixed(0) : k.toFixed(2)}<span>${dcName(k)}</span>`;
+}
+function dcLoop() {
+  if (!DC.drifting || !DC.visible) { DC.raf = 0; return; }
+  DC.k += 0.004; if (DC.k > 60) DC.k = 1; DC.el.k.value = DC.k; drawDC();
+  DC.raf = requestAnimationFrame(dcLoop);
+}
+function dcDrift(on) {
+  DC.drifting = on; DC.el.drift.textContent = on ? 'Pause' : 'Drift';
+  if (on && !DC.raf) DC.raf = requestAnimationFrame(dcLoop);
+}
+DC.el.k.addEventListener('input', () => { DC.k = +DC.el.k.value; drawDC(); });
+DC.el.n.addEventListener('input', () => { DC.n = +DC.el.n.value; drawDC(); });
+DC.el.drift.addEventListener('click', () => dcDrift(!DC.drifting));
+$$('#discovering [data-k]').forEach(b => b.addEventListener('click', () => { dcDrift(false); DC.k = +b.dataset.k; DC.el.k.value = DC.k; drawDC(); }));
+whenVisible(DC.el.cv, v => { DC.visible = v; if (v && DC.drifting && !DC.raf) DC.raf = requestAnimationFrame(dcLoop); });
+drawDC(); resizeHooks.push(drawDC); onTheme(drawDC);
+
+/* ================= Exhibit V: Flyology ================= */
+const FL = { t: 0.37, raf: 0, visible: false, last: 0,
+  el: { cv: $('#fl-canvas'), v: $('#fl-v'), f: $('#fl-f'), a: $('#fl-a'), vOut: $('#fl-v-out'), fOut: $('#fl-f-out'), aOut: $('#fl-a-out'), read: $('#fl-read') } };
+function drawFly() {
+  const cv = FL.el.cv, w = cv.clientWidth || 760, h = w * 280 / 760;
+  const ctx = sizeCanvas(cv, w, h);
+  const v = +FL.el.v.value, f = +FL.el.f.value, A = +FL.el.a.value * Math.PI / 180;
+  const ink = cssVar('--plate-ink'), dim = cssVar('--plate-dim'), brass = cssVar('--plate-brass'), rule = cssVar('--plate-rule');
+  ctx.clearRect(0, 0, w, h);
+  const S = w / 14;            // px per metre, horizontally
+  const Lw = h * 0.28;         // a 0.35 m wing, drawn about four times the distance scale
+  const bx = w * 0.8, by = h * 0.5, t = FL.t;
+  const theta = tt => A * Math.sin(2 * Math.PI * f * tt);
+  const tip = tt => [bx - (t - tt) * v * S, by - Lw * Math.sin(theta(tt))];
+  // metre scale
+  ctx.strokeStyle = rule; ctx.lineWidth = 1; ctx.fillStyle = dim; ctx.font = '500 10px "IBM Plex Mono", monospace';
+  for (let m = 0; m * S < w; m += 1) { const x = bx - m * S; if (x < 0) break; ctx.beginPath(); ctx.moveTo(x + .5, h - 18); ctx.lineTo(x + .5, h - (m % 2 ? 15 : 11)); ctx.stroke(); if (m % 2 === 0) ctx.fillText(m + ' m', x + 3, h - 3); }
+  ctx.beginPath(); ctx.moveTo(0, h - 15.5); ctx.lineTo(bx, h - 15.5); ctx.stroke();
+  // shoulder path
+  ctx.setLineDash([3, 4]); ctx.strokeStyle = dim; ctx.beginPath(); ctx.moveTo(0, by); ctx.lineTo(bx, by); ctx.stroke(); ctx.setLineDash([]);
+  // wingtip trail
+  const span = bx / (v * S), steps = 900;
+  ctx.strokeStyle = brass; ctx.lineWidth = 1.6; ctx.beginPath();
+  for (let i = 0; i <= steps; i++) { const tt = t - span * (1 - i / steps); const [x, y] = tip(tt); i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }
+  ctx.stroke();
+  // crest markers: one per wingbeat
+  ctx.fillStyle = brass;
+  const period = 1 / f, firstK = Math.ceil((t - span) * f - 0.25);
+  for (let k = firstK; (k + 0.25) / f <= t; k++) { const [x, y] = tip((k + 0.25) / f); ctx.beginPath(); ctx.arc(x, y, 2.6, 0, Math.PI * 2); ctx.fill(); }
+  // bird
+  const [tx, ty] = tip(t);
+  ctx.strokeStyle = ink; ctx.fillStyle = ink; ctx.lineWidth = 1.4;
+  ctx.beginPath(); ctx.ellipse(bx + 8, by + 3, 22, 7, -0.05, 0, Math.PI * 2); ctx.stroke();
+  ctx.beginPath(); ctx.arc(bx + 32, by - 2, 5.5, 0, Math.PI * 2); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(bx + 37, by - 2.5); ctx.lineTo(bx + 45, by - 0.5); ctx.lineTo(bx + 37, by + 0.5); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(bx - 13, by + 2); ctx.lineTo(bx - 30, by - 3); ctx.lineTo(bx - 28, by + 8); ctx.closePath(); ctx.stroke();
+  ctx.lineWidth = 2.2; ctx.beginPath(); ctx.moveTo(bx, by); ctx.quadraticCurveTo((bx + tx) / 2 - 6, (by + ty) / 2, tx, ty); ctx.stroke();
+  ctx.beginPath(); ctx.arc(bx, by, 2.4, 0, Math.PI * 2); ctx.fill();
+  // labels
+  ctx.fillStyle = dim; ctx.font = 'italic 13px "Newsreader", Georgia, serif';
+  ctx.fillText('Plate I. The path of the wingtip through still air', 12, 20);
+  ctx.font = '500 10px "IBM Plex Mono", monospace';
+  ctx.fillText('dots: one per wingbeat · wing drawn ×4 for legibility', 12, 36);
+  const d = v / f;
+  FL.el.vOut.textContent = `${v} m/s`; FL.el.fOut.textContent = `${f} per second`; FL.el.aOut.textContent = `${FL.el.a.value}°`;
+  FL.el.read.innerHTML = `${d.toFixed(d < 10 ? 1 : 0)} m<span>forward per wingbeat</span>`;
+}
+function flLoop(now) {
+  if (!FL.visible || reduceMotion.matches) { FL.raf = 0; return; }
+  if (FL.last) FL.t += Math.min(0.05, (now - FL.last) / 1000) * 0.35; // shown at about a third of real speed
+  FL.last = now; drawFly(); FL.raf = requestAnimationFrame(flLoop);
+}
+[FL.el.v, FL.el.f, FL.el.a].forEach(i => i.addEventListener('input', drawFly));
+whenVisible(FL.el.cv, v => { FL.visible = v; FL.last = 0; if (v && !FL.raf && !reduceMotion.matches) FL.raf = requestAnimationFrame(flLoop); });
+drawFly(); resizeHooks.push(drawFly); onTheme(drawFly);
+
+/* ================= chart: the Notes, measured ================= */
+const COUNTS = [['Menabrea’s memoir', 8204, true], ['Note A', 5598], ['Note B', 2093], ['Note C', 467], ['Note D', 2279], ['Note E', 3712], ['Note F', 1149], ['Note G', 4175]];
+const NOTES_TOTAL = 19473, MAXC = 8204;
+const bars = $('#bars');
+bars.innerHTML = COUNTS.map(([lab, v, memo]) =>
+  `<div class="bar-row${memo ? ' memoir' : ''}" tabindex="0" role="img" aria-label="${lab}: ${fmtInt(v)} words" data-tip="${lab} · ${fmtInt(v)} words${memo ? '' : ' · ' + (v / NOTES_TOTAL * 100).toFixed(1) + '% of the Notes'}">
+     <span class="bar-lab">${lab}</span><span class="bar-track"><span class="bar" style="--w:${(v / MAXC * 100).toFixed(2)}%"></span></span><span class="bar-val">${fmtInt(v)}</span></div>`).join('');
+const tip = document.createElement('div'); tip.className = 'tip'; tip.hidden = true; bars.append(tip);
+function showTip(row) {
+  const b = row.querySelector('.bar'), br = bars.getBoundingClientRect(), r = b.getBoundingClientRect();
+  tip.textContent = row.dataset.tip; tip.hidden = false;
+  const x = Math.min(Math.max(r.right - br.left, 90), br.width - 90);
+  tip.style.left = x + 'px'; tip.style.top = (r.top - br.top - 6) + 'px';
+}
+$$('.bar-row', bars).forEach(row => {
+  row.addEventListener('mouseenter', () => showTip(row)); row.addEventListener('focus', () => showTip(row));
+  row.addEventListener('mouseleave', () => tip.hidden = true); row.addEventListener('blur', () => tip.hidden = true);
+});
+
+/* ================= originals ================= */
+const ORIGINALS = [
+  { src: 'images/chalon-portrait-1840.jpg', w: 960, h: 1379, t: 'Watercolour portrait', d: 'Alfred Edward Chalon, c. 1840. Science Museum Group.', file: 'Ada_Lovelace_portrait.jpg', alt: 'Watercolour portrait of Ada Lovelace, about 1840.' },
+  { src: 'images/claudet-daguerreotype-1843.jpg', w: 500, h: 647, t: 'Daguerreotype', d: 'Antoine Claudet, c. 1843. A photograph, made four years after the medium was announced.', file: 'Ada_Lovelace_daguerreotype_by_Antoine_Claudet_1843_-_cropped.png', alt: 'Early photograph of Ada Lovelace in a bonnet, about 1843.' },
+  { src: 'images/phillips-piano-1852.jpg', w: 960, h: 1157, t: 'At the piano', d: 'Henry Phillips, 1852.', file: 'Ada_Lovelace_in_1852.jpg', alt: 'Painting of Ada Lovelace seated at a piano, 1852.' },
+  { src: 'images/sm3-djvu676.jpg', w: 960, h: 1636, t: 'Article XXIX, p. 666', d: 'Opening page of the Sketch, Scientific Memoirs III, 1843.', file: 'Scientific_Memoirs,_Vol._3_(1843).djvu', page: 676, alt: 'Printed opening page of the Sketch of the Analytical Engine.' },
+  { src: 'images/sm3-djvu704.jpg', w: 960, h: 1636, t: 'Note A, p. 694', d: 'The passage on music: “pitched sounds”.', file: 'Scientific_Memoirs,_Vol._3_(1843).djvu', page: 704, alt: 'Printed page 694, Note A, with the passage on music.' },
+  { src: 'images/sm3-djvu706.jpg', w: 960, h: 1636, t: 'Note A, p. 696', d: '“Weaves algebraical patterns just as the Jacquard-loom weaves flowers and leaves.”', file: 'Scientific_Memoirs,_Vol._3_(1843).djvu', page: 706, alt: 'Printed page 696, Note A, with the loom passage.' },
+  { src: 'images/sm3-djvu732.jpg', w: 960, h: 1636, t: 'Note G, p. 722', d: '“No pretensions whatever to originate anything.”', file: 'Scientific_Memoirs,_Vol._3_(1843).djvu', page: 732, alt: 'Printed page 722, Note G.' },
+  { src: 'images/note-g-diagram-1843.jpg', w: 2000, h: 1400, t: 'Note G, the diagram', d: 'Fold-out table for computing the Numbers of Bernoulli, 1843.', file: 'Diagram_for_the_computation_of_Bernoulli_numbers.jpg', alt: 'The fold-out table of operations from Note G.' },
+  { src: 'images/jacquard-woven-portrait-1839.jpg', w: 308, h: 465, t: 'Jacquard, woven in silk', d: 'Carquillat after Bonnefond, 1839. Mentioned in Note F.', file: 'Jacquard_Joseph_Marie_woven_silk.jpg', alt: 'Woven silk portrait of Joseph Marie Jacquard.' },
+];
+$('#gallery').innerHTML = ORIGINALS.map(o => `<figure>
+  <button class="zoom" type="button" data-full="${o.src}" data-cap="${o.t}. ${o.d.replace(/"/g, '&quot;')} Public domain.">
+    <img src="${o.src}" width="${o.w}" height="${o.h}" loading="lazy" alt="${o.alt}"></button>
+  <figcaption><b>${o.t}.</b> ${o.d}</figcaption></figure>`).join('');
+const seen = new Set();
+$('#credits').innerHTML = ORIGINALS.filter(o => { const k = o.file + (o.page || ''); if (seen.has(k)) return false; seen.add(k); return true; })
+  .map(o => `<li>${o.t}: <a href="https://commons.wikimedia.org/wiki/File:${encodeURIComponent(o.file)}${o.page ? '?page=' + o.page : ''}">${o.file.replace(/_/g, ' ')}${o.page ? ', page ' + o.page : ''}</a></li>`).join('');
+
+/* ================= viewer ================= */
+const viewer = $('#viewer'), vImg = $('#viewer-img'), vCap = $('#viewer-cap'), vScroll = $('#viewer-scroll');
+document.addEventListener('click', e => {
+  const b = e.target.closest('.zoom'); if (!b) return;
+  vImg.src = b.dataset.full; vImg.alt = b.querySelector('img')?.alt || ''; vCap.textContent = b.dataset.cap || '';
+  vScroll.classList.remove('full');
+  if (viewer.showModal) viewer.showModal(); else viewer.setAttribute('open', '');
+});
+vImg.addEventListener('click', () => vScroll.classList.toggle('full'));
+$('#viewer-close').addEventListener('click', () => viewer.close ? viewer.close() : viewer.removeAttribute('open'));
+viewer.addEventListener('click', e => { if (e.target === viewer) viewer.close(); });
+})();
+</script>
+
+</body>
+</html>

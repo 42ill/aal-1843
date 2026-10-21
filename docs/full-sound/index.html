@@ -1,0 +1,601 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M7 4h21v24H4V7z' fill='%23D8B064'/%3E%3Ccircle cx='11' cy='12' r='2.2' fill='%230A1222'/%3E%3Ccircle cx='17' cy='12' r='2.2' fill='%230A1222'/%3E%3Ccircle cx='17' cy='19' r='2.2' fill='%230A1222'/%3E%3C/svg%3E">
+<style>:root{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Ada Lovelace · Full sound</title>
+<meta name="description" content="A scroll-driven motion website for Ada Lovelace: ten 16:9 keyframes, nine transitions built from the mechanisms of her work, living loops, synthesised sound, and the study behind them.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..800;1,6..96,400..800&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,300..650;1,6..72,300..650&display=swap">
+<style>
+/* Layout: one pinned 16:9 stage the scroll turns like a crank handle, then a bound study below it, broken twice by full-bleed scenes that run live. A single night look: the film's cyanotype ground continues into the study. */
+:root{
+  --ground:#0A1222; --ground-2:#111D35; --ground-3:#172A4E; --ivory:#ECE8DC; --dim:#9AA6C0; --faint:#2C3F66;
+  --brass:#D8B064; --cyan:#8FB6F2; --silk:#F28FA4; --card:#E6DCC2; --card-ink:#2A2414;
+  --f-display:"Bodoni Moda","Bodoni 72",Didot,Georgia,serif;
+  --f-body:"Newsreader","Iowan Old Style",Georgia,serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{overflow-x:clip}
+body{background:var(--ground); color:var(--ivory); font-family:var(--f-body); font-size:1.0625rem; line-height:1.62;
+  padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)); padding-block:0 3rem}
+a{color:var(--cyan); text-underline-offset:.18em; text-decoration-thickness:1px}
+:focus-visible{outline:2px solid var(--cyan); outline-offset:2px}
+h1,h2,h3,h4{font-family:var(--f-display); font-weight:500; line-height:1.04; margin:0; text-wrap:balance}
+p{margin:0}
+code{font-family:var(--f-mono); font-size:.86em}
+.wrap{max-width:1200px; margin-inline:auto}
+.eyebrow{font-family:var(--f-mono); font-size:.75rem; letter-spacing:.16em; text-transform:uppercase; color:var(--brass)}
+
+/* top bar */
+.topbar{display:flex; flex-wrap:wrap; gap:.4rem 1.4rem; align-items:baseline; justify-content:space-between; padding-block:.9rem .7rem}
+.brand{font-family:var(--f-display); font-style:italic; font-size:1.25rem; color:var(--ivory); text-decoration:none}
+.brand span{font-family:var(--f-mono); font-style:normal; font-size:.7rem; letter-spacing:.14em; color:var(--dim); margin-left:.6rem; text-transform:uppercase}
+.topbar ul{display:flex; flex-wrap:wrap; gap:.2rem 1.2rem; margin:0; padding:0; list-style:none}
+.topbar a.nav{font-family:var(--f-mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--dim); text-decoration:none}
+.topbar a.nav:hover{color:var(--brass)}
+.topbar a.out{color:var(--brass)}
+
+/* the film */
+.film{position:relative}
+.sticky{position:sticky; top:env(safe-area-inset-top, 0px); height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:.7rem; background:var(--ground)}
+.stage{position:relative; background:var(--ground); box-shadow:0 0 0 1px var(--faint); border-radius:4px; overflow:hidden; max-width:100%}
+.stage canvas{display:block; width:100%; height:100%}
+.hud{position:absolute; top:2.5%; right:1.6%; width:min(360px, 42%); max-height:80%; overflow:auto; padding:.8rem .95rem; background:rgba(6,12,24,.86);
+  border:1px solid var(--faint); border-radius:4px; display:grid; gap:.45rem; font-size:.8rem; line-height:1.4}
+.hud-id{font-family:var(--f-mono); font-size:.66rem; letter-spacing:.12em; text-transform:uppercase; color:var(--brass)}
+.hud-name{font-family:var(--f-display); font-size:1.25rem}
+.hud-mech{font-family:var(--f-mono); font-size:.7rem; color:var(--ivory)}
+.hud-work{font-style:italic; color:var(--dim)}
+.hud svg{width:100%; height:64px; display:block}
+.hud ol{margin:0; padding-left:1.2rem; display:grid; gap:.25rem; color:var(--dim)}
+.hud li.on{color:var(--ivory)}
+.hud li span{font-family:var(--f-mono); font-size:.62rem; color:var(--dim); margin-left:.3rem}
+.deck{width:min(100%, var(--stage-w, 100%)); display:grid; gap:.45rem}
+.deck-row{display:flex; flex-wrap:wrap; gap:.5rem 1rem; align-items:center; justify-content:space-between}
+.btns{display:flex; gap:.4rem; flex-wrap:wrap}
+.btn{font:500 .7rem var(--f-mono); letter-spacing:.1em; text-transform:uppercase; padding:.5rem .8rem; border:1px solid var(--brass); color:var(--brass); background:transparent; border-radius:3px; cursor:pointer}
+.btn:hover{background:rgba(216,176,100,.14)}
+.btn-primary{background:var(--brass); color:var(--ground)}
+.btn[aria-pressed="true"]{background:rgba(216,176,100,.24); color:var(--ivory)}
+.readout{font-family:var(--f-mono); font-size:.72rem; color:var(--dim); font-variant-numeric:tabular-nums}
+.readout b{color:var(--ivory); font-weight:500}
+.scrub{position:relative; height:18px; cursor:pointer; touch-action:none}
+.scrub .segs{position:absolute; inset:5px 0; display:flex; gap:2px}
+.scrub .segs span{display:block; height:100%; border-radius:1px; background:var(--faint)}
+.scrub .segs span.t{background:rgba(216,176,100,.55)}
+.scrub .segs span.full{background:var(--ivory); opacity:.55}
+.scrub .head{position:absolute; top:0; bottom:0; width:2px; background:var(--ivory); transform:translateX(-1px)}
+.hint{font-family:var(--f-mono); font-size:.68rem; letter-spacing:.08em; color:var(--dim)}
+.sticky:fullscreen .hint{display:none}
+.rotate{display:none; font-family:var(--f-mono); font-size:.7rem; letter-spacing:.08em; color:var(--brass)}
+@media (orientation: portrait) and (max-width: 700px){ .rotate{display:block} }
+
+/* full-bleed bands: the page's column breaks open */
+.bleed{position:relative; width:100vw; margin-left:calc(50% - 50vw); height:min(100vh, 62vw); min-height:320px; background:var(--ground); overflow:hidden}
+.bleed canvas{display:block; width:100%; height:100%}
+.bleed .tag{position:absolute; right:max(16px, env(safe-area-inset-right, 0px)); top:14px; font-family:var(--f-mono); font-size:.66rem; letter-spacing:.14em; text-transform:uppercase; color:var(--dim); background:rgba(10,18,34,.7); padding:.3rem .5rem; border-radius:2px}
+
+/* the study */
+.study{display:grid; gap:5rem; padding-top:4.5rem}
+.sec{display:grid; gap:1.6rem}
+.sec-head{display:grid; gap:.55rem; max-width:70ch}
+.sec-head h2{font-size:clamp(2.6rem,6.5vw,5.2rem); letter-spacing:-.01em}
+.sec-head h3{font-size:clamp(1.9rem,4.2vw,3.2rem)}
+.lede{color:var(--dim); max-width:66ch}
+.find{display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:1.2rem}
+.find article{grid-column:span 2; display:grid; gap:.55rem; align-content:start; padding:1.1rem 1.2rem; background:var(--ground-2); border-radius:4px}
+.find article:nth-child(n+4){grid-column:span 3}
+.find h4{font-size:1.25rem}
+.find p{font-size:.95rem; color:var(--dim)}
+.find p.so{color:var(--ivory)}
+.find p.so::before{content:"So: "; font-family:var(--f-mono); font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:var(--brass)}
+.find .src{font-family:var(--f-mono); font-size:.68rem; letter-spacing:.04em}
+.mats{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,11.5rem),1fr)); gap:1.2rem}
+.mat{display:grid; gap:.5rem; align-content:start}
+.mat svg{width:100%; height:auto; aspect-ratio:3/2; display:block; background:var(--ground-2); border-radius:4px}
+.mat h4{font-size:1.2rem}
+.mat p{font-size:.92rem; color:var(--dim)}
+.mat .use{font-family:var(--f-mono); font-size:.68rem; letter-spacing:.06em; color:var(--brass)}
+.tempo{display:grid; gap:.6rem}
+.tline{display:flex; gap:2px; height:44px}
+.tline span{display:block; height:100%; border-radius:2px; background:var(--faint); cursor:default}
+.tline span.t{background:rgba(216,176,100,.7)}
+.tline span.full{background:var(--ivory); opacity:.6}
+.tline span:hover,.tline span:focus{outline:1px solid var(--ivory)}
+.tline-labels{display:flex; gap:2px; font-family:var(--f-mono); font-size:.58rem; color:var(--dim)}
+.tline-labels span{display:block; text-align:center; overflow:hidden; white-space:nowrap}
+.tline-read{font-family:var(--f-mono); font-size:.75rem; color:var(--dim); min-height:1.3em}
+.facts{display:flex; flex-wrap:wrap; gap:1rem 2.6rem}
+.facts div{display:grid}
+.facts b{font-family:var(--f-display); font-weight:500; font-size:clamp(2rem,4vw,3rem); line-height:1.1; font-variant-numeric:lining-nums tabular-nums}
+.facts span{font-family:var(--f-mono); font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:var(--dim)}
+.tbl-wrap{overflow-x:auto}
+table.grid{border-collapse:collapse; width:100%; min-width:40rem; font-size:.92rem}
+table.grid th{font:500 .64rem var(--f-mono); letter-spacing:.1em; text-transform:uppercase; color:var(--dim); text-align:left; padding:.45rem .6rem; border-bottom:1px solid var(--faint)}
+table.grid td{padding:.55rem .6rem; border-bottom:1px solid rgba(44,63,102,.6); vertical-align:top; color:var(--dim)}
+table.grid td:first-child{color:var(--ivory); font-family:var(--f-display); font-size:1.05rem; white-space:nowrap}
+table.grid td.m{font-family:var(--f-mono); font-size:.76rem; color:var(--brass); white-space:nowrap}
+.kgrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,22rem),1fr)); gap:1.6rem 1.2rem}
+.kgrid figure{margin:0; display:grid; gap:.5rem; align-content:start}
+.kgrid figure.wide{grid-column:1 / -1}
+.kgrid img,.tboard img{display:block; width:100%; height:auto; aspect-ratio:16/9; border-radius:3px; box-shadow:0 0 0 1px var(--faint); background:var(--ground-2)}
+.kgrid figure.wide img{box-shadow:0 0 0 2px var(--brass)}
+figcaption{font-size:.9rem; color:var(--dim)}
+figcaption b{color:var(--ivory); font-weight:600}
+figcaption .m{font-family:var(--f-mono); font-size:.68rem; letter-spacing:.06em; color:var(--brass); margin-right:.4rem}
+.tlist{display:grid; gap:3.2rem}
+.tboard{display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr); gap:1.2rem 2rem; align-items:start}
+.tboard .meta{display:grid; gap:.8rem; min-width:0}
+.tboard h4{font-size:clamp(1.6rem,3vw,2.2rem)}
+.tboard .why{color:var(--ivory)}
+.tboard .tag{font-family:var(--f-mono); font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:var(--brass)}
+.chor-wrap{overflow-x:auto}
+.chor{border-collapse:collapse; width:100%; font-size:.84rem; min-width:22rem}
+.chor th{font:500 .62rem var(--f-mono); letter-spacing:.1em; text-transform:uppercase; color:var(--dim); text-align:left; padding:.3rem .4rem; border-bottom:1px solid var(--faint)}
+.chor td{padding:.35rem .4rem; border-bottom:1px solid rgba(44,63,102,.6); vertical-align:top; color:var(--dim)}
+.chor td.r{font-family:var(--f-mono); font-size:.72rem; white-space:nowrap; color:var(--ivory); font-variant-numeric:tabular-nums}
+.chor td.e{font-family:var(--f-mono); font-size:.7rem; color:var(--brass)}
+.bar{display:block; height:6px; background:var(--faint); border-radius:3px; position:relative; margin-top:.3rem; min-width:5rem}
+.bar i{position:absolute; top:0; bottom:0; background:var(--brass); border-radius:3px}
+.files{margin:0; padding-left:1.2rem; display:grid; gap:.45rem; color:var(--dim); font-size:.95rem}
+.files code,.cmd code{color:var(--ivory)}
+.cmd{background:var(--ground-2); border-radius:4px; padding:.8rem 1rem; overflow-x:auto}
+.sources{margin:0; padding-left:1.3rem; display:grid; gap:.5rem; color:var(--dim); font-size:.92rem}
+.foot{border-top:1px solid var(--faint); padding-top:1rem; display:flex; flex-wrap:wrap; gap:.5rem 2rem; justify-content:space-between; font-family:var(--f-mono); font-size:.7rem; color:var(--dim)}
+@media (max-width: 860px){ .tboard{grid-template-columns:minmax(0,1fr)} .hud{width:62%; font-size:.72rem} .find{grid-template-columns:minmax(0,1fr)} .find article,.find article:nth-child(n+4){grid-column:auto} }
+@media (prefers-reduced-motion: reduce){ *{transition:none !important; animation:none !important; scroll-behavior:auto !important} }
+</style>
+</head>
+<body>
+<header class="topbar wrap">
+  <a class="brand" href="#film">Ada Lovelace<span>Full sound · 1815–1852</span></a>
+  <ul>
+    <li><a class="nav" href="#film">Film</a></li>
+    <li><a class="nav" href="#research">Research</a></li>
+    <li><a class="nav" href="#loops">Loops</a></li>
+    <li><a class="nav" href="#sound">Sound</a></li>
+    <li><a class="nav" href="#keyframes">Keyframes</a></li>
+    <li><a class="nav" href="#transitions">Transitions</a></li>
+    <li><a class="nav" href="#files">Files</a></li>
+    <li><a class="nav" href="../">Note G version</a></li>
+    <li><a class="nav out" href="../portfolio/">Portfolio ↗</a></li>
+  </ul>
+</header>
+
+<section class="film" id="film" aria-label="The film. Scroll to play it.">
+  <div class="sticky" id="sticky">
+    <div class="stage" id="stage-box">
+      <canvas id="stage" width="1920" height="1080" role="img" aria-label="Ada Lovelace, a film of ten scenes driven by scrolling."></canvas>
+      <aside class="hud" id="hud" hidden aria-live="polite"></aside>
+    </div>
+    <div class="deck" id="deck">
+      <div class="scrub" id="scrub" role="slider" tabindex="0" aria-label="Film position" aria-valuemin="0" aria-valuemax="88" aria-valuenow="0"><div class="segs" id="scrub-segs"></div><div class="head" id="scrub-head"></div></div>
+      <div class="deck-row">
+        <div class="btns">
+          <button class="btn" id="b-prev" type="button" aria-label="Previous keyframe">◀ Key</button>
+          <button class="btn btn-primary" id="b-play" type="button">Play</button>
+          <button class="btn" id="b-next" type="button" aria-label="Next keyframe">Key ▶</button>
+          <button class="btn" id="b-sound" type="button" aria-pressed="false">Sound</button>
+          <button class="btn" id="b-notes" type="button" aria-pressed="false">Motion notes</button>
+          <button class="btn" id="b-full" type="button">Full screen</button>
+        </div>
+        <p class="readout" id="readout"><b>T0</b> · 0.0 s</p>
+        <p class="hint">Scroll to turn the handle · ← → keyframes · space plays · S sound</p>
+        <p class="rotate">Turn your phone sideways for a larger stage.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="study wrap" id="study">
+  <section class="bleed" aria-label="Poetical science, running live">
+    <canvas class="bleed-cv" data-scene="1" role="img" aria-label="The words poetical and science woven together as weft and warp, a shuttle crossing every four beats."></canvas>
+    <p class="tag">II · Poetical Science · running live</p>
+  </section>
+
+  <section class="sec" aria-labelledby="study-h">
+    <div class="sec-head">
+      <p class="eyebrow">Motion study</p>
+      <h2 id="study-h">How the film moves, and why</h2>
+      <p class="lede">The film above is a scroll-driven website: one pinned 16:9 stage, ten keyframes and nine transitions, about a minute and a half played straight through. Every motion in it is built from a mechanism Lovelace described or could have watched: the shuttle and card prism of Jacquard’s loom, the Store and carry of Babbage’s engines, the pendulum. When the film rests on a keyframe the scene keeps going, and with sound on it keeps sounding. Two scenes break the frame and fill it edge to edge. This study records the research, the timing, the loops, the sound and the reason for each transition.</p>
+    </div>
+    <div class="facts" id="facts"></div>
+  </section>
+
+  <section class="sec" id="research" aria-labelledby="research-h">
+    <div class="sec-head">
+      <p class="eyebrow">Research</p>
+      <h3 id="research-h">Five findings that set the rules</h3>
+    </div>
+    <div class="find">
+      <article>
+        <h4>One card, one pick</h4>
+        <p>On a Jacquard loom the card chain runs over a square prism. Each quarter-turn presents a new card; where it has a hole, a needle passes and its hook is lifted with the warp thread it controls. One card governs one throw of the shuttle.</p>
+        <p class="so">Every reveal advances one row at a time, and anything card-like moves with the prism’s quarter-turn: quick, a small overshoot, settled.</p>
+        <p class="src"><a href="https://en.wikipedia.org/wiki/Jacquard_machine">Jacquard machine</a></p>
+      </article>
+      <article>
+        <h4>Give off, then carry</h4>
+        <p>In Babbage’s Difference Engine No. 2 each half-cycle first adds every figure at once, then deals with carries one position at a time from the lowest figure up. A carry can ripple through a run of nines.</p>
+        <p class="so">The Store’s figures are set in that order: the bottom disc turns first and each turn passes upward.</p>
+        <p class="src"><a href="https://ed-thelen.org/bab/bab_tech_calc.html">Technical description, ed-thelen.org</a></p>
+      </article>
+      <article>
+        <h4>Motion from stills, 1833–34</h4>
+        <p>When Lovelace was eighteen, Plateau’s phenakistiscope (1832–33) and Horner’s Daedaleum (described in January 1834) made motion from a ring of still drawings seen through slits. Sources disagree on the exact years.</p>
+        <p class="so">The film was designed stills first, as those devices teach: keyframes, then the in-betweens, then the loops that run while a still is held.</p>
+        <p class="src"><a href="https://en.wikipedia.org/wiki/Zoetrope">Zoetrope</a> · <a href="https://historyofinformation.com/detail.php?id=3675">History of Information</a></p>
+      </article>
+      <article>
+        <h4>Two pendulums, one figure</h4>
+        <p>The harmonograph draws with two pendulums, one per axis. Simple frequency ratios close into simple figures. It is usually credited to Hugh Blackburn in the 1840s, though the attribution is uncertain.</p>
+        <p class="so">Released things swing past rest and settle, and every musical ratio in the film is drawn at the pendulums’ own pace.</p>
+        <p class="src"><a href="https://en.wikipedia.org/wiki/Harmonograph">Harmonograph</a></p>
+      </article>
+      <article>
+        <h4>Pinned stage, scrubbed time</h4>
+        <p>Scroll-driven storytelling pins a stage while the scroll scrubs a timeline; scrolling back reverses the motion. Good practice pairs every effect with a reduced-motion branch. The form is usually traced to the New York Times’ <i>Snow Fall</i> (2012).</p>
+        <p class="so">The scroll is the crank handle. With reduced motion the stage steps between keyframes, the loops stop and nothing animates.</p>
+        <p class="src"><a href="https://tessl.io/registry/skills/github/MengTo/Skills/gsap-scrolltrigger-storytelling">ScrollTrigger storytelling guide</a></p>
+      </article>
+    </div>
+  </section>
+
+  <section class="sec" id="materials" aria-labelledby="mat-h">
+    <div class="sec-head">
+      <p class="eyebrow">Motion materials</p>
+      <h3 id="mat-h">Five materials, each a mechanism</h3>
+      <p class="lede">No motion in the film uses a generic curve. The plots below are drawn by the same functions the film runs.</p>
+    </div>
+    <div class="mats" id="mats"></div>
+  </section>
+
+  <section class="sec" id="tempo" aria-labelledby="tempo-h">
+    <div class="sec-head">
+      <p class="eyebrow">Tempo</p>
+      <h3 id="tempo-h">Counted in beats</h3>
+      <p class="lede">One beat is 480 milliseconds, 125 to the minute. Holds run six to sixteen beats and transitions eight to fourteen, so the film can be cut to music without retiming, and the synthesised sound sits on the same grid. The bar below is the whole film to scale: brass segments are transitions, pale ones the two full-bleed scenes.</p>
+    </div>
+    <div class="tempo">
+      <div class="tline" id="tline" role="list" aria-label="Film timeline to scale"></div>
+      <div class="tline-labels" id="tline-labels" aria-hidden="true"></div>
+      <p class="tline-read" id="tline-read">Point at a segment for its timing.</p>
+    </div>
+  </section>
+
+  <section class="sec" id="loops" aria-labelledby="loops-h">
+    <div class="sec-head">
+      <p class="eyebrow">Loops</p>
+      <h3 id="loops-h">Scenes that keep moving</h3>
+      <p class="lede">A keyframe is where the scroll can rest, but the scene does not stop. An ambient clock runs underneath, and each scene has its own loop, faded in one beat after the transition lands and out one beat before the next, so every transition still starts from the exact keyframe. The keyframe stills below are taken with the loops at rest.</p>
+    </div>
+    <div class="tbl-wrap"><table class="grid" id="loop-table"><thead><tr><th>Scene</th><th>Loop</th><th>What keeps moving</th><th>What you hear</th></tr></thead><tbody></tbody></table></div>
+  </section>
+
+  <section class="bleed" aria-label="Twenty-four thousand cards, running live">
+    <canvas class="bleed-cv" data-scene="6" role="img" aria-label="A wall of 24,000 cards with the number picked out in lit cards, a reader running down it row by row."></canvas>
+    <p class="tag">VII · 24,000 · running live</p>
+  </section>
+
+  <section class="sec" id="sound" aria-labelledby="sound-h">
+    <div class="sec-head">
+      <p class="eyebrow">Sound</p>
+      <h3 id="sound-h">Every sound is a mechanism too</h3>
+      <p class="lede">Sound is off until you press Sound. Nothing is a recording: every sound is synthesised in the browser from the same timeline that draws the frames, so a card clicks when it lands and a note sounds when its hole is punched. The music scene plays the numerators of the Bernoulli numbers on a justly tuned scale over a G drone, as Note A imagined the Engine might. The exported video carries the same soundtrack, rendered offline.</p>
+    </div>
+    <div class="tbl-wrap"><table class="grid"><thead><tr><th>Sound</th><th>Made from</th><th>Where it is heard</th></tr></thead><tbody>
+      <tr><td>Card click</td><td>A short burst of band-passed noise and a falling wooden knock</td><td>Every card the reader takes, pitched by its operation (+ − × ÷); the chain advancing a notch</td></tr>
+      <tr><td>Shuttle</td><td>Noise in a band that sweeps upward as the shuttle crosses</td><td>Weaving in, unweaving, the long passes behind the woven words</td></tr>
+      <tr><td>Batten</td><td>A low sine dropping an octave</td><td>Each pick beaten up, discs landing, the result punched in</td></tr>
+      <tr><td>Ratchet</td><td>Eleven clicks falling in pitch</td><td>The chain backing up from card 23 to card 13</td></tr>
+      <tr><td>Harp</td><td>A triangle wave with two overtones, in just intonation on G (196 Hz)</td><td>The music roll in IX; each hole punched in the transition before it</td></tr>
+      <tr><td>Air</td><td>Low-passed noise that opens and closes</td><td>Every wingbeat in Flyology; the shuttle passing each crest in flight</td></tr>
+      <tr><td>Bell</td><td>Four inharmonic partials</td><td>The woven words landing, the number 24,000, the final rest</td></tr>
+      <tr><td>Drone bed</td><td>G and D under everything; a full G major chord in the two full-bleed scenes</td><td>Throughout, following the scene</td></tr>
+    </tbody></table></div>
+  </section>
+
+  <section class="sec" id="keyframes" aria-labelledby="key-h">
+    <div class="sec-head">
+      <p class="eyebrow">Keyframes</p>
+      <h3 id="key-h">Ten keyframes at 1920 × 1080</h3>
+      <p class="lede">Exported from the engine at the middle of each hold, at presentation ratio. The two full-bleed scenes are shown wide.</p>
+    </div>
+    <div class="kgrid" id="kgrid"></div>
+  </section>
+
+  <section class="sec" id="transitions" aria-labelledby="tr-h">
+    <div class="sec-head">
+      <p class="eyebrow">Transitions</p>
+      <h3 id="tr-h">The motion between, and its relation to her work</h3>
+      <p class="lede">Each board shows six moments of one transition on a 16:9 sheet, with its lead easing curve. The table gives every movement’s span as a share of the transition.</p>
+    </div>
+    <div class="tlist" id="tlist"></div>
+  </section>
+
+  <section class="sec" id="files" aria-labelledby="files-h">
+    <div class="sec-head">
+      <p class="eyebrow">Files</p>
+      <h3 id="files-h">Exports</h3>
+      <p class="lede">All exports come from the same engine as the site, in <code>motion/exports/</code> of the project folder.</p>
+    </div>
+    <ul class="files">
+      <li><code>keyframes/K01_portrait.png</code> … <code>K10_no-pretensions.png</code>: ten keyframes, 1920 × 1080 PNG, loops at rest.</li>
+      <li><code>boards/T0_…png</code> … <code>T9_…png</code>: ten motion boards, 1920 × 1080 PNG.</li>
+      <li><code>Lovelace-in-Motion_storyboard.png</code>: all ten keyframes on one sheet.</li>
+      <li><code>Lovelace-in-Motion_deck.pdf</code>: twenty 16:9 pages, keyframes and boards in film order, 13.33 × 7.5 in, the widescreen slide size.</li>
+      <li><code>video/Lovelace-in-Motion_1080p30.mp4</code>: the whole film with its soundtrack; <code>video/T1_…mp4</code> …: each transition with half a second of hold either side.</li>
+      <li><code>loops/K01_portrait_loop.mp4</code> …: each scene’s living loop at full strength, with its sound, for slides.</li>
+      <li><code>audio/Lovelace-in-Motion_soundtrack.wav</code>: the soundtrack alone.</li>
+    </ul>
+    <p class="cmd"><code>.venv\Scripts\python motion\tools\export.py</code> regenerates every file.</p>
+  </section>
+
+  <section class="sec" aria-labelledby="src-h">
+    <div class="sec-head">
+      <p class="eyebrow">Sources</p>
+      <h3 id="src-h">Sources</h3>
+    </div>
+    <ol class="sources">
+      <li>L. F. Menabrea, “Sketch of the Analytical Engine,” translated with notes by A.A.L., <i>Scientific Memoirs</i> III (1843). <a href="https://www.fourmilab.ch/babbage/sketch.html">Transcription, Fourmilab</a>. Notes A, B, C, F and G are quoted from it.</li>
+      <li>Betty A. Toole, <i>Ada, the Enchantress of Numbers</i> (1992), for “poetical science”, the 1841 passage on imagination and the 1828 letters on flying.</li>
+      <li><a href="https://en.wikipedia.org/wiki/Jacquard_machine">Jacquard machine</a>, Wikipedia: card chain, prism, one card per pick, the 24,000-card portrait.</li>
+      <li><a href="https://ed-thelen.org/bab/bab_tech_calc.html">Babbage Difference Engine No. 2, technical description</a>: half-cycles, giving off, successive carry.</li>
+      <li><a href="https://en.wikipedia.org/wiki/Zoetrope">Zoetrope</a>, Wikipedia, and <a href="https://historyofinformation.com/detail.php?id=3675">History of Information</a>: phenakistiscope and Daedaleum.</li>
+      <li><a href="https://en.wikipedia.org/wiki/Harmonograph">Harmonograph</a>, Wikipedia: Blackburn, Lissajous figures.</li>
+      <li><a href="https://tessl.io/registry/skills/github/MengTo/Skills/gsap-scrolltrigger-storytelling">GSAP ScrollTrigger storytelling guide</a>: pinned scenes, scrubbing, reduced motion.</li>
+      <li>Portrait: Alfred Edward Chalon, watercolour, c. 1840, Science Museum Group; public domain via Wikimedia Commons.</li>
+    </ol>
+    <div class="foot"><span>Original texts and portrait: public domain. Film, engine, sound and boards: new work, 2026.</span><span>Ada Lovelace · <a href="../portfolio/">the portfolio</a></span></div>
+  </section>
+</main>
+
+<script src="motion-engine.js"></script>
+<script>
+(async () => {
+'use strict';
+const LM = window.LovelaceMotion;
+const $ = s => document.querySelector(s);
+const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
+const query = new URLSearchParams(location.search);
+await LM.init({ portrait: 'assets/chalon-portrait-1840.jpg' });
+
+/* ---------- export mode: used by tools/export.py ---------- */
+if (query.has('export')) {
+  const cv = document.createElement('canvas'); cv.width = LM.W; cv.height = LM.H; const cx = cv.getContext('2d');
+  window.LMX = {
+    meta: () => ({ duration: LM.DURATION, keyTimes: LM.KEY_TIMES, loopLen: LM.LOOP_LEN, titles: LM.KF.map(k => k.title),
+      segs: LM.SEGS.map(s => ({ id: s.id, kind: s.kind, k: s.k, t0: s.t0, t1: s.t1, name: s.name || null })) }),
+    frame: (t, type = 'image/png', q = 0.95, still = false) => { LM.render(cx, t, still ? { amb: 0 } : {}); return cv.toDataURL(type, q); },
+    loopFrame: (k, tau) => { LM.render(cx, LM.KEY_TIMES[k], { amb: 1, tau }); return cv.toDataURL('image/jpeg', 0.95); },
+    board: id => { LM.drawBoard(cx, id); return cv.toDataURL('image/png'); },
+    overview: () => { LM.drawOverview(cx); return cv.toDataURL('image/png'); },
+    audio: (t0, t1) => LM.renderAudio(t0, t1),
+    loopAudio: k => LM.renderAudio(0, LM.LOOP_LEN[k], { loop: k }),
+    ready: true,
+  };
+  return;
+}
+
+/* ---------- the live film ---------- */
+const stage = $('#stage'), ctx = stage.getContext('2d'), box = $('#stage-box'), film = $('#film'), deck = $('#deck'), sticky = $('#sticky');
+const hud = $('#hud'), readout = $('#readout'), scrub = $('#scrub'), head = $('#scrub-head');
+const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+const PX_PER_S = 100, D = LM.DURATION;
+let t = 0, target = 0, playing = false, playTo = null, last = performance.now(), drawn = -1, syncing = false, hudSeg = null;
+let tau = 0, prevT = 0, prevTau = 0;
+
+/* full-bleed bands: scenes II and VII running live, cropped to cover */
+const bands = [...document.querySelectorAll('canvas.bleed-cv')].map(cv => ({ cv, k: +cv.dataset.scene, ctx: cv.getContext('2d'), vis: false, drawn: false }));
+function sizeBand(b) { const r = b.cv.getBoundingClientRect(), d = Math.min(1.5, window.devicePixelRatio || 1); b.cv.width = Math.max(2, Math.round(r.width * d)); b.cv.height = Math.max(2, Math.round(r.height * d)); b.drawn = false; }
+if ('IntersectionObserver' in window) { const io = new IntersectionObserver(es => es.forEach(e => { const b = bands.find(x => x.cv === e.target); if (b) b.vis = e.isIntersecting; }), { rootMargin: '60px' }); bands.forEach(b => io.observe(b.cv)); }
+else bands.forEach(b => b.vis = true);
+function drawBand(b) {
+  const s = Math.max(b.cv.width / LM.W, b.cv.height / LM.H);
+  b.ctx.setTransform(s, 0, 0, s, (b.cv.width - LM.W * s) / 2, (b.cv.height - LM.H * s) / 2);
+  LM.renderScene(b.ctx, b.k, tau, reduce.matches ? 0 : 1); b.drawn = true;
+}
+
+function layout() {
+  film.style.height = `calc(${Math.round(D * PX_PER_S)}px + 100vh)`;
+  const full = document.fullscreenElement === sticky;
+  const aw = (full ? window.innerWidth : document.documentElement.clientWidth) - 32, ah = window.innerHeight - deck.offsetHeight - 40;
+  const s = Math.max(0.1, Math.min(aw / LM.W, ah / LM.H));
+  box.style.width = Math.floor(LM.W * s) + 'px'; box.style.height = Math.floor(LM.H * s) + 'px';
+  deck.style.setProperty('--stage-w', Math.floor(LM.W * s) + 'px');
+  drawn = -1;
+  bands.forEach(sizeBand);
+}
+const span = () => Math.max(1, film.offsetHeight - window.innerHeight);
+function scrollTime() { const r = film.getBoundingClientRect(); return clamp(-r.top / span(), 0, 1) * D; }
+function scrollToTime(x) { if (document.fullscreenElement) return; syncing = true; window.scrollTo(0, film.offsetTop + (x / D) * span()); }
+const nearestKey = x => LM.KEY_TIMES.reduce((a, k) => Math.abs(k - x) < Math.abs(a - x) ? k : a, LM.KEY_TIMES[0]);
+
+addEventListener('scroll', () => { if (syncing) { syncing = false; return; } if (!playing && !document.fullscreenElement) target = scrollTime(); }, { passive: true });
+addEventListener('resize', () => layout());
+document.addEventListener('fullscreenchange', () => { $('#b-full').textContent = document.fullscreenElement ? 'Exit full screen' : 'Full screen'; layout(); });
+
+function curvePath(fn, w = 300, h = 64) {
+  let d = ''; for (let i = 0; i <= 60; i++) { const u = i / 60, v = fn(u); d += `${i ? 'L' : 'M'}${(u * w).toFixed(1)},${(h - 6 - v * (h - 16)).toFixed(1)}`; } return d;
+}
+const LOOP_NOTE = [
+  ['16 beats', 'The loom reads the portrait again, one row at a time', 'A soft pick every four rows'],
+  ['4 beats a pass', 'A shuttle crosses; behind it over and under swap, and the shed opens and closes', 'A long swish, then the batten'],
+  ['1 beat', 'One wingbeat a beat; the air streams back past the bird', 'Air under the wing'],
+  ['16 beats', 'k breathes from 2 to 2.22 and back, and the envelope bends with it', 'A bell at the far point'],
+  ['2 picks a beat', 'The cloth rises as new rows are woven; a new card each pick', 'Shuttle and batten'],
+  ['1 beat a column', 'A carry runs up one column, lowest disc first', 'Ten rising clicks'],
+  ['8 beats', 'A reader runs down the wall, one row of cards at a time', 'A fine ratchet'],
+  ['16 beats', 'The 36 operations run again, backing at card 23', 'A click per card, pitched by operation; a ratchet for the backing'],
+  ['34 beats', 'The roll plays the Bernoulli numerators; each note’s ratio is drawn and named', 'Harp notes in just intonation over a G drone'],
+  ['8 beats', 'The full stop pulses', 'A quiet bell'],
+];
+function updateHud(x) {
+  const { s, p } = LM.segmentAt(x);
+  if (hudSeg !== s.id) {
+    hudSeg = s.id;
+    if (s.kind === 'k') {
+      const n = LOOP_NOTE[s.k];
+      hud.innerHTML = `<p class="hud-id">K${s.k + 1} · keyframe · hold ${s.beats} beats${LM.KF[s.k].full ? ' · full bleed' : ''}</p><p class="hud-name">${LM.ROMAN[s.k]} · ${LM.KF[s.k].title}</p>
+        <p class="hud-work">${LM.KF[s.k].bl}</p><p class="hud-mech">Loop · ${n[0]}</p><p class="hud-work" style="font-style:normal">${n[1]}. Sound: ${n[2].toLowerCase()}.</p>`;
+    } else {
+      hud.innerHTML = `<p class="hud-id">${s.id} · ${s.beats} beats · ${s.dur.toFixed(2)} s</p><p class="hud-name">${s.name}</p>
+        <p class="hud-mech">${s.mech}</p><p class="hud-work">${s.work}</p>
+        <svg viewBox="0 0 300 64" preserveAspectRatio="none" aria-hidden="true"><path d="${curvePath(LM.EASE[s.ease])}" fill="none" stroke="#D8B064" stroke-width="2"/><line id="hud-ph" x1="0" x2="0" y1="0" y2="64" stroke="#ECE8DC" stroke-width="1.5"/></svg>
+        <ol>${s.chor.map(([a, b, w, e]) => `<li data-a="${a}" data-b="${b}">${w}<span>${Math.round(a * 100)}–${Math.round(b * 100)}% · ${e}</span></li>`).join('')}</ol>`;
+    }
+  }
+  if (s.kind === 't') {
+    const ph = hud.querySelector('#hud-ph'); if (ph) { ph.setAttribute('x1', p * 300); ph.setAttribute('x2', p * 300); }
+    hud.querySelectorAll('li').forEach(li => li.classList.toggle('on', p >= +li.dataset.a && p <= +li.dataset.b));
+  }
+  readout.innerHTML = `<b>${s.id}</b> · ${s.kind === 'k' ? LM.KF[s.k].title : s.name} · ${x.toFixed(1)} s / ${D.toFixed(1)} s`;
+  head.style.left = (x / D * 100) + '%'; scrub.setAttribute('aria-valuenow', x.toFixed(1));
+}
+
+function loop(now) {
+  const dt = Math.min(0.1, (now - last) / 1000); last = now; tau += dt;
+  if (playing) {
+    t += dt;
+    if (playTo != null && t >= playTo) { t = playTo; stop(); }
+    if (t >= D) { t = D; stop(); }
+    target = t; scrollToTime(t);
+  } else {
+    t += (target - t) * (1 - Math.exp(-dt * 9));
+    if (Math.abs(target - t) < 0.002) t = target;
+  }
+  const show = reduce.matches ? nearestKey(t) : t;
+  const { s } = LM.segmentAt(show);
+  const alive = !reduce.matches && s.kind === 'k' && LM.ambAt(s, show) > 0.001;
+  if (alive || Math.abs(show - drawn) > 1e-4) {
+    LM.render(ctx, show, reduce.matches ? { amb: 0, tau } : { tau });
+    if (Math.abs(show - drawn) > 1e-4) updateHud(show);
+    drawn = show;
+  }
+  LM.audio.frame(prevT, show, prevTau, tau, !reduce.matches); prevT = show; prevTau = tau;
+  for (const b of bands) if (b.vis && (!reduce.matches || !b.drawn)) drawBand(b);
+  requestAnimationFrame(loop);
+}
+function play(to = null) {
+  if (reduce.matches) { const k = to ?? D; t = target = k; scrollToTime(k); return; }
+  if (t >= D - 0.01 && to == null) t = target = 0;
+  playing = true; playTo = to; $('#b-play').textContent = 'Pause';
+}
+function stop() { playing = false; playTo = null; $('#b-play').textContent = 'Play'; }
+$('#b-play').addEventListener('click', () => playing ? stop() : play());
+const nextKey = () => LM.KEY_TIMES.find(k => k > t + 0.05);
+const prevKey = () => [...LM.KEY_TIMES].reverse().find(k => k < t - 0.05) ?? 0;
+$('#b-next').addEventListener('click', () => { const k = nextKey(); if (k != null) play(k); });
+$('#b-prev').addEventListener('click', () => { stop(); const k = prevKey(); target = k; scrollToTime(k); if (document.fullscreenElement) t = k; });
+$('#b-notes').addEventListener('click', e => { hud.hidden = !hud.hidden; e.currentTarget.setAttribute('aria-pressed', String(!hud.hidden)); hudSeg = null; drawn = -1; });
+$('#b-sound').addEventListener('click', async e => {
+  const btn = e.currentTarget;
+  if (LM.audio.on) { LM.audio.stop(); btn.setAttribute('aria-pressed', 'false'); btn.textContent = 'Sound'; return; }
+  const ok = await LM.audio.start();
+  btn.setAttribute('aria-pressed', String(ok)); btn.textContent = ok ? 'Sound on' : 'No sound here';
+});
+$('#b-full').addEventListener('click', async () => {
+  try { if (document.fullscreenElement) await document.exitFullscreen(); else await sticky.requestFullscreen(); }
+  catch (err) { $('#b-full').textContent = 'Full screen unavailable'; }
+});
+addEventListener('keydown', e => {
+  if (e.target.closest('input, textarea, select')) return;
+  const r = film.getBoundingClientRect(); if (!document.fullscreenElement && (r.bottom < 0 || r.top > innerHeight)) return;
+  if (e.key === 'ArrowRight') { e.preventDefault(); $('#b-next').click(); }
+  else if (e.key === 'ArrowLeft') { e.preventDefault(); $('#b-prev').click(); }
+  else if (e.key === ' ') { e.preventDefault(); $('#b-play').click(); }
+  else if (e.key === 'n' || e.key === 'N') $('#b-notes').click();
+  else if (e.key === 's' || e.key === 'S') $('#b-sound').click();
+});
+// segmented scrubber: holds faint, transitions brass, the full-bleed holds pale, all to scale
+$('#scrub-segs').innerHTML = LM.SEGS.map(s => `<span class="${s.kind}${s.kind === 'k' && LM.KF[s.k].full ? ' full' : ''}" style="flex:${s.beats}"></span>`).join('');
+function scrubTo(ev) { const r = scrub.getBoundingClientRect(); const x = clamp((ev.clientX - r.left) / r.width, 0, 1) * D; stop(); target = x; scrollToTime(x); if (document.fullscreenElement) t = x; }
+scrub.addEventListener('pointerdown', e => { scrub.setPointerCapture(e.pointerId); scrubTo(e); });
+scrub.addEventListener('pointermove', e => { if (scrub.hasPointerCapture(e.pointerId)) scrubTo(e); });
+scrub.addEventListener('keydown', e => { if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.stopPropagation(); e.preventDefault(); const k = e.key === 'ArrowRight' ? nextKey() : prevKey(); if (k != null) { stop(); target = k; scrollToTime(k); } } });
+
+layout(); target = t = scrollTime(); prevT = t; requestAnimationFrame(loop);
+// Arriving at the top, the opening plays by itself and stops on the first keyframe.
+if (t < 0.05) play(LM.KEY_TIMES[0]);
+
+/* ---------- the study, built from the engine's own data ---------- */
+const trans = LM.SEGS.filter(s => s.kind === 't');
+$('#facts').innerHTML = [[LM.KF.length, 'keyframes'], [trans.length - 1, 'transitions, plus an opening'], [LM.KF.filter(k => k.full).length, 'full-bleed scenes'],
+  [LM.SEGS.reduce((a, s) => a + s.beats, 0), 'beats'], [D.toFixed(1) + ' s', 'running time']]
+  .map(([b, s]) => `<div><b>${b}</b><span>${s}</span></div>`).join('');
+
+const svgCurve = fn => `<svg viewBox="0 0 300 200" aria-hidden="true"><line x1="20" y1="180" x2="290" y2="180" stroke="#2C3F66"/><line x1="20" y1="20" x2="20" y2="180" stroke="#2C3F66"/>
+  <line x1="20" y1="45" x2="290" y2="45" stroke="#2C3F66" stroke-dasharray="3 5"/>
+  <path d="${(() => { let d = ''; for (let i = 0; i <= 120; i++) { const u = i / 120; d += `${i ? 'L' : 'M'}${(20 + u * 270).toFixed(1)},${(180 - fn(u) * 135).toFixed(1)}`; } return d; })()}" fill="none" stroke="#D8B064" stroke-width="3"/></svg>`;
+const carrySvg = (() => { let r = ''; for (let d = 0; d < 10; d++) { const a = 0.68 + 0.022 * d, x = 20 + (a - 0.6) / 0.4 * 270, w = 0.06 / 0.4 * 270, y = 170 - d * 15; r += `<rect x="${x.toFixed(1)}" y="${y}" width="${w.toFixed(1)}" height="10" rx="3" fill="#D8B064" opacity="${(1 - d * 0.06).toFixed(2)}"/>`; }
+  return `<svg viewBox="0 0 300 200" aria-hidden="true"><line x1="20" y1="185" x2="290" y2="185" stroke="#2C3F66"/>${r}<text x="22" y="30" fill="#9AA6C0" font-family="IBM Plex Mono" font-size="12">top disc last</text><text x="160" y="196" fill="#9AA6C0" font-family="IBM Plex Mono" font-size="12">bottom disc first ↑</text></svg>`; })();
+const envSvg = (() => { let l = ''; const N = 72, cx = 150, cy = 100, R = 85; for (let i = 0; i < N; i++) { const a1 = 2 * Math.PI * i / N - Math.PI / 2, a2 = 2 * Math.PI * ((2 * i) % N) / N - Math.PI / 2; l += `M${(cx + R * Math.cos(a1)).toFixed(1)},${(cy + R * Math.sin(a1)).toFixed(1)}L${(cx + R * Math.cos(a2)).toFixed(1)},${(cy + R * Math.sin(a2)).toFixed(1)}`; }
+  return `<svg viewBox="0 0 300 200" aria-hidden="true"><circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="#2C3F66"/><path d="${l}" stroke="#D8B064" stroke-width="1" opacity=".7"/></svg>`; })();
+const MATS = [
+  { h: 'Thread · the shuttle', svg: svgCurve(LM.EASE.shuttle), p: 'Thrown, crosses at speed, caught. Velocity is a trapezoid: a fifth of the time to accelerate, a fifth to brake, constant between.', use: 'Every wipe, every pick, the flight in T2' },
+  { h: 'Card · the detent', svg: svgCurve(LM.EASE.detent), p: 'The prism turns a quarter and drops into its notch: fast, an overshoot of about six per cent, then still. The dashed line marks rest.', use: 'Cards, discs, the chain navigation, the punched result' },
+  { h: 'Disc · successive carry', svg: carrySvg, p: 'An order rather than a curve. The lowest disc turns first and each turn passes upward, 0.022 of the transition apart, as in Babbage’s carry.', use: 'T5, setting the Store; the Store’s loop' },
+  { h: 'Pendulum', svg: svgCurve(LM.EASE.pendulum), p: 'Released, it swings past rest and dies away: 1 − e^(−8t) · cos 5πt. Used only for things that are let go.', use: 'The pendulum guides in T8' },
+  { h: 'Envelope', svg: envSvg, p: 'Many straight lines and no curve. A form appears as a by-product of order, the way the cardioid appears from the multiplication table.', use: 'T3, T4, the breathing loop of IV' },
+];
+$('#mats').innerHTML = MATS.map(m => `<article class="mat">${m.svg}<h4>${m.h}</h4><p>${m.p}</p><p class="use">${m.use}</p></article>`).join('');
+
+$('#tline').innerHTML = LM.SEGS.map(s => `<span role="listitem" tabindex="0" class="${s.kind}${s.kind === 'k' && LM.KF[s.k].full ? ' full' : ''}" style="flex:${s.beats}" data-read="${s.id} · ${s.kind === 'k' ? 'hold, ' + LM.KF[s.k].title : s.name} · ${s.beats} beats · ${s.t0.toFixed(2)}–${s.t1.toFixed(2)} s" aria-label="${s.id}, ${s.beats} beats"></span>`).join('');
+$('#tline-labels').innerHTML = LM.SEGS.map(s => `<span style="flex:${s.beats}">${s.id}</span>`).join('');
+document.querySelectorAll('#tline span').forEach(sp => { const show = () => $('#tline-read').textContent = sp.dataset.read; sp.addEventListener('mouseenter', show); sp.addEventListener('focus', show); });
+
+$('#loop-table tbody').innerHTML = LOOP_NOTE.map((n, i) => `<tr><td>${LM.ROMAN[i]} · ${LM.KF[i].title}</td><td class="m">${n[0]}</td><td>${n[1]}</td><td>${n[2]}</td></tr>`).join('');
+
+const SLUG = ['portrait', 'poetical-science', 'flyology', 'discovering-faculty', 'loom', 'store', '24000', 'program', 'pitched-sounds', 'no-pretensions'];
+const KCAP = [
+  'Chalon’s watercolour woven as a Jacquard cloth: 130 threads, 130 cards, each thread up or down.',
+  'Full bleed. “poetical” as weft and “science” as warp, cut into ribbons and woven in plain weave, from her letter asking for both.',
+  'The wingtip’s path through still air behind a bird in flight; one brass dot per wingbeat.',
+  'Two hundred and forty chords, each joining point i to point 2i. The cardioid is never drawn.',
+  'Note A’s sentence beside cloth woven from (x² + y²) mod 29, with the card now on the loom.',
+  'Ten columns of figure-discs holding Note G’s Store after card 3, with Lovelace’s upper indices.',
+  'Full bleed. A wall of 200 × 120 = 24,000 cards with the number picked out in lit cards, and her program’s 25 beside it.',
+  'The 25-card chain with its cycle and backing, the Mill at card 25, and the result on V24.',
+  'The 3 : 2 harmonograph drawn by two pendulums, over a roll punched with Bernoulli numerators.',
+  'Note G’s limit, read in through punched holes, with Turing’s 1950 reply beneath.',
+];
+const pad = i => String(i + 1).padStart(2, '0');
+$('#kgrid').innerHTML = LM.KF.map((k, i) => `<figure${k.full ? ' class="wide"' : ''}><img src="exports/web/K${pad(i)}_${SLUG[i]}.jpg" width="1920" height="1080" loading="lazy" alt="Keyframe ${i + 1}: ${k.title}.">
+  <figcaption><span class="m">K${i + 1} · t ${LM.KEY_TIMES[i].toFixed(1)} s</span><b>${LM.ROMAN[i]} · ${k.title}.</b> ${KCAP[i]}</figcaption></figure>`).join('');
+
+const WHY = {
+  T0: 'Note F cites a woven portrait of Jacquard that needed 24,000 cards. The film opens the same way at a smaller scale: Chalon’s watercolour of Lovelace woven from 130 cards, one per row, the shuttle reversing at every pick as it does on a loom.',
+  T1: 'Her phrase asks for poetry and science together. The portrait comes apart into its threads, and the two words come back as threads: “poetical” thrown in as weft, “science” lowered as warp, interlaced so that neither lies on top. The frame goes full bleed here, the one place the film quotes her own wish.',
+  T2: 'The shuttle is the one part of the loom that flies, and Flyology was Lovelace’s one design for flight, so the shuttle that wove the words flies out along the wingtip’s path. This link is ours, not hers: it joins two pieces of her work by their motion, not by anything she wrote.',
+  T3: 'In 1841 she called imagination the faculty that penetrates “into the unseen worlds around us.” The transition shows one unseen relation twice: a wave bent round a circle is the same wave in polar coordinates, and the cardioid is never drawn, only implied by its chords.',
+  T4: 'Note A says the Engine “weaves algebraical patterns.” The 240 threads that drew the cardioid become the warp of a cloth whose pattern is algebra, (x² + y²) mod 29. Same threads, new cards: the separation of pattern from material that Lovelace saw in the loom.',
+  T5: 'Note B pictures the Store as piles of discs. Babbage’s engines add all figures at once, then carry from the lowest figure upward, and the transition sets each column in that order, so the ripple runs the way the machine’s own carry would.',
+  T6: 'Note F cites Jacquard’s portrait, woven from 24,000 cards. The wall makes that number literal: 200 columns by 120 rows, each a card, counted as they land, with the figure picked out in lit cards. The frame breaks open a second time.',
+  T7: 'In the same Note she explains why the Engine needs far fewer: cards can be repeated. The wall collapses into a single line and only twenty-five cards drop out of it, the whole Bernoulli program, which then runs its 36 operations by backing the chain for its cycle, as Note C describes.',
+  T8: 'Note A imagines the Engine composing music if the relations of pitched sounds could be written in its notation. The numerators of the Bernoulli numbers become a music roll, each hole sounding as it is punched, and the ratio of a fifth, 3 : 2, is drawn by two pendulums at their own pace.',
+  T9: 'Note G sets the Engine’s limit: it “has no pretensions whatever to originate anything.” The motion ends by damping, not by adding, and the last frame is text the machine was ordered to show. Turing answered the passage in 1950.',
+};
+const TSLUG = { T0: 'the-first-pick', T1: 'warp-and-weft-part', T2: 'shuttle-takes-flight', T3: 'wrap-and-discover', T4: 'chords-become-warp', T5: 'warp-into-columns', T6: 'cards-by-the-thousand', T7: '24000-become-25', T8: 'number-becomes-ratio', T9: 'coming-to-rest' };
+$('#tlist').innerHTML = trans.map(s => `<article class="tboard" id="tr-${s.id}">
+  <figure style="margin:0"><img src="exports/web/${s.id}_${TSLUG[s.id]}.jpg" width="1920" height="1080" loading="lazy" alt="Motion board for ${s.name}: six moments of the transition."></figure>
+  <div class="meta">
+    <p class="tag">${s.id} · ${s.from < 0 ? 'opening' : 'K' + (s.from + 1) + ' → K' + (s.to + 1)} · ${s.beats} beats · ${s.dur.toFixed(2)} s</p>
+    <h4>${s.name}</h4>
+    <p class="tag" style="color:var(--ivory)">${s.mech} · ${s.work}</p>
+    <p class="why">${WHY[s.id]}</p>
+    <div class="chor-wrap"><table class="chor"><thead><tr><th>Span</th><th>What moves</th><th>Easing</th></tr></thead><tbody>
+      ${s.chor.map(([a, b, w, e]) => `<tr><td class="r">${Math.round(a * 100)}–${Math.round(b * 100)}%<span class="bar"><i style="left:${a * 100}%;width:${(b - a) * 100}%"></i></span></td><td>${w}</td><td class="e">${e}</td></tr>`).join('')}
+    </tbody></table></div>
+  </div></article>`).join('');
+})();
+</script>
+
+</body>
+</html>
