@@ -1177,9 +1177,10 @@ const SYN = {
   // a plucked note, harp-like, at any frequency
   note(ac, out, t, o = {}) {
     const f = o.f ?? 196, dur = o.dur ?? 1.2, g = o.g ?? 0.15;
-    [[1, 'triangle', 1], [2, 'sine', 0.22], [3, 'sine', 0.06]].forEach(([m, type, a]) => {
+    // bright overtones that fade faster than the fundamental, so the notes carry on small speakers
+    [[1, 'triangle', 1, 1], [2, 'sine', 0.5, 0.75], [3, 'sine', 0.3, 0.55], [4, 'sine', 0.15, 0.4]].forEach(([m, type, a, d]) => {
       const k = ac.createOscillator(); k.type = type; k.frequency.value = f * m;
-      k.connect(envG(ac, t, 0.012, g * a, dur)).connect(out); k.start(t); k.stop(t + dur + 0.05);
+      k.connect(envG(ac, t, 0.012, g * a, dur * d)).connect(out); k.start(t); k.stop(t + dur * d + 0.05);
     });
   },
   bell(ac, out, t, o = {}) {
@@ -1258,8 +1259,8 @@ const FILM_EVENTS = (() => {
   }
   at('T7', 0.92, 'thump', { g: 0.32, f: 80 }); at('T7', 0.92, 'bell', { f: 392, g: 0.035 });
   // T8 — number becomes ratio: every punched hole sounds its note
-  ROLL_SEQ.forEach((d, k) => { if (d !== null) at('T8', 0.25 + 0.35 * (k + 0.4) / ROLL_SEQ.length, 'note', { f: ratioHz(d), dur: 0.7, g: 0.09 }); });
-  at('T8', 0.36, 'gliss', { f0: 98, f1: 196, dur: 1.2, g: 0.035 });
+  ROLL_SEQ.forEach((d, k) => { if (d !== null) at('T8', 0.25 + 0.35 * (k + 0.4) / ROLL_SEQ.length, 'note', { f: ratioHz(d), dur: 0.8, g: 0.15 }); });
+  at('T8', 0.36, 'gliss', { f0: 98, f1: 196, dur: 1.2, g: 0.05 });
   // T9 — coming to rest
   at('T9', 0, 'gliss', { f0: 294, f1: 98, dur: 2.2, g: 0.05 });
   at('T9', 0.42, 'whoosh', { g: 0.05, dur: 1, f: 500 });
@@ -1280,7 +1281,7 @@ function ambientEvents(k, a, b) {
     case 6: each(8 * BEAT / 120, 0, (t, n) => out.push({ t, type: 'tick', o: { f: 3400, g: n % 12 ? 0.008 : 0.035, low: 500 } })); break;
     case 7: { const per = 16 * BEAT / TRACE.length;
       each(per, per * 0.25, (t, n) => { const s = mod(n, TRACE.length); out.push(s === FIRST_BACK ? { t: t - per * 0.25, type: 'zip', o: { g: 0.07 } } : { t, type: 'tick', o: { f: OP_PITCH[TRACE[s].op], g: 0.075 } }); }); break; }
-    case 8: each(BEAT, 0, (t, n) => { const d = ROLL_SEQ[mod(n, ROLL_LOOP)]; if (d != null) out.push({ t, type: 'note', o: { f: ratioHz(d), dur: 1.1, g: 0.13 } }); }); break;
+    case 8: each(BEAT, 0, (t, n) => { const d = ROLL_SEQ[mod(n, ROLL_LOOP)]; if (d != null) out.push({ t, type: 'note', o: { f: ratioHz(d), dur: 1.3, g: 0.2 } }); }); break;
     case 9: each(8 * BEAT, 2 * BEAT, t => out.push({ t, type: 'bell', o: { f: 392, g: 0.03 } })); break;
   }
   return out.filter(e => e.t > a && e.t <= b);
@@ -1292,8 +1293,8 @@ const CONFIG = { soundScenes: [8] };
 const sceneSounds = k => !CONFIG.soundScenes || CONFIG.soundScenes.includes(k);
 const eventSounds = e => sceneSounds(e.k);
 // The drone bed: G and D under everything, a full chord in the full-bleed scenes, a G drone for the music.
-const BED = { normal: { root: 0.03, fifth: 0.018, third: 0, drone: 0 }, full: { root: 0.05, fifth: 0.035, third: 0.026, drone: 0 }, music: { root: 0.02, fifth: 0.012, third: 0, drone: 0.05 } };
-const NOISE = 0.02;
+const BED = { normal: { root: 0.03, fifth: 0.018, third: 0, drone: 0 }, full: { root: 0.05, fifth: 0.035, third: 0.026, drone: 0 }, music: { root: 0.02, fifth: 0.012, third: 0, drone: 0.055 } };
+const NOISE = 0.007; // a hiss under the music, kept well below the notes
 const bedFor = k => {
   const L = { root: 0, fifth: 0, third: 0, drone: 0, noise: 0 };
   if (k < 0 || !sceneSounds(k)) return L;
@@ -1330,7 +1331,7 @@ function makeBed(ac, out) {
   }
   const n = ac.createBufferSource(); n.buffer = longNoise(ac); n.loop = true;
   const hp = ac.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 140;
-  const lp = ac.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 3200;
+  const lp = ac.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 2200;
   const g = ac.createGain(); g.gain.value = 0; n.connect(hp).connect(lp).connect(g).connect(out); n.start(); v.noise = g;
   return v;
 }
