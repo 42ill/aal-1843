@@ -1,0 +1,14 @@
+# local tooling
+.venv/
+__pycache__/
+.claude/
+
+# exports are rebuilt by motion/tools/export.py; only the web images the pages use are kept
+**/exports/_tmp/
+**/exports/video/
+**/exports/loops/
+**/exports/audio/
+**/exports/keyframes/
+**/exports/boards/
+**/exports/*.pdf
+**/exports/*.png
