@@ -4,7 +4,7 @@ The pages in this project are written for the Artifact format (no <html>/<body> 
 each one is wrapped in a full document here, and links that point at private claude.ai artifacts
 are rewritten to point at the pages deployed alongside it.
 
-    docs/                 the motion site (Note G sound only)            <- motion/
+    docs/                 the motion site (sound in IX only)              <- motion/
     docs/full-sound/      the saved version with sound in every scene    <- motion-full-sound/
     docs/portfolio/       the portfolio of works and exhibits            <- ada-lovelace.html
 
@@ -83,7 +83,7 @@ def main():
     os.makedirs(DOCS)
     open(os.path.join(DOCS, '.nojekyll'), 'w').close()
 
-    # The motion site, as it is now: sound in Note G only.
+    # The motion site, as it is now: sound in IX (Pitched Sounds) only.
     page('motion/index.html', 'index.html',
          'Ada Lovelace: a scroll-driven motion website in ten scenes, built from the mechanisms of her work.',
          [(PORTFOLIO_ARTIFACT, 'portfolio/')])
@@ -98,7 +98,7 @@ def main():
           ('<a class="brand" href="#film">Lovelace in Motion<span>A.A.L. · 1815–1852</span></a>',
            '<a class="brand" href="#film">Ada Lovelace<span>Full sound · 1815–1852</span></a>'),
           (f'<li><a class="nav out" href="{PORTFOLIO_ARTIFACT}">Portfolio ↗</a></li>',
-           '<li><a class="nav" href="../">Note G version</a></li>\n    <li><a class="nav out" href="../portfolio/">Portfolio ↗</a></li>'),
+           '<li><a class="nav" href="../">Current version</a></li>\n    <li><a class="nav out" href="../portfolio/">Portfolio ↗</a></li>'),
           (PORTFOLIO_ARTIFACT, '../portfolio/'),
           ('Lovelace in Motion', 'Ada Lovelace')])
     text_copy('motion-full-sound/motion-engine.js', 'full-sound/motion-engine.js',

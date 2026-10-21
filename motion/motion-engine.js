@@ -1209,9 +1209,11 @@ const OP_PITCH = { '+': 2400, '−': 2050, '×': 2800, '÷': 3200 };
 const ratioHz = d => 196 * RATIOS[d][0] / RATIOS[d][1];
 // Fixed events of the film, at film times.
 const FILM_EVENTS = (() => {
-  // g marks the events that belong to Note G: the program running in T7, and the coda read in at the end of T9.
-  const noteGAt = (id, p) => (id === 'T7' && p >= 0.2) || (id === 'T9' && p >= 0.4);
-  const ev = [], at = (id, p, type, o = {}) => { const s = SEG_BY[id]; ev.push({ t: s.t0 + clamp01(p) * s.dur, type, o, g: noteGAt(id, p) }); };
+  // Each event belongs to a scene, k: before its transition's split to the scene being left, after it to the one arriving.
+  // The splits sit where the scenes hand over: the program starts at 0.2 of T7, the roll appears at 0.15 of T8, Note G is read in from 0.4 of T9.
+  const SPLIT = { T7: 0.2, T8: 0.15, T9: 0.4 };
+  const owner = (id, p) => { const s = SEG_BY[id]; return p < (SPLIT[id] ?? 0.5) ? s.from : s.to; };
+  const ev = [], at = (id, p, type, o = {}) => { const s = SEG_BY[id]; ev.push({ t: s.t0 + clamp01(p) * s.dur, type, o, k: owner(id, p) }); };
   const spread = (id, a, b, n, type, o) => { for (let i = 0; i < n; i++) at(id, a + (b - a) * (n > 1 ? i / (n - 1) : 0), type, typeof o === 'function' ? o(i) : o); };
   for (const s of SEGS) if (s.kind === 't' && s.from >= 0) at(s.id, 0.9, 'tick', { f: 2100, g: 0.11, low: 150 }); // the chain advances a notch
   // T0 — the first pick
@@ -1283,39 +1285,26 @@ function ambientEvents(k, a, b) {
   }
   return out.filter(e => e.t > a && e.t <= b);
 }
-// Which parts of the film sound. 'noteG': only the two Note G scenes (the program, and the coda), over a bed of
-// filtered white noise, the engine room running. 'all': every scene, with the drone bed, as in the full-sound version.
-const CONFIG = { soundScope: 'noteG' };
-const NOTE_G_SCENES = [7, 9];
-const sceneSounds = k => CONFIG.soundScope === 'all' || NOTE_G_SCENES.includes(k);
-const eventSounds = e => CONFIG.soundScope === 'all' || e.g;
+// Which scenes sound: CONFIG.soundScenes lists scene indices (0 = I … 9 = X); null means every scene, as in the
+// full-sound version. This version sounds only in IX, Pitched Sounds: the roll's notes over the G drone, a soft bed of
+// filtered white noise under them, and the halves of the transitions that belong to IX.
+const CONFIG = { soundScenes: [8] };
+const sceneSounds = k => !CONFIG.soundScenes || CONFIG.soundScenes.includes(k);
+const eventSounds = e => sceneSounds(e.k);
 // The drone bed: G and D under everything, a full chord in the full-bleed scenes, a G drone for the music.
 const BED = { normal: { root: 0.03, fifth: 0.018, third: 0, drone: 0 }, full: { root: 0.05, fifth: 0.035, third: 0.026, drone: 0 }, music: { root: 0.02, fifth: 0.012, third: 0, drone: 0.05 } };
-const NOISE = 0.035;
+const NOISE = 0.02;
 const bedFor = k => {
   const L = { root: 0, fifth: 0, third: 0, drone: 0, noise: 0 };
-  if (k < 0) return L;
-  if (CONFIG.soundScope === 'all') Object.assign(L, KF[k].full ? BED.full : k === 8 ? BED.music : BED.normal);
-  L.noise = k === 7 ? NOISE : k === 9 ? NOISE * 0.5 : 0;
+  if (k < 0 || !sceneSounds(k)) return L;
+  Object.assign(L, KF[k].full ? BED.full : k === 8 ? BED.music : BED.normal);
+  if (CONFIG.soundScenes) L.noise = NOISE; // the reduced versions lay a soft hiss under the scenes that sound
   return L;
 };
-// The engine room: in with the program's first card, out as the cards lift away, back at half strength for the coda.
-function noiseLevel(t) {
-  const { s, p } = segmentAt(t);
-  switch (s.id) {
-    case 'T7': return NOISE * EASE.inOut(seg(p, 0.2, 0.4));
-    case 'K8': return NOISE;
-    case 'T8': return NOISE * (1 - EASE.inOut(seg(p, 0, 0.3)));
-    case 'T9': return NOISE * 0.5 * EASE.inOut(seg(p, 0.45, 1));
-    case 'K10': return NOISE * 0.5;
-    default: return 0;
-  }
-}
 function bedLevels(t) {
   const { s, p } = segmentAt(t); let L;
   if (s.kind === 'k') L = bedFor(s.k);
   else { const a = bedFor(s.from), b = bedFor(s.to), u = EASE.inOut(p); L = {}; for (const k in a) L[k] = lerp(a[k], b[k], u); }
-  L.noise = noiseLevel(t);
   if (s === SEGS[SEGS.length - 1]) { const f = 1 - seg(t, s.t0 + s.dur * 0.3, s.t1); for (const k in L) L[k] = L[k] * f; }
   return L;
 }
@@ -1402,7 +1391,7 @@ async function init(opts = {}) {
   await new Promise(r => { img.onload = r; img.onerror = r; setTimeout(r, 8000); img.src = opts.portrait || 'assets/chalon-portrait-1840.jpg'; });
   A.portrait = img.complete && img.naturalWidth ? makePortrait(img) : buildWeave(130, 130, 6, (x, y) => (x + y) % 2);
   A.cloth = makeCloth(); A.words = makeWords(); A.wall = makeWall();
-  if (opts.soundScope) CONFIG.soundScope = opts.soundScope;
+  if (opts.soundScenes !== undefined) CONFIG.soundScenes = opts.soundScenes;
   A.ready = true;
 }
 

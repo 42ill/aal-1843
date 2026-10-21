@@ -1,6 +1,6 @@
 <title>Ada Lovelace</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="A scroll-driven motion website for Ada Lovelace: ten 16:9 keyframes, nine transitions built from the mechanisms of her work, living loops, the sound of Note G, and the study behind them.">
+<meta name="description" content="A scroll-driven motion website for Ada Lovelace: ten 16:9 keyframes, nine transitions built from the mechanisms of her work, living loops, the sound of Note A’s music, and the study behind them.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..800;1,6..96,400..800&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,300..650;1,6..72,300..650&display=swap">
@@ -196,7 +196,7 @@ figcaption .m{font-family:var(--f-mono); font-size:.68rem; letter-spacing:.06em;
     <div class="sec-head">
       <p class="eyebrow">Motion study</p>
       <h2 id="study-h">How the film moves, and why</h2>
-      <p class="lede">The film above is a scroll-driven website: one pinned 16:9 stage, ten keyframes and nine transitions, about a minute and a half played straight through. Every motion in it is built from a mechanism Lovelace described or could have watched: the shuttle and card prism of Jacquard’s loom, the Store and carry of Babbage’s engines, the pendulum. When the film rests on a keyframe the scene keeps going, and once the Engine starts work in Note G, with sound on, it is heard. Two scenes break the frame and fill it edge to edge. This study records the research, the timing, the loops, the sound and the reason for each transition.</p>
+      <p class="lede">The film above is a scroll-driven website: one pinned 16:9 stage, ten keyframes and nine transitions, about a minute and a half played straight through. Every motion in it is built from a mechanism Lovelace described or could have watched: the shuttle and card prism of Jacquard’s loom, the Store and carry of Babbage’s engines, the pendulum. When the film rests on a keyframe the scene keeps going, and in IX, Pitched Sounds, with sound on, it is heard. Two scenes break the frame and fill it edge to edge. This study records the research, the timing, the loops, the sound and the reason for each transition.</p>
     </div>
     <div class="facts" id="facts"></div>
   </section>
@@ -279,15 +279,15 @@ figcaption .m{font-family:var(--f-mono); font-size:.68rem; letter-spacing:.06em;
   <section class="sec" id="sound" aria-labelledby="sound-h">
     <div class="sec-head">
       <p class="eyebrow">Sound</p>
-      <h3 id="sound-h">Only Note G is heard</h3>
-      <p class="lede">Sound is off until you press Sound. In this version the film is silent until the Engine starts work. The two Note G scenes are the only ones heard: the program, with a click for every card the reader takes and a ratchet when the chain backs up, and the coda, where Note G’s limit is read in. Under both runs a bed of filtered white noise, the engine room running, which comes in with the program’s first card and dies away with the film. Nothing is a recording: every sound is synthesised in the browser from the same timeline that draws the frames. The version with sound in every scene is kept under <a href="full-sound/">Full sound</a>.</p>
+      <h3 id="sound-h">Only IX is heard</h3>
+      <p class="lede">Sound is off until you press Sound. In this version the film is silent except for IX, Pitched Sounds, the scene where Note A imagines the Engine composing. As the roll is punched, each hole sounds its note; while the scene rests, the roll plays the numerators of the Bernoulli numbers in just intonation over a G drone, with a soft bed of filtered white noise beneath, like the hiss of an old recording. The sound comes in as IX arrives and dies away as the pendulums come to rest. Nothing is a recording: every sound is synthesised in the browser from the same timeline that draws the frames. The version with sound in every scene is kept under <a href="full-sound/">Full sound</a>.</p>
     </div>
     <div class="tbl-wrap"><table class="grid"><thead><tr><th>Sound</th><th>Made from</th><th>Where it is heard</th></tr></thead><tbody>
-      <tr><td>Card click</td><td>A short burst of band-passed noise and a falling wooden knock</td><td>Every card the reader takes, pitched by its operation (+ − × ÷); the chain advancing a notch</td></tr>
-      <tr><td>Thump</td><td>A low sine dropping an octave</td><td>The result, −1/30, punched in</td></tr>
-      <tr><td>Ratchet</td><td>Eleven clicks falling in pitch</td><td>The chain backing up from card 23 to card 13</td></tr>
-      <tr><td>Bell</td><td>Four inharmonic partials</td><td>The result landing, the full stop of the coda, the final rest</td></tr>
-      <tr><td>White noise</td><td>Four seconds of white noise on a loop, high-passed at 140 Hz and low-passed at 3.2 kHz</td><td>Under the program at full strength and under the coda at half, fading out with the film</td></tr>
+      <tr><td>Harp</td><td>A triangle wave with two overtones, in just intonation on G (196 Hz)</td><td>Each hole of the roll as it is punched; then the roll played, a note a beat</td></tr>
+      <tr><td>Drone</td><td>G and D, with a G an octave up for the pendulums to sound against</td><td>Under IX, rising as the roll slides in and falling as the figure comes to rest</td></tr>
+      <tr><td>Pendulum glide</td><td>A sine sliding between pitches</td><td>As the two pendulums are released, and as the damping brings them to rest</td></tr>
+      <tr><td>White noise</td><td>Four seconds of white noise on a loop, high-passed at 140 Hz and low-passed at 3.2 kHz</td><td>A soft hiss under IX only</td></tr>
+      <tr><td>Card click</td><td>A short burst of band-passed noise and a falling wooden knock</td><td>Once: the chain advancing a notch as IX arrives</td></tr>
     </tbody></table></div>
   </section>
 
@@ -320,7 +320,7 @@ figcaption .m{font-family:var(--f-mono); font-size:.68rem; letter-spacing:.06em;
       <li><code>boards/T0_…png</code> … <code>T9_…png</code>: ten motion boards, 1920 × 1080 PNG.</li>
       <li><code>Ada-Lovelace_storyboard.png</code>: all ten keyframes on one sheet.</li>
       <li><code>Ada-Lovelace_deck.pdf</code>: twenty 16:9 pages, keyframes and boards in film order, 13.33 × 7.5 in, the widescreen slide size.</li>
-      <li><code>video/Ada-Lovelace_1080p30.mp4</code>: the whole film with its soundtrack, heard only in Note G; <code>video/T1_…mp4</code> …: each transition with half a second of hold either side.</li>
+      <li><code>video/Ada-Lovelace_1080p30.mp4</code>: the whole film with its soundtrack, heard only in IX; <code>video/T1_…mp4</code> …: each transition with half a second of hold either side.</li>
       <li><code>loops/K01_portrait_loop.mp4</code> …: each scene’s living loop at full strength, with its sound, for slides.</li>
       <li><code>audio/Ada-Lovelace_soundtrack.wav</code>: the soundtrack alone. The full-sound version keeps its own exports in <code>motion-full-sound/exports/</code>.</li>
     </ul>
@@ -354,7 +354,7 @@ const LM = window.LovelaceMotion;
 const $ = s => document.querySelector(s);
 const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
 const query = new URLSearchParams(location.search);
-await LM.init({ portrait: 'assets/chalon-portrait-1840.jpg', soundScope: 'noteG' });
+await LM.init({ portrait: 'assets/chalon-portrait-1840.jpg', soundScenes: [8] }); // only IX, Pitched Sounds, is heard
 
 /* ---------- export mode: used by tools/export.py ---------- */
 if (query.has('export')) {
@@ -422,9 +422,9 @@ const LOOP_NOTE = [
   ['2 picks a beat', 'The cloth rises as new rows are woven; a new card each pick', 'Silent'],
   ['1 beat a column', 'A carry runs up one column, lowest disc first', 'Silent'],
   ['8 beats', 'A reader runs down the wall, one row of cards at a time', 'Silent'],
-  ['16 beats', 'The 36 operations run again, backing at card 23', 'A click per card, pitched by operation; a ratchet for the backing; the engine room’s white noise'],
-  ['34 beats', 'The roll plays the Bernoulli numerators; each note’s ratio is drawn and named', 'Silent: the roll is seen, not heard, in this version'],
-  ['8 beats', 'The full stop pulses', 'A quiet bell over the white noise, fading'],
+  ['16 beats', 'The 36 operations run again, backing at card 23', 'Silent'],
+  ['34 beats', 'The roll plays the Bernoulli numerators; each note’s ratio is drawn and named', 'Harp notes in just intonation over a G drone, with soft white noise'],
+  ['8 beats', 'The full stop pulses', 'Silent'],
 ];
 function updateHud(x) {
   const { s, p } = LM.segmentAt(x);

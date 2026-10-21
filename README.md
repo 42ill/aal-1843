@@ -6,7 +6,7 @@ Live site: https://42ill.github.io/aal-1843/ (the pages ask search engines not t
 
 | Path on the site | What it is | Source |
 | --- | --- | --- |
-| `/` | The motion website: ten 16:9 scenes and nine transitions built from the loom, the engines and the pendulum. Sound is heard only in the two Note G scenes, over filtered white noise. | `motion/` |
+| `/` | The motion website: ten 16:9 scenes and nine transitions built from the loom, the engines and the pendulum. Sound is heard only in scene IX, Pitched Sounds (Note A), over soft filtered white noise. | `motion/` |
 | `/full-sound/` | The saved version, with synthesised sound in every scene. | `motion-full-sound/` |
 | `/portfolio/` | The portfolio: public-domain originals beside programs that run them, including an emulator of the Note G table. | `ada-lovelace.html`, `images/` |
 
