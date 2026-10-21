@@ -813,16 +813,21 @@ function drawHarm(ctx, frac, dampMul = 1, alpha = 1, guides = 1, ratio = [3, 2])
   }
   ctx.globalAlpha = alpha; ctx.fillStyle = COL.ivory; ctx.beginPath(); ctx.arc(X, Y, 4, 0, TAU); ctx.fill(); ctx.globalAlpha = 1;
 }
-function drawRoll(ctx, punched, alpha, drop = 0, pos = 0, cur = -1) {
+// The roll moves right to left under a fixed gold line, and a note sounds only as its hole crosses that line.
+// q counts slots past the line: slot k sits on it when q = k. At rest (q = −1) the first hole waits one step to the
+// right, so the scene wakes in silence and its first note sounds a beat later, on the line.
+const ROLL_LINE = 304, ROLL_STEP = 36;
+function drawRoll(ctx, punched, alpha, drop = 0, q = -1, cur = -1) {
   if (alpha <= 0) return;
-  const x = 120, y = 856 + drop * 40, w = 1680, h = 96, rows = 10, rh = h / rows, x0 = 330, step = 36;
+  const x = 120, y = 856 + drop * 40, w = 1680, h = 96, rows = 10, rh = h / rows;
   ctx.globalAlpha = alpha; ctx.fillStyle = COL.card; ctx.fillRect(x, y, w, h);
   ctx.strokeStyle = 'rgba(42,36,20,.13)'; ctx.lineWidth = 1; ctx.beginPath();
   for (let r = 1; r < rows; r++) { ctx.moveTo(x, y + r * rh + 0.5); ctx.lineTo(x + w, y + r * rh + 0.5); } ctx.stroke();
   ctx.save(); ctx.beginPath(); ctx.rect(x + 150, y, w - 150, h); ctx.clip();
-  for (let rep = 0; rep < (pos > 0 ? 2 : 1); rep++) ROLL_SEQ.forEach((d, k) => {
+  const qq = q >= 0 ? mod(q, ROLL_LOOP) : q;
+  for (let rep = 0; rep < (q >= 0 ? 2 : 1); rep++) ROLL_SEQ.forEach((d, k) => {
     if (d === null) return; const e = EASE.detent(clamp01(punched - k)); if (e <= 0) return;
-    const cx = x0 + (k + rep * ROLL_LOOP - pos) * step, cy = y + (rows - 1 - d) * rh + rh / 2;
+    const cx = ROLL_LINE + (k + rep * ROLL_LOOP - qq) * ROLL_STEP, cy = y + (rows - 1 - d) * rh + rh / 2;
     if (cx < x + 140 || cx > x + w + 20) return;
     ctx.fillStyle = k === cur && rep === 0 ? COL.brassDeep : COL.ground;
     ctx.beginPath(); ctx.roundRect(cx - 12 * e, cy - 3.4 * e, 24 * e, 6.8 * e, 3); ctx.fill();
@@ -830,15 +835,17 @@ function drawRoll(ctx, punched, alpha, drop = 0, pos = 0, cur = -1) {
   ctx.restore();
   setFont(ctx, font(500, 13, 'mono'), '2px'); ctx.fillStyle = 'rgba(42,36,20,.7)'; ctx.textAlign = 'left';
   ctx.fillText('NOTE A ·', x + 14, y + 40); ctx.fillText('MUSIC ROLL', x + 14, y + 60); ctx.letterSpacing = '0px';
-  ctx.fillStyle = COL.brass; ctx.fillRect(x0 - 26, y - 6, 3, h + 12);
+  ctx.fillStyle = COL.brass; ctx.fillRect(ROLL_LINE - 1.5, y - 6, 3, h + 12);
   ctx.globalAlpha = 1;
 }
-// The roll as heard: which slot sounds at time tau, and the ratio held through rests.
+// The roll as heard at time tau: the slot on the gold line, how far past it, and the ratio held through rests.
 function rollAt(tau) {
-  const pos = mod(tau / BEAT, ROLL_LOOP), slot = Math.floor(pos), u = pos - slot;
+  const q = tau / BEAT - 1;
+  if (q < 0) return { q, slot: -1, u: 1, d: 4, fresh: false }; // nothing has reached the line yet: the resting 3 : 2
+  const qq = mod(q, ROLL_LOOP), slot = Math.floor(qq), u = qq - slot;
   let k = slot, d = null; while (k >= 0 && (d = ROLL_SEQ[k] ?? null) === null) k--;
   if (d === null) d = 4;
-  return { pos, slot, u, d, fresh: ROLL_SEQ[slot] != null };
+  return { q, slot, u, d, fresh: ROLL_SEQ[slot] != null };
 }
 function sMusic(ctx, o = {}) {
   const amb = o.amb || 0, L = KF[8].lines;
@@ -858,7 +865,7 @@ function sMusic(ctx, o = {}) {
     const rise = r.fresh ? EASE.out(seg(r.u, 0, 0.25)) : 1;
     drawLine(ctx, rich(106, 430, 210, font(500, 210, 'display'), `${p} : ${q}`), amb * rise, (1 - rise) * 18);
     drawLine(ctx, rich(120, 504, 46, font(400, 46, 'display', 'italic'), [[INTERVALS[r.d], COL.brass]]), amb * rise);
-    drawRoll(ctx, ROLL_SEQ.length, amb, 0, r.pos, r.slot);
+    drawRoll(ctx, ROLL_SEQ.length, amb, 0, r.q, r.slot);
   }
 }
 
@@ -913,7 +920,7 @@ const SEGS = [
   { id: 'K8', kind: 'k', k: 7, beats: 8 },
   { id: 'T8', kind: 't', from: 7, to: 8, beats: 10, name: 'Number becomes ratio', mech: 'Pendulum', ease: 'pendulum',
     work: 'From Note G’s numbers to Note A’s music',
-    chor: [[0, .2, 'Note G wiped out', 'shuttle'], [0, .3, 'Cards lift away; Mill and result fade', 'in'], [.15, .28, 'A music roll slides up', 'out'], [.25, .6, 'Bernoulli numerators punched as notes, each one sounding', 'detent'], [.35, .5, 'Two pendulums appear', 'pendulum'], [.45, 1, 'The pen draws 3 : 2 at the pendulums’ own pace', 'linear'], [.45, .95, 'Note A rises in', 'out'], [.78, 1, 'Card chain advances one notch', 'detent']] },
+    chor: [[0, .2, 'Note G wiped out', 'shuttle'], [0, .3, 'Cards lift away; Mill and result fade', 'in'], [.15, .28, 'A music roll slides up', 'out'], [.25, .6, 'Bernoulli numerators punched as notes, in silence', 'detent'], [.35, .5, 'Two pendulums appear', 'pendulum'], [.45, 1, 'The pen draws 3 : 2 at the pendulums’ own pace', 'linear'], [.45, .95, 'Note A rises in', 'out'], [.78, 1, 'Card chain advances one notch', 'detent']] },
   { id: 'K9', kind: 'k', k: 8, beats: 16 },
   { id: 'T9', kind: 't', from: 8, to: 9, beats: 9, name: 'Coming to rest', mech: 'Damping · card reading', ease: 'inOut',
     work: 'Note G: “no pretensions whatever to originate anything”; Turing, 1950',
@@ -1063,7 +1070,7 @@ function render(ctx, t, opt = {}) {
   if (A.ready) {
     if (s.kind === 'k') {
       const amb = opt.amb ?? ambAt(s, t);
-      SCENES[s.k](ctx, { amb, tau: opt.tau ?? t });
+      SCENES[s.k](ctx, { amb, tau: opt.tau ?? (t - s.t0) }); // each loop starts from its beginning when the hold begins
       drawChrome(ctx, s.k, s.k, 0, s.k, chromeAlpha(s.k));
     } else {
       TR[s.id](ctx, p);
@@ -1216,7 +1223,8 @@ const FILM_EVENTS = (() => {
   const owner = (id, p) => { const s = SEG_BY[id]; return p < (SPLIT[id] ?? 0.5) ? s.from : s.to; };
   const ev = [], at = (id, p, type, o = {}) => { const s = SEG_BY[id]; ev.push({ t: s.t0 + clamp01(p) * s.dur, type, o, k: owner(id, p) }); };
   const spread = (id, a, b, n, type, o) => { for (let i = 0; i < n; i++) at(id, a + (b - a) * (n > 1 ? i / (n - 1) : 0), type, typeof o === 'function' ? o(i) : o); };
-  for (const s of SEGS) if (s.kind === 't' && s.from >= 0) at(s.id, 0.9, 'tick', { f: 2100, g: 0.11, low: 150 }); // the chain advances a notch
+  // the chain advances a notch; not into IX, which stays silent until its first note reaches the gold line
+  for (const s of SEGS) if (s.kind === 't' && s.from >= 0 && s.id !== 'T8') at(s.id, 0.9, 'tick', { f: 2100, g: 0.11, low: 150 });
   // T0 — the first pick
   for (let r = 0; r <= 120; r += 10) at('T0', 0.05 + 0.95 * r / 130, 'swish', { g: 0.05, dur: 0.18 });
   at('T0', 0.15, 'swish', { g: 0.035, f0: 1500, f1: 4500, dur: 0.6 });
@@ -1259,8 +1267,7 @@ const FILM_EVENTS = (() => {
   }
   at('T7', 0.92, 'thump', { g: 0.32, f: 80 }); at('T7', 0.92, 'bell', { f: 392, g: 0.035 });
   // T8 — number becomes ratio: every punched hole sounds its note
-  ROLL_SEQ.forEach((d, k) => { if (d !== null) at('T8', 0.25 + 0.35 * (k + 0.4) / ROLL_SEQ.length, 'note', { f: ratioHz(d), dur: 0.8, g: 0.15 }); });
-  at('T8', 0.36, 'gliss', { f0: 98, f1: 196, dur: 1.2, g: 0.05 });
+  // T8 — number becomes ratio: the roll is punched in silence; its notes sound only as they cross the gold line in IX
   // T9 — coming to rest
   at('T9', 0, 'gliss', { f0: 294, f1: 98, dur: 2.2, g: 0.05 });
   at('T9', 0.42, 'whoosh', { g: 0.05, dur: 1, f: 500 });
@@ -1281,7 +1288,8 @@ function ambientEvents(k, a, b) {
     case 6: each(8 * BEAT / 120, 0, (t, n) => out.push({ t, type: 'tick', o: { f: 3400, g: n % 12 ? 0.008 : 0.035, low: 500 } })); break;
     case 7: { const per = 16 * BEAT / TRACE.length;
       each(per, per * 0.25, (t, n) => { const s = mod(n, TRACE.length); out.push(s === FIRST_BACK ? { t: t - per * 0.25, type: 'zip', o: { g: 0.07 } } : { t, type: 'tick', o: { f: OP_PITCH[TRACE[s].op], g: 0.075 } }); }); break; }
-    case 8: each(BEAT, 0, (t, n) => { const d = ROLL_SEQ[mod(n, ROLL_LOOP)]; if (d != null) out.push({ t, type: 'note', o: { f: ratioHz(d), dur: 1.3, g: 0.2 } }); }); break;
+    case 8: each(BEAT, BEAT, (t, n) => { // slot n crosses the gold line at tau = (n + 1) beats
+      if (n < 0) return; const d = ROLL_SEQ[mod(n, ROLL_LOOP)]; if (d != null) out.push({ t, type: 'note', o: { f: ratioHz(d), dur: 1.3, g: 0.2 } }); }); break;
     case 9: each(8 * BEAT, 2 * BEAT, t => out.push({ t, type: 'bell', o: { f: 392, g: 0.03 } })); break;
   }
   return out.filter(e => e.t > a && e.t <= b);
@@ -1302,10 +1310,16 @@ const bedFor = k => {
   if (CONFIG.soundScenes) L.noise = NOISE; // the reduced versions lay a soft hiss under the scenes that sound
   return L;
 };
-function bedLevels(t) {
+// A scene's bed wakes with its hold and dies away through the transition that leaves it; nothing sounds while a scene
+// is still arriving. In IX the bed waits for the first note to reach the gold line, one beat into the hold.
+const BED_WAIT = k => k === 8 ? BEAT : 0;
+function bedLevels(t, tau) {
   const { s, p } = segmentAt(t); let L;
-  if (s.kind === 'k') L = bedFor(s.k);
-  else { const a = bedFor(s.from), b = bedFor(s.to), u = EASE.inOut(p); L = {}; for (const k in a) L[k] = lerp(a[k], b[k], u); }
+  if (s.kind === 'k') {
+    const lt = tau ?? (t - s.t0), d0 = BED_WAIT(s.k), w = EASE.inOut(seg(lt, d0, d0 + BEAT * 0.5));
+    L = bedFor(s.k); for (const k in L) L[k] *= w;
+  }
+  else { const a = bedFor(s.from), u = EASE.inOut(p); L = {}; for (const k in a) L[k] = a[k] * (1 - u); }
   if (s === SEGS[SEGS.length - 1]) { const f = 1 - seg(t, s.t0 + s.dur * 0.3, s.t1); for (const k in L) L[k] = L[k] * f; }
   return L;
 }
@@ -1353,7 +1367,7 @@ const audio = {
       const g = ambAt(s, t);
       if (g > 0.05) for (const e of ambientEvents(s.k, tauPrev, tau)) SYN[e.type](ac, live.bus, now, { ...e.o, g: (e.o.g ?? 0.1) * g });
     }
-    const L = bedLevels(t); for (const k in live.bed) live.bed[k].gain.setTargetAtTime(L[k], ac.currentTime, 0.3);
+    const L = bedLevels(t, s.kind === 'k' ? tau : undefined); for (const k in live.bed) live.bed[k].gain.setTargetAtTime(L[k], ac.currentTime, 0.12);
   },
 };
 // Offline: the film's soundtrack from t0 to t1, or one scene's ambient loop (opt.loop = k), as a 16-bit WAV in base64.
@@ -1361,13 +1375,16 @@ async function renderAudio(t0, t1, opt = {}) {
   const sr = opt.sampleRate || 44100, ac = new OfflineAudioContext(1, Math.max(1, Math.ceil((t1 - t0) * sr)), sr);
   const bus = makeBus(ac), bed = makeBed(ac, bus);
   if (opt.loop != null) {
-    const L = bedFor(opt.loop); for (const k in bed) bed[k].gain.setValueAtTime(L[k], 0);
+    const L = bedFor(opt.loop), d0 = BED_WAIT(opt.loop);
+    for (const k in bed) { bed[k].gain.setValueAtTime(0, 0); bed[k].gain.setValueAtTime(0, d0); bed[k].gain.linearRampToValueAtTime(L[k], d0 + BEAT * 0.5); }
     if (sceneSounds(opt.loop)) for (const e of ambientEvents(opt.loop, -1e-6, t1 - t0)) SYN[e.type](ac, bus, Math.max(0, e.t), e.o);
   } else {
     for (const e of FILM_EVENTS) if (e.t >= t0 && e.t < t1 && eventSounds(e)) SYN[e.type](ac, bus, e.t - t0, e.o);
     for (const s of HOLDS) {
       const a = Math.max(s.t0, t0), b = Math.min(s.t1, t1); if (b <= a || !sceneSounds(s.k)) continue;
-      for (const e of ambientEvents(s.k, a - 1e-6, b)) { const g = ambAt(s, e.t); if (g > 0.05) SYN[e.type](ac, bus, e.t - t0, { ...e.o, g: (e.o.g ?? 0.1) * g }); }
+      for (const e of ambientEvents(s.k, a - s.t0 - 1e-6, b - s.t0)) { // the ambient clock starts at the hold
+        const tt = s.t0 + e.t, g = ambAt(s, tt); if (g > 0.05) SYN[e.type](ac, bus, tt - t0, { ...e.o, g: (e.o.g ?? 0.1) * g });
+      }
     }
     let first = true;
     for (let x = t0; x <= t1 + 1e-9; x += 0.05) { const L = bedLevels(x); for (const k in bed) first ? bed[k].gain.setValueAtTime(L[k], 0) : bed[k].gain.linearRampToValueAtTime(L[k], x - t0); first = false; }

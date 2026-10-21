@@ -266,7 +266,7 @@ figcaption .m{font-family:var(--f-mono); font-size:.68rem; letter-spacing:.06em;
     <div class="sec-head">
       <p class="eyebrow">Loops</p>
       <h3 id="loops-h">Scenes that keep moving</h3>
-      <p class="lede">A keyframe is where the scroll can rest, but the scene does not stop. An ambient clock runs underneath, and each scene has its own loop, faded in one beat after the transition lands and out one beat before the next, so every transition still starts from the exact keyframe. The keyframe stills below are taken with the loops at rest.</p>
+      <p class="lede">A keyframe is where the scroll can rest, but the scene does not stop. An ambient clock runs underneath, and each scene has its own loop, starting from its beginning and faded in one beat after the transition lands and out one beat before the next, so every transition still starts from the exact keyframe. The keyframe stills below are taken with the loops at rest.</p>
     </div>
     <div class="tbl-wrap"><table class="grid" id="loop-table"><thead><tr><th>Scene</th><th>Loop</th><th>What keeps moving</th><th>What you hear</th></tr></thead><tbody></tbody></table></div>
   </section>
@@ -280,14 +280,13 @@ figcaption .m{font-family:var(--f-mono); font-size:.68rem; letter-spacing:.06em;
     <div class="sec-head">
       <p class="eyebrow">Sound</p>
       <h3 id="sound-h">Only IX is heard</h3>
-      <p class="lede">Sound is off until you press Sound. In this version the film is silent except for IX, Pitched Sounds, the scene where Note A imagines the Engine composing. As the roll is punched, each hole sounds its note; while the scene rests, the roll plays the numerators of the Bernoulli numbers in just intonation over a G drone, with a soft bed of filtered white noise beneath, like the hiss of an old recording. The sound comes in as IX arrives and dies away as the pendulums come to rest. Nothing is a recording: every sound is synthesised in the browser from the same timeline that draws the frames. The version with sound in every scene is kept under <a href="full-sound/">Full sound</a>.</p>
+      <p class="lede">Sound is off until you press Sound. In this version the film is silent except for IX, Pitched Sounds, the scene where Note A imagines the Engine composing. The roll is punched in silence. Once the scene rests, the roll moves under a gold line, and each note sounds only as its hole crosses that line: the roll plays the numerators of the Bernoulli numbers in just intonation over a G drone, with a soft bed of filtered white noise beneath, like the hiss of an old recording. The sound comes in as IX arrives and dies away as the pendulums come to rest. Nothing is a recording: every sound is synthesised in the browser from the same timeline that draws the frames. The version with sound in every scene is kept under <a href="full-sound/">Full sound</a>.</p>
     </div>
     <div class="tbl-wrap"><table class="grid"><thead><tr><th>Sound</th><th>Made from</th><th>Where it is heard</th></tr></thead><tbody>
-      <tr><td>Harp</td><td>A triangle wave with two overtones, in just intonation on G (196 Hz)</td><td>Each hole of the roll as it is punched; then the roll played, a note a beat</td></tr>
-      <tr><td>Drone</td><td>G and D, with a G an octave up for the pendulums to sound against</td><td>Under IX, rising as the roll slides in and falling as the figure comes to rest</td></tr>
-      <tr><td>Pendulum glide</td><td>A sine sliding between pitches</td><td>As the two pendulums are released, and as the damping brings them to rest</td></tr>
+      <tr><td>Harp</td><td>A triangle wave with two overtones, in just intonation on G (196 Hz)</td><td>Each hole as its centre crosses the gold line of the roll, a note a beat; the punching itself is silent</td></tr>
+      <tr><td>Drone</td><td>G and D, with a G an octave up for the pendulums to sound against</td><td>Under IX, waking with the scene and falling away as the figure comes to rest</td></tr>
+      <tr><td>Pendulum glide</td><td>A sine sliding between pitches</td><td>As the damping brings the pendulums to rest</td></tr>
       <tr><td>White noise</td><td>Four seconds of white noise on a loop, high-passed at 140 Hz and low-passed at 2.2 kHz, kept well below the notes</td><td>A faint hiss under IX only</td></tr>
-      <tr><td>Card click</td><td>A short burst of band-passed noise and a falling wooden knock</td><td>Once: the chain advancing a notch as IX arrives</td></tr>
     </tbody></table></div>
   </section>
 
@@ -379,7 +378,7 @@ const hud = $('#hud'), readout = $('#readout'), scrub = $('#scrub'), head = $('#
 const reduce = matchMedia('(prefers-reduced-motion: reduce)');
 const PX_PER_S = 100, D = LM.DURATION;
 let t = 0, target = 0, playing = false, playTo = null, last = performance.now(), drawn = -1, syncing = false, hudSeg = null;
-let tau = 0, prevT = 0, prevTau = 0;
+let tau = 0, prevT = 0, holdId = null, holdStart = 0, prevLocal = 0;
 
 /* full-bleed bands: scenes II and VII running live, cropped to cover */
 const bands = [...document.querySelectorAll('canvas.bleed-cv')].map(cv => ({ cv, k: +cv.dataset.scene, ctx: cv.getContext('2d'), vis: false, drawn: false }));
@@ -462,13 +461,16 @@ function loop(now) {
   }
   const show = reduce.matches ? nearestKey(t) : t;
   const { s } = LM.segmentAt(show);
+  // the ambient clock restarts each time the film arrives at a hold, so every loop begins from its start
+  if (s.kind === 'k') { if (holdId !== s.id) { holdId = s.id; holdStart = tau; prevLocal = 0; } } else holdId = null;
+  const local = tau - holdStart;
   const alive = !reduce.matches && s.kind === 'k' && LM.ambAt(s, show) > 0.001;
   if (alive || Math.abs(show - drawn) > 1e-4) {
-    LM.render(ctx, show, reduce.matches ? { amb: 0, tau } : { tau });
+    LM.render(ctx, show, reduce.matches ? { amb: 0, tau: local } : { tau: local });
     if (Math.abs(show - drawn) > 1e-4) updateHud(show);
     drawn = show;
   }
-  LM.audio.frame(prevT, show, prevTau, tau, !reduce.matches); prevT = show; prevTau = tau;
+  LM.audio.frame(prevT, show, prevLocal, local, !reduce.matches); prevT = show; prevLocal = local;
   for (const b of bands) if (b.vis && (!reduce.matches || !b.drawn)) drawBand(b);
   requestAnimationFrame(loop);
 }
@@ -568,7 +570,7 @@ const WHY = {
   T5: 'Note B pictures the Store as piles of discs. Babbage’s engines add all figures at once, then carry from the lowest figure upward, and the transition sets each column in that order, so the ripple runs the way the machine’s own carry would.',
   T6: 'Note F cites Jacquard’s portrait, woven from 24,000 cards. The wall makes that number literal: 200 columns by 120 rows, each a card, counted as they land, with the figure picked out in lit cards. The frame breaks open a second time.',
   T7: 'In the same Note she explains why the Engine needs far fewer: cards can be repeated. The wall collapses into a single line and only twenty-five cards drop out of it, the whole Bernoulli program, which then runs its 36 operations by backing the chain for its cycle, as Note C describes.',
-  T8: 'Note A imagines the Engine composing music if the relations of pitched sounds could be written in its notation. The numerators of the Bernoulli numbers become a music roll, each hole sounding as it is punched, and the ratio of a fifth, 3 : 2, is drawn by two pendulums at their own pace.',
+  T8: 'Note A imagines the Engine composing music if the relations of pitched sounds could be written in its notation. The numerators of the Bernoulli numbers become a music roll, punched in silence, each note sounding only when its hole crosses the roll’s gold line, and the ratio of a fifth, 3 : 2, is drawn by two pendulums at their own pace.',
   T9: 'Note G sets the Engine’s limit: it “has no pretensions whatever to originate anything.” The motion ends by damping, not by adding, and the last frame is text the machine was ordered to show. Turing answered the passage in 1950.',
 };
 const TSLUG = { T0: 'the-first-pick', T1: 'warp-and-weft-part', T2: 'shuttle-takes-flight', T3: 'wrap-and-discover', T4: 'chords-become-warp', T5: 'warp-into-columns', T6: 'cards-by-the-thousand', T7: '24000-become-25', T8: 'number-becomes-ratio', T9: 'coming-to-rest' };
